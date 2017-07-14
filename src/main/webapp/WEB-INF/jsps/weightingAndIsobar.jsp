@@ -210,7 +210,7 @@
                                         show: true,
                                         textStyle: {
                                             show: true,
-                                            color: '#fff'
+                                            color: '#2B99FF'
                                         }
                                     }
                                 }
@@ -220,7 +220,7 @@
                                     type: 'value',
                                     axisLine: {
                                         lineStyle: {
-                                            color:'#fff'
+                                            color:'#2B99FF'
                                         }
                                     }
                                 },
@@ -307,7 +307,7 @@
                                         show: true,
                                         textStyle: {
                                             show: true,
-                                            color: '#333'
+                                            color: '#2B99FF'
                                         }
                                     }
                                 }
@@ -317,7 +317,7 @@
                                     type: 'value',
                                     axisLine: {
                                         lineStyle: {
-                                            color:'#333'
+                                            color:'#2B99FF'
                                         }
                                     }
                                 },
