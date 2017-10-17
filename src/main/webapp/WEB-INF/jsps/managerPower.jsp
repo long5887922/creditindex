@@ -1,20 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="ctx" value="${pageContent.request.contentPath}"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<%
-    String path = request.getContextPath();
-    String basePath =request.getScheme()+"://"+request.getServerName()+":"
-            +request.getServerPort()+path+"/";
-%>
 <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="<%=basePath%>bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
-    <link href="<%=basePath%>bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="${ctx}/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="${ctx}/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet">
 
-    <script type="text/javascript" src="<%=basePath%>js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="<%=basePath%>bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${ctx}/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="${ctx}/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-table/1.8.1/bootstrap-table-all.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-table/1.8.1/locale/bootstrap-table-zh-CN.js"></script>
     <style>
@@ -58,7 +55,7 @@
                                 <td width="273" align="left"></td>
                                 <td width="353" align="right" ><a id="AddChannelTemplatePage" href="#" >添加管理员</a></td>
                             </tr>
-                         </table>
+                        </table>
                         <table id="table"></table>
                     </div>
                 </div>
@@ -76,11 +73,44 @@
             <div class="form-group">
                 <div class="form-group">
                     <label>用户名</label>
+                    <input type="text"  name="username" class="form-control" placeholder="请输入用户名">
+                </div>
+                <div>
+                    权限：
+                </div>
+                <div class="checkbox" >
+                    <ul id="lists">
+                        <li><label><input name="garch" type="checkbox" value="1"/>GARCH模型</label></li>
+                        <li><label><input name="merton" type="checkbox" value="2"/>Merton模型</label></li>
+                        <li><label><input name="quke" type="checkbox" value="3"/>去壳模型</label></li>
+                        <li><label><input name="cf" type="checkbox" value="4"/>ConishFisher模型</label></li>
+                        <li><label><input name="liudong" type="checkbox" value="5"/>流动性检验模型</label></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary"  Text="添加" onclick="addManager()" >添加</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="updateModal" class="modal col-md-6 col-md-offset-3" style="background: #fff; margin-top: 30px; margin-bottom: 50px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header" style="padding: 0px;">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h5 id="myModalLabel">添加管理员</h5>
+    </div>
+    <form id="addUserManager" action="">
+        <div class="modal-body">
+            <div class="form-group">
+                <div class="form-group">
+                    <label>用户名</label>
                     <input type="text" id="name" name="name" class="form-control" placeholder="请输入用户名">
                 </div>
-               <div>
-                   权限：
-               </div>
+                <div>
+                    权限：
+                </div>
                 <div class="checkbox">
                     <ul id="lists">
                         <li><label><input type="checkbox" value="1"/>GARCH模型</label></li>
@@ -120,7 +150,11 @@
             title : 'Merton模型'
         }, {
             field : 'quke',
-            title : '去壳模型'
+            title : '去壳模型',
+            formatter :function(value,row,index){
+                return '<span class="glyphicon glyphicon-'+(false?'ok':'remove')+' aria-hidden="true"></span>';
+            }
+
         }, {
             field : 'cf',
             title : 'CF模型'
@@ -131,7 +165,7 @@
             field : 'caozup',
             title : '操作',
             formatter :function(value,row,index){
-                return "<a href='#'onclick='toUpdateManager()'>修改</a>|<a href='#'onclick='del()'>删除</a>"
+                return "<a href='#'onclick='toUpdateManager("+row.id+")'>修改</a>|<a href='#'onclick='del("+row.id+")'>删除</a>"
             }
         }]
     });
@@ -142,21 +176,24 @@
 
     });
     /*添加成功后隐藏窗口并刷新主页面*/
-    function add(){
-        alert("添加成功");
-        $('#addModal').modal('hide');
-        window.location.reload();
+    function addManager(){
+        $.ajax({
+            url:'${ctx}/hello/addManager',
+            type:'post',
+            data : $('#addUserManager').serialize(),
+            dataType:'json',
+            success:function(data){
+                console.log(data);
+                $('#addModal').modal('hide');
+                window.location.reload();
+            }
+        });
+
     }
     /*显示弹出的修改页面*/
-    function toUpdateManager(){
-        alert('1');
-        $('updateModal').modal('show');
+    function toUpdateManager(id){
+        $('#updateModal').modal('show');
     }
-    /*function updateManager(){
-        alert("修改成功");
-        $('#updateModal').modal('hide');
-        window.location.reload();
-    }*/
 
 </script>
 </html>
