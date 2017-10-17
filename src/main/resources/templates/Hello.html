@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/css/styleslfe.css}" />
+</head>
+<body>
+<h1 th:text="${msg}">Hello World</h1>
+        <div id="wrap">
+            <div id="top_content">
+                <div id="header">
+                    <div id="rightheader">
+                        <p><br/></p>
+                    </div>
+                    <div id="topheader">
+                        <h1 id="title">
+                            <a href="#">行业信贷违约风险指数项目</a>
+                        </h1>
+                    </div>
+                    <div id="navigation">
+                    </div>
+                </div>
+                <div id="content">
+                    <p id="whereami"></p>
+                    <h1>
+                        登陆》》》
+                    </h1>
+                    <!-- ${pageContext.request.contextPath}/zhao/login -->
+                    <form ><!--action="<s:url action="login_login" namespace="/zhao"/>"  method="post"-->
+                        <table cellpadding="0" cellspacing="0" border="0"
+                               class="form_table">
+                            <tr>
+                                <td valign="middle" align="right">
+                                    姓名:
+                                </td>
+                                <td valign="middle" align="left">
+                                    <input type="text" class="inputgri" name="u.username"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="middle" align="right">
+                                    密码:
+                                </td>
+                                <td valign="middle" align="left">
+                                    <input type="password" class="inputgri" name="u.password"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="middle" align="right">
+                                    请输入验证码:
+                                </td>
+                                <td valign="middle" align="left">
+                                   <!-- <input type="text" name="check" size="6"/><img src="<s:url action="imageCode" namespace="/zhao"/>"/>
+                                    <a href="<s:url value='/login.jsp'/>">看不清，换一张</a>-->
+                                </td>
+                            </tr>
+                        </table>
+                        <p></p>
+                        <h1></h1><!--<s:property value="codrror"/>-->
+                        <input type="submit" class="button" value="登录 &raquo; " />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <h1></h1><!--<s:property value="erorrmsg"/>-->
+
+                        <p>
+                            <a href="../../webapp/WEB-INF/jsps/Registview.jsp">注册</a><br/>
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <div id="footer">
+                <div id="footer_bg">
+                    qq@231.com
+                </div>
+            </div>
+        </div>
+</body>
+</html>

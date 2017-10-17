@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: dev
+  thymeleaf:
+      cache : false
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/creditindex
+    username: root
+    password: Mysql*ying13
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mvc:
+    view:
+      prefix: /WEB-INF/jsps/
+      suffix: .jsp
+
+
+
+
+
