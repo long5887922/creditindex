@@ -7,27 +7,27 @@ import java.sql.Date;
 /**
  * Created by ${ZhaoYing}on 2017/9/28 0025
  */
-//@Table(name = "user") ¶¨Òå±íÃû£¬Èç¹û²»¶¨Òå£¬Ä¬ÈÏÉú³ÉµÄ±íÃûÎªÊµÌåÀàµÄÀàÃû£¨Ä¬ÈÏ¶¨ÎªĞ¡Ğ´£©²¢×ª³É¡°¸ñÊ½admin_user¡°
+//@Table(name = "user") å®šä¹‰è¡¨åï¼Œå¦‚æœä¸å®šä¹‰ï¼Œé»˜è®¤ç”Ÿæˆçš„è¡¨åä¸ºå®ä½“ç±»çš„ç±»åï¼ˆé»˜è®¤å®šä¸ºå°å†™ï¼‰å¹¶è½¬æˆâ€œæ ¼å¼admin_userâ€œ
 @Entity
 public class AdminUser implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int uid;
-    // @Column(name = "girl_name")±äÁ¿ÃûÓë×Ö¶Î¶ÔÓ¦µÄÅäÖÃ£¬Èç¹û²»¼Ó£¬×Ö¶ÎÃûÄ¬ÈÏÓë±äÁ¿ÃûÏàÍ¬
+    // @Column(name = "girl_name")å˜é‡åä¸å­—æ®µå¯¹åº”çš„é…ç½®ï¼Œå¦‚æœä¸åŠ ï¼Œå­—æ®µåé»˜è®¤ä¸å˜é‡åç›¸åŒ
     private String name;
     @Column(unique =true)
-    private String usernumber;//ÓÃ»§±àºÅ
-    private String password;//µÇÂ¼ÃÜÂë
-    //´´½¨Ê±¼ä
+    private String usernumber;//ç”¨æˆ·ç¼–å·
+    private String password;//ç™»å½•å¯†ç 
+    //åˆ›å»ºæ—¶é—´
     private Date createdtime= new java.sql.Date(new java.util.Date().getTime());
 
 
 
-    private String by1; //±¸ÓÃ×Ö¶Î1
-    private String by2; //±¸ÓÃ×Ö¶Î2
-    @ManyToMany(fetch=FetchType.EAGER)//Á¢¼´´ÓÊı¾İ¿âÖĞ½øĞĞ¼ÓÔØÊı¾İ;
+    private String by1; //å¤‡ç”¨å­—æ®µ1
+    private String by2; //å¤‡ç”¨å­—æ®µ2
+    @ManyToMany(fetch=FetchType.EAGER)//ç«‹å³ä»æ•°æ®åº“ä¸­è¿›è¡ŒåŠ è½½æ•°æ®;
     @JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "uid") }, inverseJoinColumns ={@JoinColumn(name = "roleId") })
-   /* private List<SysRole> roleList;// Ò»¸öÓÃ»§¾ßÓĞ¶à¸ö½ÇÉ«
+   /* private List<SysRole> roleList;// ä¸€ä¸ªç”¨æˆ·å…·æœ‰å¤šä¸ªè§’è‰²
 
     public AdminUser() {
     }

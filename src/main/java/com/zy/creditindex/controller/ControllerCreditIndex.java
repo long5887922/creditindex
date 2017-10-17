@@ -33,18 +33,18 @@ public class ControllerCreditIndex {
     }
     @GetMapping(value = "indexs")
     public List<CreditIndex> CreditList(){
-        logger.info("ÕıÔÚ·ÃÎÊ¸ÃÀà£ºCreditList");
+        logger.info("æ­£åœ¨è®¿é—®è¯¥ç±»ï¼šCreditList");
         return indexrepostory.findAll();
     }
 
-    //¸ù¾İid²éÑ¯
+    //æ ¹æ®idæŸ¥è¯¢
     @GetMapping(value = "/trd_code/{id}")
     public CreditIndex CreditOne(@PathVariable("id") String trd_code){
         return indexrepostory.findOne(trd_code);
     }
 
     /**
-     * //´ø²ÎÊı²éÑ¯
+     * //å¸¦å‚æ•°æŸ¥è¯¢
      * @param
      * @param report_date
      * @return
@@ -54,19 +54,19 @@ public class ControllerCreditIndex {
         return indexrepostory.findByTrd_codeAndrReport_date(trd_code,report_date);
     }*/
 
-    //Í¨¹ıÈÕÆÚÀ´²éÑ¯
+    //é€šè¿‡æ—¥æœŸæ¥æŸ¥è¯¢
     @PostMapping(value = "creditdate")
     public List<CreditIndex> QueryCreditDate(Date report_date){
         return indexrepostory.findByReportdate(report_date);
     }
-    //ÓÃ¹«Ë¾ID²éÑ¯
+    //ç”¨å…¬å¸IDæŸ¥è¯¢
     @PostMapping (value = "comids")
     public List<CreditIndex> QueryComid(BigInteger comid){
         return indexrepostory.findByComid(comid);
     }
 
     /**
-     * ¸ù¾İÊ±¼ä¶Î²éÑ¯
+     * æ ¹æ®æ—¶é—´æ®µæŸ¥è¯¢
      * @param trd_code
      * @param startime
      * @param endtime

@@ -20,7 +20,7 @@ public class ControllerUser {
     private UserRepostory userrepostory;
 
     /**
-     * 管理用户注册方法
+     * 绠＄悊鐢ㄦ埛娉ㄥ唽鏂规硶
      * @param adminser
      * @return
      */

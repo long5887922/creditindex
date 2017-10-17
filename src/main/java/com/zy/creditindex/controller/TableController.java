@@ -18,20 +18,21 @@ import java.util.List;
 public class TableController {
 
 	@RequiresPermissions({ "admin:user:delete" })
-	 @RequiresRoles("admin")
+	@RequiresRoles("admin")
 	@RequestMapping("/")
 	public String index() {
 		return "tables";
 	}
-	
-	
-	
+
+
+
 	@RequestMapping("/list.json")
 	@ResponseBody
 	public Object list() {
 		List<Object> list = new ArrayList<>();
-		for (int i = 0; i < 100; i++) {
+		for (int i = 1; i < 100; i++) {
 			JsonEntry jsonEntry = new JsonEntry();
+			jsonEntry.setId(i);
 			jsonEntry.setCf("ssafa");
 			jsonEntry.setGarch("asd");
 			jsonEntry.setLiudong("sdddd");

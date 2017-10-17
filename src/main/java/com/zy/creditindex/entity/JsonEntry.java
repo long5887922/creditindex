@@ -2,6 +2,7 @@ package com.zy.creditindex.entity;
 
 public class JsonEntry implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
+	private Integer id;
 	private String username;
 	private String garch;
 	private String merton;
@@ -44,5 +45,10 @@ public class JsonEntry implements java.io.Serializable {
 	public void setLiudong(String liudong) {
 		this.liudong = liudong;
 	}
-	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }
