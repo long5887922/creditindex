@@ -99,7 +99,7 @@
 <div id="updateModal" class="modal col-md-6 col-md-offset-3" style="background: #fff; margin-top: 30px; margin-bottom: 50px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header" style="padding: 0px;">
         <button type="button" class="close" data-dismiss="modal">×</button>
-        <h5 id="myModalLabel">添加管理员</h5>
+        <h5 id="updateMyModalLabel">修改管理员</h5>
     </div>
     <form id="addUserManager" action="">
         <div class="modal-body">
@@ -112,7 +112,7 @@
                     权限：
                 </div>
                 <div class="checkbox">
-                    <ul id="lists">
+                    <ul id="list2">
                         <li><label><input type="checkbox" value="1"/>GARCH模型</label></li>
                         <li><label><input type="checkbox" value="2"/>Merton模型</label></li>
                         <li><label><input type="checkbox" value="3"/>去壳模型</label></li>
