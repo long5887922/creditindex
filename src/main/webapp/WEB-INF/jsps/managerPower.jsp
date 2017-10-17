@@ -101,7 +101,7 @@
         <button type="button" class="close" data-dismiss="modal">×</button>
         <h5 id="updateMyModalLabel">修改管理员</h5>
     </div>
-    <form id="addUserManager" action="">
+    <form id="updateUserManager" action="">
         <div class="modal-body">
             <div class="form-group">
                 <div class="form-group">
