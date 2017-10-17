@@ -22,7 +22,7 @@
 
 <div class="container">
 	<%-- 由于本次的编写需要基于表单，同时还需要考虑到数据验证的问题，那么就可以不写row样式 --%>
-	<form id="loginForm" action="frameset" method="post" class="form-horizontal">
+	<form id="loginForm" action="/um/frameset" method="post" class="form-horizontal">
 		<div class="border1" style="left: 0px; top: 0px; width: 170px; height: 95px;">
 			<img style="width: 180px;height: 120px;" src="../../img/app/xhcj.png"/>
 		</div>
@@ -38,7 +38,7 @@
 				<label class="col-md-3 control-label" for="mid">用户名：</label>
 				<div class="col-md-5">
 					<%-- id是为JavaScript服务的，而name是为了JSP的接收数据服务的 --%>
-					<input type="text" id="mid" name="mid" class="form-control" placeholder="请输入登录名">
+					<input type="text" id="mid" name="usernumber" class="form-control" placeholder="请输入登录名">
 				</div>
 				<div class="col-md-4" id="midSpan"></div>
 			</div>
