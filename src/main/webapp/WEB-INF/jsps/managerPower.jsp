@@ -144,23 +144,59 @@
             title : '用戶名'
         }, {
             field : 'garch',
-            title : 'GARCH模型'
+            title : 'GARCH模型',
+            formatter :function(value,row,index){
+                if('1' == row.garch){
+                    return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
+                }else{
+
+                    return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+                }
+            }
         }, {
             field : 'merton',
-            title : 'Merton模型'
+            title : 'Merton模型',
+            formatter :function(value,row,index){
+                if('1' == row.merton){
+                    return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
+                }else{
+
+                    return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+                }
+            }
         }, {
             field : 'quke',
             title : '去壳模型',
             formatter :function(value,row,index){
-                return '<span class="glyphicon glyphicon-'+(false?'ok':'remove')+' aria-hidden="true"></span>';
-            }
+                if('1' == row.quke){
+                    return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
+                }else{
 
+                    return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+                }
+            }
         }, {
             field : 'cf',
-            title : 'CF模型'
+            title : 'CF模型',
+            formatter :function(value,row,index){
+                if('1' == row.cf){
+                    return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
+                }else{
+
+                    return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+                }
+            }
         }, {
             field : 'liudong',
-            title : '流动性模型'
+            title : '流动性模型',
+            formatter :function(value,row,index){
+                if('1' == row.liudong){
+                    return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
+                }else{
+
+                return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+                }
+            }
         }, {
             field : 'caozup',
             title : '操作',

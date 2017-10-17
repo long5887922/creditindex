@@ -33,12 +33,12 @@ public class TableController {
 		for (int i = 1; i < 100; i++) {
 			JsonEntry jsonEntry = new JsonEntry();
 			jsonEntry.setId(i);
-			jsonEntry.setCf("ssafa");
-			jsonEntry.setGarch("asd");
-			jsonEntry.setLiudong("sdddd");
-			jsonEntry.setMerton("bbbbbbbb");
-			jsonEntry.setQuke("ssssssssss");
-			jsonEntry.setUsername("adminnnnn");
+			jsonEntry.setCf("1");
+			jsonEntry.setGarch("1");
+			jsonEntry.setLiudong("0");
+			jsonEntry.setMerton("0");
+			jsonEntry.setQuke("0");
+			jsonEntry.setUsername("刘晓");
 			list.add(jsonEntry);
 		}
 		return list;

@@ -1,19 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="ctx" value="${pageContent.request.contentPath}"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<%
-    String path = request.getContextPath();
-    String basePath =request.getScheme()+"://"+request.getServerName()+":"
-            +request.getServerPort()+path+"/";
-%>
 <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script type="text/javascript" src="<%=basePath%>js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="<%=basePath%>bootstrap/js/bootstrap.min.js"></script>
-    <link href="<%=basePath%>bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-    <link href="<%=basePath%>bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
-    <link href="assets/fonts.css"rel="stylesheet"/>
+    <script type="text/javascript" src="${ctx}/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="${ctx}/bootstrap/js/bootstrap.min.js"></script>
+    <link href="${ctx}/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="${ctx}/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
     <style>
        /* .td20{width:20%; background:#ccc; }
         .td80{width:80%;background:#fafafa;}
