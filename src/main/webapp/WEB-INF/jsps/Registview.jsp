@@ -6,20 +6,20 @@
 	String basePath =request.getScheme()+"://"+request.getServerName()+":"
 			+request.getServerPort()+path+"/";
 %>
+<style>
+	.border1,.border2{ display:inline}
+</style>
 <head>
-	<title></title>
+	<title>行业信贷违约风险指数</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 	<script type="text/javascript" src="<%=basePath%>js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/login.js"></script>
 	<script type="text/javascript" src="<%=basePath%>bootstrap/js/bootstrap.min.js"></script>
 	<link href="<%=basePath%>bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-	<style>
-		.border1,.border2{ display:inline}
-	</style>
 </head>
 
 <body>
-
+<br/>
 <div class="container">
 	<%-- 由于本次的编写需要基于表单，同时还需要考虑到数据验证的问题，那么就可以不写row样式 --%>
 	<form id="loginForm" action="/um/frameset" method="post" class="form-horizontal">
@@ -31,8 +31,10 @@
 					style="white-space: nowrap; text-align: left; font-size: 32px; font-style: normal; text-decoration: none; color: rgb(72, 85, 110);">
 				| 行业信贷违约风险指数</label>
 		</div>
+		<br/><br/>
 		<fieldset>
-			<legend><label><span class="glyphicon glyphicon-user"></span>&nbsp;用户登录</label></legend>
+			<legend><label><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;用户登录</label></legend>
+			<br/><br/><br/><br/><br/>
 			<%-- 描述mid输入信息的内容 --%>
 			<div class="form-group" id="midDiv">
 				<label class="col-md-3 control-label" for="mid">用户名：</label>
@@ -60,4 +62,5 @@
 	</form>
 </div>
 </body>
+
 </html>
