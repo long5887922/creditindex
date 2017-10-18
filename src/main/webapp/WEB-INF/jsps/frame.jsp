@@ -4,19 +4,23 @@
 <HEAD>
     <TITLE>新华财经|行业信贷违约风险指数</TITLE>
 </HEAD>
-    <frameset id="frameset1" rows="110,*,20" cols="*" frameborder="NO"
+    <frameset id="frameset1" rows="110,*,20" frameborder="NO"
               border="0" framespacing="0"  align="center">
         <frame name="topFrame" scrolling="NO" noresize
                src="login3" >
-        <frameset id="frameset2" cols="245,2,*" frameborder="NO" border="0"
+        <frameset id="frameset2" cols="*,180,20,760,*" frameborder="NO" border="0"
                   framespacing="0" rows="*" >
-            <frame name="leftFrame"
+            <frame name="ctrlFrame" scrolling="NO" noresize
+                   src="" >
+            <frame name="leftFrame" scrolling="NO"
                    src="left"  align="center"
                    marginheight="0" marginwidth="0" scrolling="YES" NORESIZE border="0">
             <frame name="ctrlFrame" scrolling="NO" noresize
                    src="" >
-            <frame name="mainFrame"
+            <frame name="mainFrame" scrolling="NO"
                    src="managerPower" noresize>
+            <frame name="ctrlFrame" scrolling="NO" noresize
+                   src="" >
         </frameset>
 </frameset>
 </HTML>
