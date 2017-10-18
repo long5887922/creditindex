@@ -9,29 +9,15 @@
     <link href="${ctx}/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
     <link href="${ctx}/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet">
-
     <script type="text/javascript" src="${ctx}/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="${ctx}/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-table/1.8.1/bootstrap-table-all.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-table/1.8.1/locale/bootstrap-table-zh-CN.js"></script>
+
     <style>
         .table th, .table td {
             text-align: center;
             height:38px;
-        }
-        .td{
-            font-size: 14px;
-            font-weight: 400;
-            font-style: normal;
-            text-decoration: none;
-            font-family: 微软雅黑;
-            color: rgb(0, 0, 0);
-
-            box-sizing: border-box;
-            overflow: hidden;
-            vertical-align: middle !important;
-            text-align: center;
-            height: 60px;
         }
     </style>
 </head>
@@ -53,7 +39,7 @@
                         <table width="100%" height="44" border="0">
                             <tr>
                                 <td width="273" align="left"></td>
-                                <td width="353" align="right" ><a id="AddChannelTemplatePage" href="#" >添加管理员</a></td>
+                                <td width="353" align="right" ><a id="AddChannelTemplatePage" href="#" ><span class="glyphicon glyphicon-user"></span>添加管理员 </a></td>
                             </tr>
                         </table>
                         <table id="table"></table>
@@ -74,6 +60,8 @@
                 <div class="form-group">
                     <label>用户名</label>
                     <input type="text"  name="username" class="form-control" placeholder="请输入用户名">
+                    <label>密码</label>
+                    <input type="text"  name="password" class="form-control" placeholder="请输入密码">
                 </div>
                 <div>
                     权限：
@@ -113,11 +101,11 @@
                 </div>
                 <div class="checkbox">
                     <ul id="list2">
-                        <li><label><input type="checkbox" value="1"/>GARCH模型</label></li>
-                        <li><label><input type="checkbox" value="2"/>Merton模型</label></li>
-                        <li><label><input type="checkbox" value="3"/>去壳模型</label></li>
-                        <li><label><input type="checkbox" value="4"/>ConishFisher模型</label></li>
-                        <li><label><input type="checkbox" value="5"/>流动性检验模型</label></li>
+                        <li><label><input name="garch" type="checkbox" value="1"/>GARCH模型</label></li>
+                        <li><label><input name="merton" type="checkbox" value="1"/>Merton模型</label></li>
+                        <li><label><input name="quke" type="checkbox" value="1"/>去壳模型</label></li>
+                        <li><label><input name="cf" type="checkbox" value="1"/>ConishFisher模型</label></li>
+                        <li><label><input name="liudong" type="checkbox" value="1"/>流动性检验模型</label></li>
                     </ul>
                 </div>
             </div>
@@ -132,12 +120,14 @@
 <script type="text/javascript">
     /*列表*/
     $('#table').bootstrapTable({
-        url : "${pageContent.request.contentPath}/json/table/list.json",
+        url : "${ctx}/json/table/list.json",
         method : 'get',
         dataType : 'json',
+        /* showHeader:false,*/
         striped : true,
         pageNumber: 1,                       //初始化加载第一页，默认第一页
         pageSize: 5,
+        pageList: [5, 10, 20, 50],
         pagination : true,
         columns : [{
             field : 'username',
@@ -149,7 +139,6 @@
                 if('1' == row.garch){
                     return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                 }else{
-
                     return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
                 }
             }
@@ -160,7 +149,6 @@
                 if('1' == row.merton){
                     return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                 }else{
-
                     return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
                 }
             }
@@ -171,7 +159,6 @@
                 if('1' == row.quke){
                     return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                 }else{
-
                     return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
                 }
             }
@@ -182,7 +169,6 @@
                 if('1' == row.cf){
                     return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                 }else{
-
                     return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
                 }
             }
@@ -194,7 +180,7 @@
                     return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                 }else{
 
-                return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+                    return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
                 }
             }
         }, {
@@ -224,12 +210,10 @@
                 window.location.reload();
             }
         });
-
     }
     /*显示弹出的修改页面*/
     function toUpdateManager(id){
         $('#updateModal').modal('show');
     }
-
 </script>
 </html>
