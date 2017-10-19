@@ -30,8 +30,10 @@ public interface IndexRepostory extends JpaRepository<CreditIndex,String> {
      * @param report_date
      * @return
      */
-   /* @Query(value ="select t.* from corporate_edf t where t.trd_code = ?1 and t.report_date=?2",nativeQuery = true)
+    @Query(value ="select t.* from corporate_edf t where t.trd_code = ?1 and t.report_date=?2",nativeQuery = true)
     public CreditIndex findByTrd_codeAndrReport_date(String trd_code, Date report_date);
-    @Query(value ="select t.* from corporate_edf t where t.trd_code = ?1 and t.report_date>?2 and t.report_date<?3",nativeQuery = true)
-    public List<CreditIndex> findByReportdates(String trd_code, Date starttime,Date endtime);*/
+
+    @Query(value ="select t.* from corporate_edf t where t.trd_code = ?1 and t.report_date>=?2 and t.report_date<=?3",nativeQuery = true)
+    public List<CreditIndex> findByReportdates(String trd_code, Date starttime,Date endtime);
+
 }
