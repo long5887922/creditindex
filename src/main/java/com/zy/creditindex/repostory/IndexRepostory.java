@@ -33,6 +33,13 @@ public interface IndexRepostory extends JpaRepository<CreditIndex,String> {
     @Query(value ="select t.* from corporate_edf t where t.trd_code = ?1 and t.report_date=?2",nativeQuery = true)
     public CreditIndex findByTrd_codeAndrReport_date(String trd_code, Date report_date);
 
+    /**
+     * 时间段和公司股票ID联合查询
+     * @param trd_code
+     * @param starttime
+     * @param endtime
+     * @return
+     */
     @Query(value ="select t.* from corporate_edf t where t.trd_code = ?1 and t.report_date>=?2 and t.report_date<=?3",nativeQuery = true)
     public List<CreditIndex> findByReportdates(String trd_code, Date starttime,Date endtime);
 
