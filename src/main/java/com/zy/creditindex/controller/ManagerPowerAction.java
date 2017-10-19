@@ -10,7 +10,7 @@ import com.zy.creditindex.entity.JsonEntry;
  * Created by huaqin on 2017/10/13.
  */
 @Controller
-@RequestMapping("/hello")
+@RequestMapping("/mp")
 public class ManagerPowerAction {
 
     @RequestMapping("/managerPower")
