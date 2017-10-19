@@ -74,7 +74,7 @@ public class ControllerCreditIndex {
      * @param trd_code
      * @param startime
      * @param endtime
-     * @return
+     * @return CreditIndex 对象集合
      */
    @PostMapping (value = "timeslot")
     public List<CreditIndex> QueryIndexByTimeSlot(String trd_code, Date startime,Date endtime){

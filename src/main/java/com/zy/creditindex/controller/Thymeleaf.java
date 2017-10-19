@@ -26,6 +26,7 @@ public class Thymeleaf {
     private UserRepostory userrepostory;
     @Autowired
     private AdminUserService adminUserService;
+
     @RequestMapping("thymeleaf")
     public String login(ModelMap modelMap){
 
