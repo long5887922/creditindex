@@ -4,7 +4,9 @@ import com.zy.creditindex.entity.CreditIndex;
 import com.zy.creditindex.repostory.IndexRepostory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.util.List;
@@ -17,6 +19,17 @@ public class CreditIndexService {
     @Autowired
     IndexRepostory indexrepostory;
 
+
+    /**
+     * 存数据，不对外开放，不用于生产，仅仅做测试api
+     * @param creditindex
+     * @return
+     */
+    @PostMapping(value = "add")
+    public CreditIndex CreditAdd(@Valid CreditIndex creditindex){
+        return indexrepostory.save(creditindex);
+    }
+    //==============================================
     /**
      * 查询全部数据
      * @return
