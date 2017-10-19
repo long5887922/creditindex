@@ -3,6 +3,7 @@ package com.zy.creditindex.controller;
 import com.zy.creditindex.aspect.HttpAspect;
 import com.zy.creditindex.entity.CreditIndex;
 import com.zy.creditindex.repostory.IndexRepostory;
+import com.zy.creditindex.service.CreditIndexService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,14 @@ import java.util.List;
 public class ControllerCreditIndex {
     private final static Logger logger= LoggerFactory.getLogger(HttpAspect.class);
     @Autowired
-    IndexRepostory indexrepostory;
-
-
+    private IndexRepostory indexrepostory;
+    @Autowired
+    private CreditIndexService creditIndexService;
+    /**
+     * 存数据，不对外开放，不用于生产，仅仅做测试api
+     * @param creditindex
+     * @return
+     */
     @PostMapping(value = "add")
     public CreditIndex CreditAdd(@Valid CreditIndex creditindex){
         return indexrepostory.save(creditindex);
@@ -34,48 +40,49 @@ public class ControllerCreditIndex {
     @GetMapping(value = "indexs")
     public List<CreditIndex> CreditList(){
         logger.info("正在访问该类：CreditList");
-        return indexrepostory.findAll();
+        return creditIndexService.queryAll();
     }
 
     //根据id查询
     @GetMapping(value = "/trd_code/{id}")
     public CreditIndex CreditOne(@PathVariable("id") String trd_code){
-        return indexrepostory.findOne(trd_code);
+        return creditIndexService.queryOne(trd_code);
     }
 
     /**
      * //带参数查询
+     * 查询当日的股票数据
      * @param
      * @param report_date
      * @return
      */
-/*    @PostMapping(value = "CreditIndex")
+   @PostMapping(value = "CreditIndex")
     public CreditIndex CreditIndexdata(String trd_code, Date report_date){
-        return indexrepostory.findByTrd_codeAndrReport_date(trd_code,report_date);
-    }*/
+        return creditIndexService.queryDayData(trd_code,report_date);
+    }
 
-    //通过日期来查询
+    //查询每个独立日期产生的各项数据
     @PostMapping(value = "creditdate")
     public List<CreditIndex> QueryCreditDate(Date report_date){
-        return indexrepostory.findByReportdate(report_date);
+        return creditIndexService.queryIndependentDate(report_date);
     }
     //用公司ID查询
     @PostMapping (value = "comids")
     public List<CreditIndex> QueryComid(BigInteger comid){
-        return indexrepostory.findByComid(comid);
+        return creditIndexService.queryCompanyID(comid);
     }
 
     /**
-     * 根据时间段查询
+     * 任何时间段查询根据公司股票查询
      * @param trd_code
      * @param startime
      * @param endtime
      * @return
      */
-/*    @PostMapping (value = "timeslot")
+   @PostMapping (value = "timeslot")
     public List<CreditIndex> QueryIndexByTimeSlot(String trd_code, Date startime,Date endtime){
-        return indexrepostory.findByReportdates(trd_code,startime,endtime);
-    }*/
+        return creditIndexService.queryCompanyStockAnytime(trd_code,startime,endtime);
+    }
 
 //    @RequestMapping(value = "/index", method = RequestMethod.GET)
 //    public String index() {
