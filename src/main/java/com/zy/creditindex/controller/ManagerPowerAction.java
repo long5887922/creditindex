@@ -21,7 +21,6 @@ public class ManagerPowerAction {
     @RequestMapping("/addManager")
     @ResponseBody
     public Object addManager(JsonEntry json) {
-
         System.out.println(json);
         return json;
     }
