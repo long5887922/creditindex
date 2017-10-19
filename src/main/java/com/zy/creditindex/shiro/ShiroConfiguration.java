@@ -74,4 +74,5 @@ public class ShiroConfiguration {
         hashedCredentialsMatcher.setHashIterations(1024);//散列的次数，比如散列两次，相当于 md5(md5(""));
         return hashedCredentialsMatcher;
     }
+
 }
