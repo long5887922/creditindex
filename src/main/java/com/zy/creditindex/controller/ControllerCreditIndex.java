@@ -30,8 +30,6 @@ public class ControllerCreditIndex {
     private CreditIndexService creditIndexService;
 
 
-
-
     /**
      * 查询所有的数据
      * @return
