@@ -1,4 +1,4 @@
-package com.zy.creditindex.controller;
+package com.zy.creditindex.controller.user;
 
 import com.zy.creditindex.aspect.HttpAspect;
 import com.zy.creditindex.entity.User;
@@ -24,16 +24,16 @@ import java.util.HashMap;
 @RequestMapping("/user")
 public class ControllerUser {
     private final static Logger logger= LoggerFactory.getLogger(HttpAspect.class);
-    @Autowired
-   private UserRepostory userrepostory;
+
 
     @Autowired
     private AdminUserService adminUserService;
 
-    @PostMapping("/byName")
-    public User selectName(String name){
-        return userrepostory.findByName(name);
-    }
+    /**
+     * 通过姓名查询用户
+     * @param name
+     * @return
+     */
     @PostMapping("queryByName")
     public User queryByName(String name){
         return adminUserService.querUsernumber(name);
@@ -47,7 +47,7 @@ public class ControllerUser {
     public User SaveUser(@Valid User user ){
         user.setName(user.getName());
         user.setPassword(user.getPassword());
-        return userrepostory.save(user);
+        return adminUserService.addUser(user);
     }
 
     /**
@@ -57,9 +57,14 @@ public class ControllerUser {
      */
     @GetMapping("/finduser/{id}")
     public User getUser(@PathVariable("id")String id){
-        return userrepostory.findOne(id);
+        return adminUserService.findById(id);
     }
 
+    /**
+     * git方式用姓名查询用户信息
+     * @param usernumber
+     * @return
+     */
     @GetMapping("/finduser/number/{number}")
     public User getByUsernumber(@PathVariable("number") String usernumber){
         return adminUserService.querUsernumber(usernumber);
