@@ -13,11 +13,24 @@ public class AdminUserService {
     @Autowired
     private UserRepostory userrepostory;
 
+    /**
+     * 根据姓名查询
+     * @param usernumber
+     * @return
+     */
     public User querUsernumber(String usernumber){
         return userrepostory.findByName(usernumber);
     }
 
-    public void addUser(User user){
-        userrepostory.save(user);
+    public User addUser(User user){
+        return userrepostory.save(user);
     }
+
+    /**
+     * id查询
+     * @param id
+     * @return
+     */
+    public User findById(String id){
+        return userrepostory.findOne(id);}
 }
