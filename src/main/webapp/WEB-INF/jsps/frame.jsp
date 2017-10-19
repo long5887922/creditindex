@@ -18,7 +18,7 @@
             <frame name="ctrlFrame" scrolling="NO" noresize
                    src="" >
             <frame name="mainFrame"
-                   src="managerPower" noresize>
+                   src="market" noresize>
             <frame name="ctrlFrame" scrolling="NO" noresize
                    src="" >
         </frameset>
