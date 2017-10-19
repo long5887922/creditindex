@@ -13,7 +13,7 @@ import java.sql.Date;
 public class CreditIndex {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long trd_code;//trd_code VARCHAR(16)-- 公司股票ID。联合主键
+    private String trd_code;//trd_code VARCHAR(16)-- 公司股票ID。联合主键
     @Column(name = "report_date")
     private Date reportdate;// -- 日期。联合主键
     private Integer exch_code;  //    exch_code INT,                -- 证券类型（上证/深证等）
@@ -32,11 +32,11 @@ public class CreditIndex {
     public CreditIndex() {
     }
 
-    public Long getTrd_code() {
+    public String getTrd_code() {
         return trd_code;
     }
 
-    public void setTrd_code(Long trd_code) {
+    public void setTrd_code(String trd_code) {
         this.trd_code = trd_code;
     }
 
