@@ -24,19 +24,18 @@ import java.util.List;
 @RequestMapping(value = "index")
 public class ControllerCreditIndex {
     private final static Logger logger= LoggerFactory.getLogger(HttpAspect.class);
-    @Autowired
-    private IndexRepostory indexrepostory;
+
+
     @Autowired
     private CreditIndexService creditIndexService;
+
+
+
+
     /**
-     * 存数据，不对外开放，不用于生产，仅仅做测试api
-     * @param creditindex
+     * 查询所有的数据
      * @return
      */
-    @PostMapping(value = "add")
-    public CreditIndex CreditAdd(@Valid CreditIndex creditindex){
-        return indexrepostory.save(creditindex);
-    }
     @GetMapping(value = "indexs")
     public List<CreditIndex> CreditList(){
         logger.info("正在访问该类：CreditList");
