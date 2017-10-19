@@ -127,7 +127,7 @@
         striped : true,
         pageNumber: 1,                       //初始化加载第一页，默认第一页
         pageSize: 5,
-        pageList: [5, 10, 20, 50],
+        pageList: [5],
         pagination : true,
         columns : [{
             field : 'username',

@@ -10,14 +10,9 @@
     <script type="text/javascript" src="${ctx}/bootstrap/js/bootstrap.min.js"></script>
     <link href="${ctx}/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
     <link href="${ctx}/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
-    <style>
-       /* .td20{width:20%; background:#ccc; }
-        .td80{width:80%;background:#fafafa;}
-        .table>tbody>tr>td {
-            border-top: 1% solid #fff;
-        }*/
+    <%--<style>
        .div-inline{ display:inline}
-    </style>
+    </style>--%>
 </head>
 <body leftMargin=0 topMargin=0 marginwidth="0" marginheight="0">
 <div class="container">
@@ -530,13 +525,4 @@
     </div>
 </div>
 </body>
-<script language="JavaScript">
-    /*$(document).ready(function () {
-     $('ul.nav > li').click(function (e) {
-     e.preventDefault();
-     $('ul.nav > li').removeClass('active');
-     $(this).addClass('active');
-     });
-     });*/
-</script>
 </html>
