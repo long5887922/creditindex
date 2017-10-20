@@ -1,9 +1,12 @@
 package com.zy.creditindex.service;
 
+import com.zy.creditindex.entity.AdminUser;
 import com.zy.creditindex.entity.User;
 import com.zy.creditindex.repostory.UserRepostory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by ${ZhaoYing}on 2017/10/13 0013
@@ -33,4 +36,12 @@ public class AdminUserService {
      */
     public User findById(String id){
         return userrepostory.findOne(id);}
+
+    /**
+     * 查所有
+     * @return
+     */
+        public List<User> fiindAlls(){
+        return userrepostory.findAll();
+        }
 }
