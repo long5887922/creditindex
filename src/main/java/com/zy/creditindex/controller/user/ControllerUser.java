@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by ${ZhaoYing}on 2017/9/28 0028
@@ -29,6 +30,14 @@ public class ControllerUser {
     @Autowired
     private AdminUserService adminUserService;
 
+    /**
+     * 查所有
+     * @return
+     */
+    @GetMapping("/all")
+    public List<User> QueryAll(){
+        return adminUserService.fiindAlls();
+    }
     /**
      * 通过姓名查询用户
      * @param name
