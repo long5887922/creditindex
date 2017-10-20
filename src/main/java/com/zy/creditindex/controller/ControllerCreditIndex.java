@@ -4,9 +4,11 @@ import com.zy.creditindex.aspect.HttpAspect;
 import com.zy.creditindex.entity.CreditIndex;
 import com.zy.creditindex.repostory.IndexRepostory;
 import com.zy.creditindex.service.CreditIndexService;
+import com.zy.creditindex.util.SortTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -31,13 +33,17 @@ public class ControllerCreditIndex {
 
 
     /**
-     * 查询所有的数据
+     * 查询所有的数据-升序排序
      * @return
      */
     @GetMapping(value = "indexs")
     public List<CreditIndex> CreditList(){
         logger.info("正在访问该类：CreditList");
-        return creditIndexService.queryAll();
+        List<CreditIndex> creditIndices = creditIndexService.queryAll();
+        for (CreditIndex c:creditIndices) {
+            System.out.println(c.getReportdate()+"-->对应的code是："+c.getTrd_code());
+        }
+        return null;
     }
 
     //根据id查询
@@ -81,8 +87,19 @@ public class ControllerCreditIndex {
         return creditIndexService.queryCompanyStockAnytime(trd_code,startime,endtime);
     }
 
-//    @RequestMapping(value = "/index", method = RequestMethod.GET)
-//    public String index() {
-//        return "index";
-//    }
+    /**
+     * 时间段的查询
+     * @param startime
+     * @param endtime
+     * @return
+     */
+    @PostMapping(value = "timeslotto")
+    public List<CreditIndex> QueryTimeSlotTo( Date startime,Date endtime){
+        List<CreditIndex> creditIndices = creditIndexService.queryTimeSlot(startime, endtime);
+        for (CreditIndex c:creditIndices) {
+            System.out.println(c.getReportdate()+"----->code："+c.getTrd_code());
+        }
+        return creditIndices;
+    }
+
 }
