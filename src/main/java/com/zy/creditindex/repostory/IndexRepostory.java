@@ -1,6 +1,8 @@
 package com.zy.creditindex.repostory;
 
 import com.zy.creditindex.entity.CreditIndex;
+import com.zy.creditindex.util.SortTools;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.jpa.repository.Query;
@@ -43,4 +45,12 @@ public interface IndexRepostory extends JpaRepository<CreditIndex,String> {
     @Query(value ="select t.* from corporate_edf t where t.trd_code = ?1 and t.report_date>=?2 and t.report_date<=?3",nativeQuery = true)
     public List<CreditIndex> findByReportdates(String trd_code, Date starttime,Date endtime);
 
+    /**
+     * 时间段查询
+     * @param starttime
+     * @param endtime
+     * @return
+     */
+    @Query(value ="select t.* from corporate_edf t where  t.report_date>=?1 and t.report_date<=?2 order by t.report_date asc",nativeQuery = true)
+    public List<CreditIndex> findByTimeSlot( Date starttime,Date endtime);
 }
