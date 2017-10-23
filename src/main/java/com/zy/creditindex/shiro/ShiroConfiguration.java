@@ -6,6 +6,7 @@ import org.apache.shiro.codec.Hex;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,7 +21,7 @@ import java.util.Random;
  */
 @Configuration
 public class ShiroConfiguration {
-    @Bean
+    @Bean(name = "authRealm")
     public CustomerRealm CustomerRealm(){
         CustomerRealm customerRealm = new CustomerRealm();
         customerRealm.setCredentialsMatcher(hashedCredentialsMatcher());
@@ -30,15 +31,17 @@ public class ShiroConfiguration {
      * 注入自己的身份认证realm;
      * @return
      */
-    @Bean
-    public SecurityManager securityManager(){
+    @Bean(name = "securityManager")
+    public SecurityManager securityManager(@Qualifier("authRealm")CustomerRealm customerRealm){
+        System.err.println("--------------shiro已经加载----------------");
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
         //设置Realm
-        securityManager.setRealm(CustomerRealm());
+        securityManager.setRealm(customerRealm);
         return securityManager;
     }
+
     @Bean
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager){
+    public ShiroFilterFactoryBean shirFilter(@Qualifier("securityManager")SecurityManager securityManager){
         System.out.println("----------拦截开始--------ShiroConfiguration.shirFilter()------------------");
         ShiroFilterFactoryBean shiroFilterFactoryBean  = new ShiroFilterFactoryBean();
 
@@ -79,45 +82,4 @@ public class ShiroConfiguration {
         hashedCredentialsMatcher.setHashIterations(1024);//散列的次数，比如散列两次，相当于 md5(md5(""));
         return hashedCredentialsMatcher;
     }
-    public  static String  getMd5Code(String password){
-        char[] encode = null;
-        try {
-            //创建Md5加密算法的实例
-            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            //ͨ通过实例的digest方法加密字符串
-            byte[] digest = messageDigest.digest(password.getBytes());
-            encode = Hex.encode(digest);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return new String(encode);
-    }
-   public static void main(String[] args) throws NoSuchAlgorithmException {
-        String md5Code = getMd5Code("e10adc3949ba59abbe56e057f20f883e");
-        System.out.println(md5Code);
-    }
-
-
-
-    public static String getRandomSalt(int n){
-        //定义一个字符数组
-        char[] randomCode = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".toCharArray();
-        //随机数
-        Random random = new Random();
-        String randomSalt = "";
-        for (int i = 0; i < n; i++) {
-            randomSalt+=randomCode[random.nextInt(randomCode.length)];
-        }
-        return randomSalt;
-
-    }
-   /* public static void main(String[] args) {
-
-        String randomSalt = getRandomSalt(4);
-        System.out.println(randomSalt);
-
-
-    }*/
-
-
 }
