@@ -200,7 +200,7 @@
     /*添加成功后隐藏窗口并刷新主页面*/
     function addManager(){
         $.ajax({
-            url:'${ctx}/hello/addManager',
+            url:'${ctx}/mp/addManager',
             type:'post',
             data : $('#addUserManager').serialize(),
             dataType:'json',
