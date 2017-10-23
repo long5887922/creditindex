@@ -18,9 +18,11 @@ public class XParameter implements Serializable{
     /*线型展示连接参数*/
     private List<BigDecimal> data=new ArrayList<BigDecimal>();
     /*小图标颜色*/
-    private String pointColor;
+    private String backgroundColor;
     /*折线颜色*/
-    private String  strokeColor;
+    private String  borderColor;
+    /*取消曲线区域展示*/
+    private Boolean fill=false;
     public String getLabel() {
         return label;
     }
@@ -45,19 +47,27 @@ public class XParameter implements Serializable{
         this.data = data;
     }
 
-    public String getStrokeColor() {
-        return strokeColor;
+    public String getBackgroundColor() {
+        return backgroundColor;
     }
 
-    public void setStrokeColor(String strokeColor) {
-        this.strokeColor = strokeColor;
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 
-    public String getPointColor() {
-        return pointColor;
+    public String getBorderColor() {
+        return borderColor;
     }
 
-    public void setPointColor(String pointColor) {
-        this.pointColor = pointColor;
+    public void setBorderColor(String borderColor) {
+        this.borderColor = borderColor;
+    }
+
+    public Boolean isFill() {
+        return fill;
+    }
+
+    public void setFill(Boolean fill) {
+        this.fill = fill;
     }
 }

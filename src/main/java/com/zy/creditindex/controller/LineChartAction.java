@@ -46,8 +46,12 @@ public class LineChartAction {
         xlist1.add(loanAmount3);
         xlist1.add(loanAmount4);
         parameter.setData(xlist1);
-        parameter.setPointColor("rgba(151,187,205,1)");
-        parameter.setStrokeColor("rgba(151,187,205,1)");
+       /* for(int i=0;i<list.size();i++){
+            parameter.setMultiTooltipTemplate(list.get(i));
+        }*/
+        parameter.setBorderColor("rgba(151,187,205,1)");
+        parameter.setBackgroundColor("rgba(151,187,205,1)");
+        parameter.setLabel("建筑");
         XParameter parameter2 = new XParameter();
         List<BigDecimal> xlist2 = new ArrayList<>();
         BigDecimal loanAmount5 = new BigDecimal("61.22");
@@ -59,10 +63,26 @@ public class LineChartAction {
         xlist2.add(loanAmount7);
         xlist2.add(loanAmount8);
         parameter2.setData(xlist2);
-        parameter2.setStrokeColor("rgba(131,137,205,1)");
-        parameter2.setPointColor("rgba(131,137,205,1)");
+        parameter2.setLabel("房地产");
+        parameter2.setBorderColor("rgba(131,137,205,1)");
+        parameter2.setBackgroundColor("rgba(131,137,205,1)");
+        XParameter parameter3 = new XParameter();
+        List<BigDecimal> xlist3 = new ArrayList<>();
+        BigDecimal loanAmount9 = new BigDecimal("31.22");
+        BigDecimal loanAmount10 = new BigDecimal("181.22");
+        BigDecimal loanAmount11 = new BigDecimal("251.22");
+        BigDecimal loanAmount12= new BigDecimal("331.22");
+        xlist3.add(loanAmount9);
+        xlist3.add(loanAmount10);
+        xlist3.add(loanAmount11);
+        xlist3.add(loanAmount12);
+        parameter3.setData(xlist3);
+        parameter3.setLabel("制造业");
+        parameter3.setBorderColor("rgb(248, 18, 242)");
+        parameter3.setBackgroundColor("rgb(248, 18, 242)");
         data.add(parameter);
         data.add(parameter2);
+        data.add(parameter3);
         /*将参数封装到list集合中返回前台展示*/
         labels.setDatasets(data);
        return labels;
