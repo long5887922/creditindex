@@ -46,7 +46,8 @@ public class LineChartAction {
         xlist1.add(loanAmount3);
         xlist1.add(loanAmount4);
         parameter.setData(xlist1);
-
+        parameter.setPointColor("rgba(151,187,205,1)");
+        parameter.setStrokeColor("rgba(151,187,205,1)");
         XParameter parameter2 = new XParameter();
         List<BigDecimal> xlist2 = new ArrayList<>();
         BigDecimal loanAmount5 = new BigDecimal("61.22");
@@ -58,6 +59,8 @@ public class LineChartAction {
         xlist2.add(loanAmount7);
         xlist2.add(loanAmount8);
         parameter2.setData(xlist2);
+        parameter2.setStrokeColor("rgba(131,137,205,1)");
+        parameter2.setPointColor("rgba(131,137,205,1)");
         data.add(parameter);
         data.add(parameter2);
         /*将参数封装到list集合中返回前台展示*/
