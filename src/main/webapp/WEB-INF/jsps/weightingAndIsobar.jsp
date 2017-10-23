@@ -22,8 +22,27 @@
     <![endif]-->
 </head>
 <body>
+<form id="equalWeight">
+<div class="modal-footer">
+    <button class="btn btn-primary"  Text="等权" onclick="isobar(1)" name="">等权</button>
+    <button class="btn" data-dismiss="modal"  Text="债务加权" onclick="weighted(2)" >债务加权</button>
+</div>
 <div style="width:40%;">
     <canvas id="canvas"></canvas>
+</div>
+</form>
+<div style="left: 300px;">
+    <form id="credit">
+        <div style="left: 300px;">
+            <textarea id="TextArea1" cols="50" rows="10" name="creditRisk">
+                行业信贷风险指数(Industry Credit Risk Index)衡量并描述了国内10个大类行业的综合债务违约风险的一套信用风险指数体系。
+                指数以全体A股上市企业为样本，依据证监会行业分类标准，基于算数平均法、债务加权法等2种方法
+            </textarea>
+        </div>
+        <div>
+            <a href="#" onclick="addPDF()">编制方法.pdf</a>
+        </div>
+    </form>
 </div>
 <br>
 <br>
