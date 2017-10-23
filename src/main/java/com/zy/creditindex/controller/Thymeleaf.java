@@ -32,7 +32,7 @@ public class Thymeleaf {
     @RequestMapping("thymeleaf")
     public String login(ModelMap modelMap){
 
-    return "Hello";
+        return "Hello";
     }
     @RequestMapping("/tologin")
     public ModelAndView YiXin(ModelMap model){
@@ -82,6 +82,14 @@ public class Thymeleaf {
     public String manager() {
         return "managerPower";
     }
+    @RequestMapping("/market")
+    public ModelAndView market(ModelMap model){
 
+        return  new ModelAndView("marketView");
+    }
+    @RequestMapping("/line")
+    public String line(){
+        return  "weightingAndIsobar";
+    }
 }
 
