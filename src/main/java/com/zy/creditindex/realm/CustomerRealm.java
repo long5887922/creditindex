@@ -12,6 +12,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,6 +23,10 @@ import java.util.UUID;
  * Created by ${ZhaoYing}on 2017/10/15 0015
  */
 public class CustomerRealm extends AuthorizingRealm {
+    @Override
+    public String getName() {
+        return 	 super.getName();
+    };
     /**
      * 用户的数据持久层
      */
@@ -68,10 +73,16 @@ public class CustomerRealm extends AuthorizingRealm {
         User byName = userrepostory.findByName(principal);
         System.out.println("++++++++++byName+++byName+++++++++++++++"+byName);
         if(byName!=null){
-            return   new SimpleAuthenticationInfo( byName,
-                                                    byName.getPassword(),
-                                                    ByteSource.Util.bytes(byName.getSalt()),
-                                                    UUID.randomUUID().toString().replace("-",""));
+//            String admin="admin";
+//            String password="e10adc3949ba59abbe56e057f20f883e";
+            System.out.println( ByteSource.Util.bytes(byName.getSalt()));
+            System.out.println(this.getName());
+          //  SimplePrincipalCollection simplePrincipalCollection = new SimplePrincipalCollection(admin, password);
+             return   new SimpleAuthenticationInfo( byName.getName(),
+                                                byName.getPassword(),
+                                                ByteSource.Util.bytes(byName.getSalt()),
+                                                UUID.randomUUID().toString().replace("-", ""));
+
         }
         return null;
     }
