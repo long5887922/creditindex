@@ -2,6 +2,8 @@ package com.zy.creditindex.controller;
 
 import com.zy.creditindex.aspect.HttpAspect;
 import com.zy.creditindex.entity.JsonEntry;
+import com.zy.creditindex.entity.Permission;
+import com.zy.creditindex.entity.Role;
 import com.zy.creditindex.entity.User;
 import com.zy.creditindex.repostory.UserRepostory;
 import com.zy.creditindex.service.AdminUserService;
@@ -39,6 +41,7 @@ public class Thymeleaf {
     /*跳转页面*/
     @RequestMapping("/frameset")
     public ModelAndView frameset(ModelMap model){
+        System.err.println("jiiiiiiiiiiii");
         logger.info("--------------------------登录请求-----------------------------");
         return  new ModelAndView("frame");
     }

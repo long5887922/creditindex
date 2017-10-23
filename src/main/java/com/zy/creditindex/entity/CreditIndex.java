@@ -1,5 +1,7 @@
 package com.zy.creditindex.entity;
 
+import com.zy.creditindex.entity.pk.CreditIndexPK;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -9,12 +11,11 @@ import java.sql.Date;
  * Created by ${ZhaoYing}on 2017/9/23 0023
  */
 @Entity
+@IdClass(CreditIndexPK.class)
 @Table(name = "corporate_edf")
 public class CreditIndex {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private String trd_code;//trd_code VARCHAR(16)-- 公司股票ID。联合主键
-    @Column(name = "report_date")
     private Date reportdate;// -- 日期。联合主键
     private Integer exch_code;  //    exch_code INT,                -- 证券类型（上证/深证等）
     @Column(name = "com_id")
@@ -31,7 +32,8 @@ public class CreditIndex {
      */
     public CreditIndex() {
     }
-
+    @Id
+    @Column(name = "trd_code")
     public String getTrd_code() {
         return trd_code;
     }
@@ -39,7 +41,8 @@ public class CreditIndex {
     public void setTrd_code(String trd_code) {
         this.trd_code = trd_code;
     }
-
+    @Id
+    @Column(name = "report_date")
     public Date getReportdate() {
         return reportdate;
     }
