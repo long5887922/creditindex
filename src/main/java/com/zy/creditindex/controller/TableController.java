@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
-
 /**
- * Created by Sharker on 2017/10/14.
+ * 查询管理员权限类
+ * @author huaqin
+ * @date 2017/10/31
  */
 @Controller
 @RequestMapping("/json/table")
@@ -30,7 +31,8 @@ public class TableController {
 	@ResponseBody
 	public Object list() {
 		List<Object> list = new ArrayList<>();
-		for (int i = 1; i < 100; i++) {
+		int j=100;
+		for (int i = 1; i < j; i++) {
 			JsonEntry jsonEntry = new JsonEntry();
 			jsonEntry.setId(i);
 			jsonEntry.setCf("1");

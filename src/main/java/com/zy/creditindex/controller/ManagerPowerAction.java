@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zy.creditindex.entity.JsonEntry;
 
 /**
- * Created by huaqin on 2017/10/13.
+ * 查询管理员权限类
+ * @author huaqin
+ * @date 2017/10/31
  */
 @Controller
 @RequestMapping("/mp")
