@@ -2,14 +2,18 @@ package com.zy.creditindex.shiro;
 
 import com.zy.creditindex.realm.CustomerRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.codec.Hex;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by ${ZhaoYing}on 2017/10/11 0011
@@ -75,5 +79,45 @@ public class ShiroConfiguration {
         hashedCredentialsMatcher.setHashIterations(1024);//散列的次数，比如散列两次，相当于 md5(md5(""));
         return hashedCredentialsMatcher;
     }
+    public  static String  getMd5Code(String password){
+        char[] encode = null;
+        try {
+            //创建Md5加密算法的实例
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            //ͨ通过实例的digest方法加密字符串
+            byte[] digest = messageDigest.digest(password.getBytes());
+            encode = Hex.encode(digest);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return new String(encode);
+    }
+   public static void main(String[] args) throws NoSuchAlgorithmException {
+        String md5Code = getMd5Code("e10adc3949ba59abbe56e057f20f883e");
+        System.out.println(md5Code);
+    }
+
+
+
+    public static String getRandomSalt(int n){
+        //定义一个字符数组
+        char[] randomCode = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".toCharArray();
+        //随机数
+        Random random = new Random();
+        String randomSalt = "";
+        for (int i = 0; i < n; i++) {
+            randomSalt+=randomCode[random.nextInt(randomCode.length)];
+        }
+        return randomSalt;
+
+    }
+   /* public static void main(String[] args) {
+
+        String randomSalt = getRandomSalt(4);
+        System.out.println(randomSalt);
+
+
+    }*/
+
 
 }
