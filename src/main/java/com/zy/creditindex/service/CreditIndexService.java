@@ -2,7 +2,9 @@ package com.zy.creditindex.service;
 
 import com.zy.creditindex.entity.CreditIndex;
 import com.zy.creditindex.repostory.IndexRepostory;
+import com.zy.creditindex.util.SortTools;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -31,10 +33,10 @@ public class CreditIndexService {
     }
     //==============================================
     /**
-     * 查询全部数据
+     * 查询全部数据-升序排序
      * @return
      */
-    public List<CreditIndex> queryAll(){
+    public List<CreditIndex> queryAll(){//SortTools.basicSort("asc","reportdate")
        return indexrepostory.findAll();
     }
 
@@ -84,5 +86,15 @@ public class CreditIndexService {
      */
     public List<CreditIndex>  queryCompanyStockAnytime(String trd_code, Date startime,Date endtime){
         return indexrepostory.findByReportdates(trd_code,startime,endtime);
+    }
+
+    /**
+     * 任何时间段的查询（用于默认查询）
+     * @param startime
+     * @param endtime
+     * @return
+     */
+    public List<CreditIndex> queryTimeSlot(Date startime,Date endtime){
+        return indexrepostory.findByTimeSlot(startime,endtime);
     }
 }
