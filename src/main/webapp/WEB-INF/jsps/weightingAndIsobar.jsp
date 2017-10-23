@@ -57,27 +57,37 @@
                         responsive : true,
                         datasetFill: false,
                         bezierCurve : false,
+                        //Number - 点一点的像素宽度
+                        pointDotStrokeWidth : 1,
+                        //Number -每个点的半径以像素为单位
+                        pointDotRadius : 2,
+                            //Number - 刻度像素宽度
+                            scaleLineWidth : 1,
                         maintainAspectRatio : false
             });
          }
     });
 
-       /* var data = {
+        v/*ar data = {
             labels : [ "January", "February", "March", "April", "May",
                 "June", "July" ],
             datasets : [ {
-                fillColor : "rgba(220,220,220,0.5)",
+                label: '11111',
+
                 strokeColor : "rgba(220,220,220,1)",
+                pointColor : "rgba(220,220,220,1)",
                 data : [ 65, 59, 80, 81, 56, 199, 300 ]
             },{
-                fillColor : "rgba(151,187,205,0.5)",
+                label: '22222',
+
                 strokeColor : "rgba(151,187,205,1)",
+                pointColor : "rgba(151,187,205,1)",
                 data : [ 15, 69, 77, 81, 90, 100, 189 ]
             }]
-        };
-        new Chart(document.getElementById("linechart").getContext("2d"))
+        };*/
+       /* new Chart(document.getElementById("linechart").getContext("2d"))
                 .Line(data, {
-                   /!* //Boolean - 是否显示刻度
+                    //Boolean - 是否显示刻度
                     scaleOverlay : false,
                     //Number - 刻度像素宽度
                     scaleLineWidth : 1,
@@ -112,7 +122,7 @@
                     //String - 动画效果
                     animationEasing : "easeOutQuart",
                     //Function - 当动画完成
-                    onAnimationComplete : null,*!/
+                    onAnimationComplete : null,
                     responsive : true,
                     /!*是否有区域填充*!/
                     datasetFill: false,

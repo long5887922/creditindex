@@ -12,18 +12,21 @@ import java.util.List;
  */
 public class XParameter implements Serializable{
     /*产业名称*/
-    private String name;
+    private String  label;
     /*日期*/
     private List<String> dateTime = new ArrayList<String>();
     /*线型展示连接参数*/
     private List<BigDecimal> data=new ArrayList<BigDecimal>();
-
-    public String getName() {
-        return name;
+    /*小图标颜色*/
+    private String pointColor;
+    /*折线颜色*/
+    private String  strokeColor;
+    public String getLabel() {
+        return label;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public List<String> getDateTime() {
@@ -40,5 +43,21 @@ public class XParameter implements Serializable{
 
     public void setData(List<BigDecimal> data) {
         this.data = data;
+    }
+
+    public String getStrokeColor() {
+        return strokeColor;
+    }
+
+    public void setStrokeColor(String strokeColor) {
+        this.strokeColor = strokeColor;
+    }
+
+    public String getPointColor() {
+        return pointColor;
+    }
+
+    public void setPointColor(String pointColor) {
+        this.pointColor = pointColor;
     }
 }
