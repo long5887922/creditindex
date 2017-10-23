@@ -37,7 +37,7 @@ public class CreditIndexService {
      * @return
      */
     public List<CreditIndex> queryAll(){//SortTools.basicSort("asc","reportdate")
-       return indexrepostory.findAll();
+       return indexrepostory.findAll(SortTools.basicSort("asc","reportdate"));
     }
 
     /**
