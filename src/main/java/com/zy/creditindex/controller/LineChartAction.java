@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 查询管理员权限类
+ * 折线图
  * @author huaqin
  * @date 2017/10/19
  */
@@ -21,9 +21,7 @@ public class LineChartAction {
 
     @RequestMapping("/selectData")
     @ResponseBody
-    public LineChartBean selectLine() {
-        /*返回前台参数集合*/
-
+    public LineChartBean selectLine(LineChartBean bean) {
         /*返回前台参数对象*/
         LineChartBean labels = new LineChartBean();
         /*设置X轴参数*/

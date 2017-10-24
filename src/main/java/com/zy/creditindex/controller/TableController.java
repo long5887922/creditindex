@@ -1,6 +1,7 @@
 package com.zy.creditindex.controller;
 
 import com.zy.creditindex.entity.JsonEntry;
+import com.zy.creditindex.entity.JsonEntryLine;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,25 @@ public class TableController {
 			jsonEntry.setMerton("0");
 			jsonEntry.setQuke("0");
 			jsonEntry.setUsername("刘晓");
+			list.add(jsonEntry);
+		}
+		return list;
+	}
+	@RequestMapping("/list3.json")
+	@ResponseBody
+	public Object list3() {
+		List<Object> list = new ArrayList<>();
+		int j=10;
+		for (int i = 1; i < j; i++) {
+			JsonEntryLine jsonEntry = new JsonEntryLine();
+			jsonEntry.setId(i);
+			jsonEntry.setTime1("111");
+			jsonEntry.setTime2("222");
+			jsonEntry.setTime3("333");
+			jsonEntry.setTime4("444");
+			jsonEntry.setTime5("555");
+			jsonEntry.setTime6("666");
+			jsonEntry.setUsername("建筑业");
 			list.add(jsonEntry);
 		}
 		return list;

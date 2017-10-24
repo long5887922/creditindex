@@ -23,6 +23,7 @@ public class XParameter implements Serializable{
     private String  borderColor;
     /*取消曲线区域展示*/
     private Boolean fill=false;
+    /*判断是否等权加权*/
     public String getLabel() {
         return label;
     }
