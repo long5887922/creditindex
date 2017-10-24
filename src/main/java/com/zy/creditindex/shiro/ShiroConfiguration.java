@@ -2,7 +2,7 @@ package com.zy.creditindex.shiro;
 
 import com.zy.creditindex.realm.CustomerRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.codec.Hex;
+
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -10,17 +10,20 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Random;
+
 
 /**
  * Created by ${ZhaoYing}on 2017/10/11 0011
  */
 @Configuration
 public class ShiroConfiguration {
+    /**
+     * 自己定义的身份认证器
+     * @return
+     */
     @Bean(name = "authRealm")
     public CustomerRealm CustomerRealm(){
         CustomerRealm customerRealm = new CustomerRealm();
@@ -63,6 +66,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/um/**", "anon");
         filterChainDefinitionMap.put("/mp/**", "anon");
         filterChainDefinitionMap.put("/index/**", "anon");
+        filterChainDefinitionMap.put("/idri/**", "anon");
         filterChainDefinitionMap.put("/json/table/**", "anon");
         filterChainDefinitionMap.put("/assets/**", "anon");
         filterChainDefinitionMap.put("/bootstrap/**", "anon");
@@ -79,7 +83,8 @@ public class ShiroConfiguration {
     public HashedCredentialsMatcher hashedCredentialsMatcher(){
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         hashedCredentialsMatcher.setHashAlgorithmName("md5");//散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashIterations(1024);//散列的次数，比如散列两次，相当于 md5(md5(""));
+        hashedCredentialsMatcher.setHashIterations(20);//散列的次数，比如散列两次，相当于 md5(md5(""));
         return hashedCredentialsMatcher;
     }
+
 }
