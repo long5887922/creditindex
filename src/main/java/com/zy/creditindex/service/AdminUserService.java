@@ -1,6 +1,5 @@
 package com.zy.creditindex.service;
 
-import com.zy.creditindex.entity.AdminUser;
 import com.zy.creditindex.entity.User;
 import com.zy.creditindex.repostory.UserRepostory;
 import com.zy.creditindex.util.RandomSaltUtil;
