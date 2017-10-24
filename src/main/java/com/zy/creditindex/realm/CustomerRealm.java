@@ -4,15 +4,12 @@ import com.zy.creditindex.entity.Permission;
 import com.zy.creditindex.entity.Role;
 import com.zy.creditindex.entity.User;
 import com.zy.creditindex.repostory.UserRepostory;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.SimplePrincipalCollection;
+
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -73,16 +70,12 @@ public class CustomerRealm extends AuthorizingRealm {
         User byName = userrepostory.findByName(principal);
         System.out.println("++++++++++byName+++byName+++++++++++++++"+byName);
         if(byName!=null){
-//            String admin="admin";
-//            String password="e10adc3949ba59abbe56e057f20f883e";
             System.out.println( ByteSource.Util.bytes(byName.getSalt()));
             System.out.println(this.getName());
-          //  SimplePrincipalCollection simplePrincipalCollection = new SimplePrincipalCollection(admin, password);
              return   new SimpleAuthenticationInfo( byName.getName(),
                                                 byName.getPassword(),
                                                 ByteSource.Util.bytes(byName.getSalt()),
                                                 UUID.randomUUID().toString().replace("-", ""));
-
         }
         return null;
     }
