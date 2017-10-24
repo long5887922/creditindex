@@ -107,14 +107,4 @@ public class ControllerCreditIndex {
         return creditIndices;
     }
 
-
-    @GetMapping("/idri/{id}")
-    public idri queryIdriId(@PathVariable("id") String id){
-        return idriService.findIdriId(id);
-    }
-    @PostMapping("/idriAll")
-    public List<idri> queryIdriAll(){
-        return idriService.findIdriAll();
-    }
-
 }

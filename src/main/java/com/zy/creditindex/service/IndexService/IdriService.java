@@ -5,6 +5,7 @@ import com.zy.creditindex.repostory.indexJpa.IdriRepostory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -18,8 +19,8 @@ public class IdriService {
     /**
      *id查询
      */
-    public idri findIdriId(String id){
-        return idriRepostory.findOne(id);
+    public List<idri> findIdriId(String id){
+        return idriRepostory.findByID(id);
     }
 
     /**
@@ -30,4 +31,19 @@ public class IdriService {
         return idriRepostory.findAll();
     }
 
+    /**
+     * 行业代码和指数计算日期联合查询
+     * @return
+     */
+    public List<idri> findIdriByCodeAndDate(String inducode, Date indexdate){
+        return idriRepostory.findIdriByCodeAndDate(inducode,indexdate);
+    }
+
+    /**
+     * 加权类型,行业代码,指数计算日期联合查询
+     * @return
+     */
+    public idri findIdriByCDT(String inducode, Date indexdate,String weighttype){
+        return idriRepostory.findIdriByCDT(inducode,indexdate,weighttype);
+    }
 }
