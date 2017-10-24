@@ -40,7 +40,8 @@
             </textarea>
         </div>
         <div>
-            <a href="#" onclick="addPDF()">编制方法.pdf</a>
+            <%--<a href="#" onclick="addPDF()">编制方法.pdf</a>--%>
+                <a href="/Download" >编制方法.pdf</a>
         </div>
     </form>
 </div>
