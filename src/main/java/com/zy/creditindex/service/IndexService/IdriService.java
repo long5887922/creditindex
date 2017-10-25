@@ -1,6 +1,7 @@
 package com.zy.creditindex.service.IndexService;
 
-import com.zy.creditindex.entity.idri.idri;
+import com.zy.creditindex.entity.idri.IdriBean;
+
 import com.zy.creditindex.repostory.indexJpa.IdriRepostory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class IdriService {
     /**
      *id查询
      */
-    public List<idri> findIdriId(String id){
+    public List<IdriBean> findIdriId(String id){
         return idriRepostory.findByID(id);
     }
 
@@ -27,7 +28,7 @@ public class IdriService {
      * 查询所有的数据
      * @return
      */
-    public List<idri> findIdriAll(){
+    public List<IdriBean> findIdriAll(){
         return idriRepostory.findAll();
     }
 
@@ -35,7 +36,7 @@ public class IdriService {
      * 行业代码和指数计算日期联合查询
      * @return
      */
-    public List<idri> findIdriByCodeAndDate(String inducode, Date indexdate){
+    public List<IdriBean> findIdriByCodeAndDate(String inducode, Date indexdate){
         return idriRepostory.findIdriByCodeAndDate(inducode,indexdate);
     }
 
@@ -43,7 +44,17 @@ public class IdriService {
      * 加权类型,行业代码,指数计算日期联合查询
      * @return
      */
-    public idri findIdriByCDT(String inducode, Date indexdate,String weighttype){
+    public IdriBean findIdriByCDT(String inducode, Date indexdate,String weighttype){
         return idriRepostory.findIdriByCDT(inducode,indexdate,weighttype);
+    }
+
+    /**
+     * 任意时间段查询
+     * @param starttime
+     * @param endtime
+     * @return
+     */
+    public List<IdriBean> findIdriByTimesTotto( Date starttime, Date endtime){
+        return idriRepostory.findByTimesTotto(starttime,endtime);
     }
 }

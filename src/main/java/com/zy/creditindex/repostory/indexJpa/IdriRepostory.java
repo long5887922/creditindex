@@ -24,5 +24,7 @@ public interface IdriRepostory extends JpaRepository<IdriBean,String> {
     @Query(value ="select i.indu_code,i.index_date,i.weight_type,i.corp_count,i.idri from idri i where i.indu_code = ?1 and i.index_date=?2 and i.weight_type = ?3",nativeQuery = true)
     public IdriBean findIdriByCDT(String inducode, Date indexdate,String weighttype);
 
-
+    //任意时间段查询
+    @Query(value ="select i.indu_code,i.index_date,i.weight_type,i.corp_count,i.idri from idri i where  i.index_date>=?1 and i.index_date<=?2 order by i.index_date asc",nativeQuery = true)
+    public List<IdriBean> findByTimesTotto( Date starttime, Date endtime);
 }
