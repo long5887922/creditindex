@@ -46,9 +46,19 @@ public class IdriContorller {
      * @param inducode
      * @return
      */
-    @GetMapping("/idribyi")
+    @GetMapping("/idribyid")
     public List<idri> querIdriById(@RequestParam(value = "id")String inducode){
         return idriService.findIdriId(inducode);
     }
 
+    /**
+     * 按时间段查询
+     * @param starttime
+     * @param endtime
+     * @return
+     */
+    @PostMapping("idritimetoto")
+    public List<idri> queryByTimesTotto(Date starttime,Date endtime){
+        return idriService.findByTimesTotto(starttime,endtime);
+    }
 }
