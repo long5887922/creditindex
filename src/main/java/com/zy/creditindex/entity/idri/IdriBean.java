@@ -1,6 +1,8 @@
 package com.zy.creditindex.entity.idri;
 
-import com.zy.creditindex.entity.pk.IdriPK;
+
+import com.zy.creditindex.entity.pk.IdriPKBean;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,9 +12,9 @@ import java.math.BigDecimal;
  * Created by ${ZhaoYing}on 2017/10/23 0023
  */
 @Entity
-@IdClass(IdriPK.class)
+@IdClass(IdriPKBean.class)
 @Table(name = "idri")
-public class idri implements Serializable {
+public class IdriBean implements Serializable {
     // PRIMARY KEY(indu_code, index_date, weight_type)
     private String inducode;// indu_code VARCHAR(4),   -- 行业代码
     private Date indexdate;//index_date DATE,        -- 指数计算日期
@@ -55,11 +57,9 @@ public class idri implements Serializable {
     public void setCorpcount(Integer corpcount) {
         this.corpcount = corpcount;
     }
-
     public BigDecimal getIdri() {
         return idri;
     }
-
     public void setIdri(BigDecimal idri) {
         this.idri = idri;
     }
