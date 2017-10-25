@@ -25,9 +25,7 @@ import org.jfree.ui.RectangleInsets;
  */
 public class CreateJFreeChartLine {
     // 设置文件下载路径
-    private static final String CHART_PATH = "E:/test/";
-
-
+    private static final String CHART_PATH = "\\src\\main\\webapp\\img\\";
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -151,7 +149,7 @@ public class CreateJFreeChartLine {
         // 去除背景边框线
         p.setOutlinePaint(null);
         //设置折线加粗
-        lasp.setSeriesStroke(0, new BasicStroke(3F));
+        //lasp.setSeriesStroke(0, new BasicStroke(3F));
         //设置外边框颜色
         chart.setBackgroundPaint(Color.WHITE);
         CategoryPlot categoryplot = (CategoryPlot) chart.getPlot();
@@ -190,8 +188,13 @@ public class CreateJFreeChartLine {
         // lineandshaperenderer.setBaseItemLabelsVisible(true);
         FileOutputStream fos_jpg = null;
         try {
-            isChartPathExist(CHART_PATH);
-            String chartName = CHART_PATH + charName;
+            File directory = new File("");// 参数为空
+            String courseFile = directory.getCanonicalPath();
+
+            String pash=courseFile+CHART_PATH;
+            System.out.println(pash);
+            isChartPathExist(pash);
+            String chartName = pash + charName;
             fos_jpg = new FileOutputStream(chartName);
             // 将报表保存为png文件
             //ChartUtilities.writeChartAsPNG(fos_jpg, chart, 500, 510);
