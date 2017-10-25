@@ -18,7 +18,7 @@ public class CreditIndex {
     private String trd_code;//trd_code VARCHAR(16)-- 公司股票ID。联合主键
     private Date reportdate;// -- 日期。联合主键
     private Integer exch_code;  //    exch_code INT,                -- 证券类型（上证/深证等）
-    private BigInteger comid;   //    com_id BIGINT,                 -- 公司ID
+    private BigInteger com_id;   //    com_id BIGINT,                 -- 公司ID
     private BigInteger secu_id;  //    secu_id BIGINT,                 -- 证券ID
     private BigDecimal ttl_cur_liab;//    ttl_cur_liab DECIMAL(20, 4),    -- 短债
     private BigDecimal ttl_ncur_liab;//    ttl_ncur_liab DECIMAL(20, 4),   -- 长债
@@ -58,13 +58,12 @@ public class CreditIndex {
         this.exch_code = exch_code;
     }
 
-    @Column(name = "com_id")
-    public BigInteger getComid() {
-        return comid;
+    public BigInteger getCom_id() {
+        return com_id;
     }
 
-    public void setComid(BigInteger comid) {
-        this.comid = comid;
+    public void setCom_id(BigInteger com_id) {
+        this.com_id = com_id;
     }
 
     public BigInteger getSecu_id() {
@@ -115,13 +114,14 @@ public class CreditIndex {
         this.edf = edf;
     }
 
+
     @Override
     public String toString() {
         return "CreditIndex{" +
                 "trd_code='" + trd_code + '\'' +
                 ", reportdate=" + reportdate +
                 ", exch_code=" + exch_code +
-                ", comid=" + comid +
+                ", com_id=" + com_id +
                 ", secu_id=" + secu_id +
                 ", ttl_cur_liab=" + ttl_cur_liab +
                 ", ttl_ncur_liab=" + ttl_ncur_liab +

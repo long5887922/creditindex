@@ -65,10 +65,10 @@ public class CustomerRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
          //根据token获取用户名
         String principal = (String) token.getPrincipal();
-        System.out.println("11111111111111111111111111"+token.toString());
-        System.out.println("====================================-=--="+principal);
+        System.out.println("******************************>>>token.toString:"+token.toString());
+        System.out.println("******************************>>>token.getPrincipal():"+principal);
         User byName = userrepostory.findByName(principal);
-        System.out.println("++++++++++byName+++byName+++++++++++++++"+byName);
+        System.out.println("******************************>>>byName"+byName);
         if(byName!=null){
             System.out.println( ByteSource.Util.bytes(byName.getSalt()));
             System.out.println(this.getName());

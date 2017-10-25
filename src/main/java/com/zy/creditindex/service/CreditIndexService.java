@@ -27,7 +27,6 @@ public class CreditIndexService {
      * @param creditindex
      * @return
      */
-    @PostMapping(value = "add")
     public CreditIndex CreditAdd(@Valid CreditIndex creditindex){
         return indexrepostory.save(creditindex);
     }
@@ -70,11 +69,11 @@ public class CreditIndexService {
 
     /**
      * 用公司ID查询
-     * @param comid
+     * @param
      * @return
      */
-    public List<CreditIndex> queryCompanyID(BigInteger comid){
-        return indexrepostory.findByComid(comid);
+    public List<CreditIndex> queryCompanyID(BigInteger com_id){
+        return indexrepostory.findByCom_id(com_id);
     }
 
     /**

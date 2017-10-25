@@ -23,8 +23,12 @@ public interface IndexRepostory extends JpaRepository<CreditIndex,String> {
 
     /**
      * 用公司ID查询
+     * @param com_id
+     * @return
+     * 注：自定义的方法名中不能带有“_”下划线，否则启动服务时报错 ：Stopping service [Tomcat]，在实体类中找不到
      */
-    public List<CreditIndex> findByComid(BigInteger comid);
+    @Query(value ="select t.* from corporate_edf t where t.com_id = ?1",nativeQuery = true)
+    public List<CreditIndex> findByCom_id(BigInteger com_id);
 
     /**
      * 股票ID和日期联合查询
@@ -46,7 +50,7 @@ public interface IndexRepostory extends JpaRepository<CreditIndex,String> {
     public List<CreditIndex> findByReportdates(String trd_code, Date starttime,Date endtime);
 
     /**
-     * 时间段查询
+     * 任意时间段查询（升序）
      * @param starttime
      * @param endtime
      * @return

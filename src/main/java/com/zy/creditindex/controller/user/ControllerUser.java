@@ -84,7 +84,7 @@ public class ControllerUser {
     }
 
     @PostMapping("/controller")
-    public String loginController(@RequestParam("usernumber")String usernumber,
+    public Map<String,Object> loginController(@RequestParam("usernumber")String usernumber,
                                   @RequestParam("password")String password,
                                     HttpSession session){
         logger.info("--------------------------登录请求-----------------------------");
@@ -110,7 +110,7 @@ public class ControllerUser {
             map.put("success", false);
             map.put("message", e.getMessage());
         }
-        return null;
+        return map;
     }
 
     @PostMapping("/logout")

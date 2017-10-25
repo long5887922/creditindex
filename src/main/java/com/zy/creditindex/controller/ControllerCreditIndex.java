@@ -2,21 +2,18 @@ package com.zy.creditindex.controller;
 
 import com.zy.creditindex.aspect.HttpAspect;
 import com.zy.creditindex.entity.CreditIndex;
-import com.zy.creditindex.entity.idri.idri;
-import com.zy.creditindex.repostory.IndexRepostory;
+
 import com.zy.creditindex.service.CreditIndexService;
-import com.zy.creditindex.service.IndexService.IdriService;
-import com.zy.creditindex.util.SortTools;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,8 +32,16 @@ public class ControllerCreditIndex {
 
     @Autowired
     private CreditIndexService creditIndexService;
-    @Autowired
-    private IdriService idriService;
+
+    /**
+     * 按日期查询
+     * @param report_date
+     * @return
+     */
+    @PostMapping("/bydate")
+    public List<CreditIndex> queryByDate(Date report_date){
+        return creditIndexService.queryIndependentDate(report_date);
+    }
 
     /**
      * 查询所有的数据-升序排序
@@ -116,7 +121,7 @@ public class ControllerCreditIndex {
      * @param res
      * @throws IOException
      */
-    @RequestMapping(value="/Download",method=RequestMethod.GET)
+    @GetMapping(value="/Download")
     public void testDownload(HttpServletResponse res) throws IOException {
         String fileName="upload.pdf";
         res.setHeader("content-type", "application/octet-stream");
