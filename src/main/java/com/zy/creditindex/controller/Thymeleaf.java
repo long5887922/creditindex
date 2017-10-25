@@ -41,7 +41,6 @@ public class Thymeleaf {
     /*跳转页面*/
     @RequestMapping("/frameset")
     public ModelAndView frameset(ModelMap model){
-        System.err.println("jiiiiiiiiiiii");
         logger.info("--------------------------登录请求-----------------------------");
         return  new ModelAndView("frame");
     }

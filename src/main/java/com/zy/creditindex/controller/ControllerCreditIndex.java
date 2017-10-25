@@ -15,7 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.util.List;
@@ -105,6 +109,25 @@ public class ControllerCreditIndex {
             System.out.println(c.getReportdate()+"----->code："+c.getTrd_code());
         }
         return creditIndices;
+    }
+
+    /**
+     * 文件下载
+     * @param res
+     * @throws IOException
+     */
+    @RequestMapping(value="/Download",method=RequestMethod.GET)
+    public void testDownload(HttpServletResponse res) throws IOException {
+        String fileName="upload.pdf";
+        res.setHeader("content-type", "application/octet-stream");
+        res.setContentType("application/octet-stream");
+        res.setHeader("Content-Disposition", "attachment;filename=CourseResource.pdf");
+        File file=new File("F://Download//upload.pdf");
+
+        FileOutputStream fos=new FileOutputStream(file);
+
+        res.setContentLengthLong(file.length());
+        fos.close();
     }
 
 }

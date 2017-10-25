@@ -2,7 +2,7 @@ package com.zy.creditindex.controller.user;
 
 import com.zy.creditindex.aspect.HttpAspect;
 import com.zy.creditindex.entity.User;
-import com.zy.creditindex.repostory.UserRepostory;
+
 import com.zy.creditindex.service.AdminUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -14,9 +14,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ${ZhaoYing}on 2017/9/28 0028
@@ -80,16 +84,20 @@ public class ControllerUser {
     }
 
     @PostMapping("/controller")
-    public String loginController(@RequestParam("usernumber")String usernumber,@RequestParam("password")String password){
-        logger.info("--------------------------AJAX登录请求-----------------------------");
+    public String loginController(@RequestParam("usernumber")String usernumber,
+                                  @RequestParam("password")String password,
+                                    HttpSession session){
+        logger.info("--------------------------登录请求-----------------------------");
         logger.info(usernumber);
         logger.info(password);
-        HashMap<String, Object> map = new HashMap<String, Object>();//传递异常信息
+        Map<String, Object> map = new HashMap<String, Object>();//传递异常信息
         try {
             Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(usernumber,password);
             subject.login(usernamePasswordToken);
+            User user = (User) subject.getPrincipal();
             System.out.println(subject.isAuthenticated());
+            session.setAttribute("user",user);
             map.put("success", true);
         } catch (UnknownAccountException e) {
             e.printStackTrace();
@@ -102,9 +110,19 @@ public class ControllerUser {
             map.put("success", false);
             map.put("message", e.getMessage());
         }
-//        GsonUtil.writeToResponse(map);
+        return null;
+    }
 
-        return "frame";
+    @PostMapping("/logout")
+    public Map<String,Object> logout(){
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+        try {
+            //退出
+            SecurityUtils.getSubject().logout();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return resultMap;
     }
 
 }
