@@ -1,6 +1,6 @@
 package com.zy.creditindex.entity.idri;
 
-import com.zy.creditindex.entity.pk.idriPK;
+import com.zy.creditindex.entity.pk.IdriPK;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * Created by ${ZhaoYing}on 2017/10/23 0023
  */
 @Entity
-@IdClass(idriPK.class)
+@IdClass(IdriPK.class)
 @Table(name = "idri")
 public class idri implements Serializable {
     // PRIMARY KEY(indu_code, index_date, weight_type)
