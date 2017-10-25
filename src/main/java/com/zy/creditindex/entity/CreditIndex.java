@@ -18,7 +18,6 @@ public class CreditIndex {
     private String trd_code;//trd_code VARCHAR(16)-- 公司股票ID。联合主键
     private Date reportdate;// -- 日期。联合主键
     private Integer exch_code;  //    exch_code INT,                -- 证券类型（上证/深证等）
-    @Column(name = "com_id")
     private BigInteger comid;   //    com_id BIGINT,                 -- 公司ID
     private BigInteger secu_id;  //    secu_id BIGINT,                 -- 证券ID
     private BigDecimal ttl_cur_liab;//    ttl_cur_liab DECIMAL(20, 4),    -- 短债
@@ -59,6 +58,7 @@ public class CreditIndex {
         this.exch_code = exch_code;
     }
 
+    @Column(name = "com_id")
     public BigInteger getComid() {
         return comid;
     }
