@@ -1,6 +1,6 @@
 package com.zy.creditindex.controller.indexandidri;
 
-import com.zy.creditindex.entity.idri.idri;
+import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.service.IndexService.IdriService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ public class IdriContorller {
      * @return
      */
     @PostMapping("/codeanddate")
-    public List<idri> queryIdriByCodeAndDate(String inducode, Date indexdate){
+    public List<IdriBean> queryIdriByCodeAndDate(String inducode, Date indexdate){
         return idriService.findIdriByCodeAndDate(inducode,indexdate);
     }
 
@@ -37,7 +37,7 @@ public class IdriContorller {
      * @return
      */
     @PostMapping("/cdt")
-    public idri queryIdriByCDT(String inducode, Date indexdate,String weighttype){
+    public IdriBean queryIdriByCDT(String inducode, Date indexdate,String weighttype){
         return idriService.findIdriByCDT(inducode,indexdate,weighttype);
     }
 
@@ -47,7 +47,7 @@ public class IdriContorller {
      * @return
      */
     @GetMapping("/idribyi")
-    public List<idri> querIdriById(@RequestParam(value = "id")String inducode){
+    public List<IdriBean> querIdriById(@RequestParam(value = "id")String inducode){
         return idriService.findIdriId(inducode);
     }
 

@@ -66,7 +66,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/um/**", "anon");
         filterChainDefinitionMap.put("/mp/**", "anon");
         filterChainDefinitionMap.put("/index/**", "anon");
-        filterChainDefinitionMap.put("/idri/**", "anon");
+        filterChainDefinitionMap.put("/IdriBean/**", "anon");
         filterChainDefinitionMap.put("/json/table/**", "anon");
         filterChainDefinitionMap.put("/assets/**", "anon");
         filterChainDefinitionMap.put("/bootstrap/**", "anon");
