@@ -46,14 +46,9 @@ public class LineChartAction {
         List<XParameter> data = new ArrayList<>();
         XParameter parameter = new XParameter();
         List<BigDecimal> xlist1 = new ArrayList<>();
-        BigDecimal loanAmount = new BigDecimal("121.22");
-        BigDecimal loanAmount2 = new BigDecimal("221.22");
-        BigDecimal loanAmount3 = new BigDecimal("321.22");
-        BigDecimal loanAmount4 = new BigDecimal("421.22");
-        xlist1.add(loanAmount);
-        xlist1.add(loanAmount2);
-        xlist1.add(loanAmount3);
-        xlist1.add(loanAmount4);
+        for (IdriBean ib:totto) {
+            xlist1.add(ib.getIdri());
+        }
         parameter.setData(xlist1);
        /* for(int i=0;i<list.size();i++){
             parameter.setMultiTooltipTemplate(list.get(i));
