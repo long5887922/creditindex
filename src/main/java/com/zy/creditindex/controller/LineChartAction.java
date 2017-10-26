@@ -4,6 +4,7 @@ import com.zy.creditindex.entity.LineChartBean;
 import com.zy.creditindex.entity.XParameter;
 import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.service.IndexService.IdriService;
+import com.zy.creditindex.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,12 +34,9 @@ public class LineChartAction {
         LineChartBean labels = new LineChartBean();
         /*设置X轴参数*/
         List<String> list = new ArrayList<>();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();//日历对象
-        calendar.setTime(new java.util.Date());//设置当前日期
-        calendar.add(Calendar.MONTH, -1);//月份减一
-        Date starttime = calendar.getTime();
-        Date endtime=new java.sql.Date(new Date().getTime());
+        //设置查询时间
+        Date starttime = DateUtil.starttime();//开始时间
+        Date endtime = DateUtil.endtime();    //结束时间
         List<IdriBean> totto = idriService.findIdriByTimesTotto(starttime, endtime);
         for (IdriBean i:totto) {
             list.add(i.getIndexdate().toString());

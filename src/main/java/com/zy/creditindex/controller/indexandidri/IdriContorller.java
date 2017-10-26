@@ -3,6 +3,7 @@ package com.zy.creditindex.controller.indexandidri;
 import com.zy.creditindex.entity.idri.IdriBean;
 
 import com.zy.creditindex.service.IndexService.IdriService;
+import com.zy.creditindex.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,12 +75,8 @@ public class IdriContorller {
      */
     @GetMapping("/queryTimeTotto")
     public List<IdriBean> queryTimeTotto(){
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();//日历对象
-        calendar.setTime(new java.util.Date());//设置当前日期
-        calendar.add(Calendar.MONTH, -1);//月份减一
-        Date starttime = calendar.getTime();
-        Date endtime=new java.sql.Date(new Date().getTime());
+        Date starttime = DateUtil.starttime();
+        Date endtime = DateUtil.endtime();
         return idriService.findIdriByTimesTotto(starttime,endtime);
     }
 
