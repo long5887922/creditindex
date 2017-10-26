@@ -47,4 +47,13 @@ public class IdriService {
     public IdriBean findIdriByCDT(String inducode, Date indexdate,String weighttype){
         return idriRepostory.findIdriByCDT(inducode, indexdate, weighttype);
     }
+    /**
+     * 任意时间段查询
+     * @param starttime
+     * @param endtime
+     * @return
+     */
+    public List<IdriBean> findIdriByTimesTotto( Date starttime, Date endtime){
+        return idriRepostory.findByTimesTotto(starttime,endtime);
+    }
 }
