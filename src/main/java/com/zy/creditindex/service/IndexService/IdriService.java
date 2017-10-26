@@ -1,7 +1,7 @@
 package com.zy.creditindex.service.IndexService;
 
-import com.zy.creditindex.entity.idri.IdriBean;
 
+import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.repostory.indexJpa.IdriRepostory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class IdriService {
      * @return
      */
     public List<IdriBean> findIdriByCodeAndDate(String inducode, Date indexdate){
-        return idriRepostory.findIdriByCodeAndDate(inducode,indexdate);
+        return idriRepostory.findIdriByCodeAndDate(inducode, indexdate);
     }
 
     /**
@@ -45,9 +45,8 @@ public class IdriService {
      * @return
      */
     public IdriBean findIdriByCDT(String inducode, Date indexdate,String weighttype){
-        return idriRepostory.findIdriByCDT(inducode,indexdate,weighttype);
+        return idriRepostory.findIdriByCDT(inducode, indexdate, weighttype);
     }
-
     /**
      * 任意时间段查询
      * @param starttime
