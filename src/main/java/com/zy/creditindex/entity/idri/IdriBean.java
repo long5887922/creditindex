@@ -1,6 +1,8 @@
 package com.zy.creditindex.entity.idri;
 
+
 import com.zy.creditindex.entity.pk.IdriPKBean;
+
 
 import javax.persistence.*;
 import java.io.Serializable;

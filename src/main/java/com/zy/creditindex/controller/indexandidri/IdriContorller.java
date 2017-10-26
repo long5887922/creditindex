@@ -1,6 +1,7 @@
 package com.zy.creditindex.controller.indexandidri;
 
 import com.zy.creditindex.entity.idri.IdriBean;
+
 import com.zy.creditindex.service.IndexService.IdriService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,9 +47,19 @@ public class IdriContorller {
      * @param inducode
      * @return
      */
-    @GetMapping("/idribyi")
+    @GetMapping("/idribyid")
     public List<IdriBean> querIdriById(@RequestParam(value = "id")String inducode){
         return idriService.findIdriId(inducode);
     }
 
+    /**
+     * 按时间段查询
+     * @param starttime
+     * @param endtime
+     * @return
+     */
+    @PostMapping("idritimetoto")
+    public List<IdriBean> queryByTimesTotto(Date starttime, Date endtime){
+        return idriService.findIdriByTimesTotto(starttime,endtime);
+    }
 }

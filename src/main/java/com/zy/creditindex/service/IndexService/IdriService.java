@@ -20,7 +20,7 @@ public class IdriService {
     /**
      *id查询
      */
-    public List<IdriBean> findIdriId(String id){
+    public List<idri> findIdriId(String id){
         return idriRepostory.findByID(id);
     }
 
@@ -28,7 +28,7 @@ public class IdriService {
      * 查询所有的数据
      * @return
      */
-    public List<IdriBean> findIdriAll(){
+    public List<idri> findIdriAll(){
         return idriRepostory.findAll();
     }
 
@@ -36,7 +36,7 @@ public class IdriService {
      * 行业代码和指数计算日期联合查询
      * @return
      */
-    public List<IdriBean> findIdriByCodeAndDate(String inducode, Date indexdate){
+    public List<idri> findIdriByCodeAndDate(String inducode, Date indexdate){
         return idriRepostory.findIdriByCodeAndDate(inducode,indexdate);
     }
 
@@ -44,7 +44,7 @@ public class IdriService {
      * 加权类型,行业代码,指数计算日期联合查询
      * @return
      */
-    public IdriBean findIdriByCDT(String inducode, Date indexdate,String weighttype){
+    public idri findIdriByCDT(String inducode, Date indexdate,String weighttype){
         return idriRepostory.findIdriByCDT(inducode,indexdate,weighttype);
     }
 }
