@@ -1,7 +1,7 @@
 package com.zy.creditindex.controller;
 
-import com.zy.creditindex.entity.LineChartBean;
-import com.zy.creditindex.entity.XParameter;
+import com.zy.creditindex.entity.LineChart.LineChartBean;
+import com.zy.creditindex.entity.LineChart.XParameter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
