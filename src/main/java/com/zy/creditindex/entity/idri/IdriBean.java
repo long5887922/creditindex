@@ -6,8 +6,10 @@ import com.zy.creditindex.entity.pk.IdriPKBean;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+
 import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * Created by ${ZhaoYing}on 2017/10/23 0023
  */

@@ -2,12 +2,18 @@ package com.zy.creditindex.controller;
 
 import com.zy.creditindex.entity.LineChartBean;
 import com.zy.creditindex.entity.XParameter;
+import com.zy.creditindex.entity.idri.IdriBean;
+import com.zy.creditindex.service.IndexService.IdriService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +24,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/mp")
 public class LineChartAction {
-
+    @Autowired
+    private IdriService idriService;
     @RequestMapping("/selectData")
     @ResponseBody
     public LineChartBean selectLine(LineChartBean bean) {
@@ -26,10 +33,16 @@ public class LineChartAction {
         LineChartBean labels = new LineChartBean();
         /*设置X轴参数*/
         List<String> list = new ArrayList<>();
-        list.add("2014-10");
-        list.add("2015-10");
-        list.add("2016-10");
-        list.add("2017-10");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();//日历对象
+        calendar.setTime(new java.util.Date());//设置当前日期
+        calendar.add(Calendar.MONTH, -1);//月份减一
+        Date starttime = calendar.getTime();
+        Date endtime=new java.sql.Date(new Date().getTime());
+        List<IdriBean> totto = idriService.findIdriByTimesTotto(starttime, endtime);
+        for (IdriBean i:totto) {
+            list.add(i.getIndexdate().toString());
+        }
         labels.setLabels(list);
         /*设置Y轴前台展示折线图*/
         List<XParameter> data = new ArrayList<>();

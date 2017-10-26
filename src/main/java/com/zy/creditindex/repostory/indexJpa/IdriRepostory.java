@@ -4,7 +4,9 @@ import com.zy.creditindex.entity.idri.IdriBean;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,4 +29,8 @@ public interface IdriRepostory extends JpaRepository<IdriBean,String> {
     //任意时间段查询
     @Query(value ="select i.indu_code,i.index_date,i.weight_type,i.corp_count,i.idri from idri i where  i.index_date>=?1 and i.index_date<=?2 order by i.index_date asc",nativeQuery = true)
     public List<IdriBean> findByTimesTotto( Date starttime, Date endtime);
+
+    //行业信贷违约指数和时间联合查询
+    @Query(value ="select i.indu_code,i.index_date,i.weight_type,i.corp_count,i.idri from idri i where  i.idri=?1 and i.index_date=?2 order by i.index_date asc",nativeQuery = true)
+    public List<IdriBean> finfByIdriAndDate(BigDecimal idri,Date indexdate);
 }

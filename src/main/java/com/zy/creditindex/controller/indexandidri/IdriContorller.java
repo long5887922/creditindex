@@ -6,7 +6,11 @@ import com.zy.creditindex.service.IndexService.IdriService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
+
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,7 +42,7 @@ public class IdriContorller {
      * @return
      */
     @PostMapping("/cdt")
-    public IdriBean queryIdriByCDT(String inducode, Date indexdate,String weighttype){
+    public IdriBean queryIdriByCDT(String inducode, Date indexdate, String weighttype){
         return idriService.findIdriByCDT(inducode,indexdate,weighttype);
     }
 
@@ -60,6 +64,23 @@ public class IdriContorller {
      */
     @PostMapping("idritimetoto")
     public List<IdriBean> queryByTimesTotto(Date starttime, Date endtime){
+
         return idriService.findIdriByTimesTotto(starttime,endtime);
     }
+
+    /**
+     *根据当前时间自动查询
+     * @return
+     */
+    @GetMapping("/queryTimeTotto")
+    public List<IdriBean> queryTimeTotto(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();//日历对象
+        calendar.setTime(new java.util.Date());//设置当前日期
+        calendar.add(Calendar.MONTH, -1);//月份减一
+        Date starttime = calendar.getTime();
+        Date endtime=new java.sql.Date(new Date().getTime());
+        return idriService.findIdriByTimesTotto(starttime,endtime);
+    }
+
 }
