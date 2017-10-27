@@ -79,7 +79,7 @@ public class CreateJFreeChartLine {
                 data[i][j] = BigData[i][j].doubleValue();
             }
         }
-        //等权债务/加权
+        // 加权类型（01：等权；02：债券加权）
         String name;
         String title;
         if("01".equals(weight)) {

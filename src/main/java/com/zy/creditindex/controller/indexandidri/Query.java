@@ -7,11 +7,10 @@ import org.jfree.chart.ChartColor;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.CategoryLabelPositions;
-import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
@@ -28,6 +27,7 @@ import java.io.FileOutputStream;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,9 +50,17 @@ public class Query {
      * @return
      */
     @RequestMapping("/queryIdriByCondition")
-    public List<IdriBean> queryIdriByCondition(Date startTime,Date endTime,String weightType ){
+    public List<IdriBean> queryIdriByCondition (Date startTime,Date endTime,String weightType){
+
+        return idriService.queryIdriByCondition(startTime, endTime, weightType);
+    }
+    @RequestMapping("/creatJFreeChart")
+    public String creatJFreeChart(Date startTime,Date endTime,String weightType){
         List<IdriBean> list =new ArrayList<>();
         list =idriService.queryIdriByCondition(startTime, endTime, weightType);
+        if(list.size()<0){
+            return "查询数据为空";
+        }
         /*获取集合对象日期值和长度*/
         List<IdriBean> listAll = new ArrayList<>();
         /*采矿业(B)*/
@@ -81,91 +89,100 @@ public class Query {
         String k="";
         /*根据编码设置行业名称*/
         for(int j=0; j<list.size();j++){
-          if("B".equals(list.get(j).getInducode())){
-              listAll.add(list.get(j));
-              listB.add(list.get(j).getIdri().doubleValue());
-              if(""==b){
-                  b="采矿业";
-              }
-          }else if("C".equals(list.get(j).getInducode())){
-              listC.add(list.get(j).getIdri().doubleValue());
-              if(""==c){
-                  c="制造业";
-              }
-          }else if("D".equals(list.get(j).getInducode())){
-              listD.add(list.get(j).getIdri().doubleValue());
-              if(""==d){
-                  d="电力、热力、燃气及水生产和供应业";
-              }
-          }else if("E".equals(list.get(j).getInducode())){
-              listE.add(list.get(j).getIdri().doubleValue());
-              if(""==e){
-                  e="建筑业";
-              }
-          }else if("F".equals(list.get(j).getInducode())){
-              listF.add(list.get(j).getIdri().doubleValue());
-              if(""==f){
-                  f="批发和零售业";
-              }
-          }else if("G".equals(list.get(j).getInducode())){
-              listG.add(list.get(j).getIdri().doubleValue());
-              if(""==g){
-                  g="交通运输、仓储和邮政业";
-              }
-          }else if("I".equals(list.get(j).getInducode())){
-              listI.add(list.get(j).getIdri().doubleValue());
-              if(""==i){
-                  i="信息传输、软件和信息技术服务业";
-              }
-          }else if("K".equals(list.get(j).getInducode())){
-              listK.add(list.get(j).getIdri().doubleValue());
-              if(""==k){
-                  k="房地产业";
-              }
-          }
+            if("B".equals(list.get(j).getInducode())){
+                listAll.add(list.get(j));
+                listB.add(list.get(j).getIdri().doubleValue());
+                if(""==b){
+                    b="采矿业";
+                }
+            }else if("C".equals(list.get(j).getInducode())){
+                listC.add(list.get(j).getIdri().doubleValue());
+                if(""==c){
+                    c="制造业";
+                }
+            }else if("D".equals(list.get(j).getInducode())){
+                listD.add(list.get(j).getIdri().doubleValue());
+                if(""==d){
+                    d="电力、热力、燃气及水生产和供应业";
+                }
+            }else if("E".equals(list.get(j).getInducode())){
+                listE.add(list.get(j).getIdri().doubleValue());
+                if(""==e){
+                    e="建筑业";
+                }
+            }else if("F".equals(list.get(j).getInducode())){
+                listF.add(list.get(j).getIdri().doubleValue());
+                if(""==f){
+                    f="批发和零售业";
+                }
+            }else if("G".equals(list.get(j).getInducode())){
+                listG.add(list.get(j).getIdri().doubleValue());
+                if(""==g){
+                    g="交通运输、仓储和邮政业";
+                }
+            }else if("I".equals(list.get(j).getInducode())){
+                listI.add(list.get(j).getIdri().doubleValue());
+                if(""==i){
+                    i="信息传输、软件和信息技术服务业";
+                }
+            }else if("K".equals(list.get(j).getInducode())){
+                listK.add(list.get(j).getIdri().doubleValue());
+                if(""==k){
+                    k="房地产业";
+                }
+            }
         }
-
         String[] rowKeys = {b,c,d,e,f,g,i,k};
         String[] columnKeys= new String[listAll.size()];
         for(int a=0;a<listAll.size();a++){
             columnKeys[a] = listAll.get(a).getIndexdate().toString();
         }
-
-        double[] bbb=new double[listB.size()];
-        double[] ccc=new double[listB.size()];
-        double[] ddd=new double[listB.size()];
-        double[] eee=new double[listB.size()];
-        double[] fff=new double[listB.size()];
-        double[] ggg=new double[listB.size()];
-        double[] iii=new double[listB.size()];
-        double[] kkk=new double[listB.size()];
+        double[] IdriForB=new double[listB.size()];
+        double[] IdriForC=new double[listB.size()];
+        double[] IdriForD=new double[listB.size()];
+        double[] IdriForE=new double[listB.size()];
+        double[] IdriForF=new double[listB.size()];
+        double[] IdriForG=new double[listB.size()];
+        double[] IdriForI=new double[listB.size()];
+        double[] IdriForK=new double[listB.size()];
         for(int bb=0;bb<listB.size();bb++){
-            bbb[bb]=listB.get(bb);
+            IdriForB[bb]=listB.get(bb);
         } for(int cc=0;cc<listC.size();cc++){
-            ccc[cc]=listC.get(cc);
+            IdriForC[cc]=listC.get(cc);
         } for(int dd=0;dd<listD.size();dd++){
-            ddd[dd]=listD.get(dd);
+            IdriForD[dd]=listD.get(dd);
         } for(int ee=0;ee<listE.size();ee++){
-            eee[ee]=listE.get(ee);
+            IdriForE[ee]=listE.get(ee);
         } for(int ff=0;ff<listF.size();ff++){
-            fff[ff]=listF.get(ff);
+            IdriForF[ff]=listF.get(ff);
         } for(int gg=0;gg<listG.size();gg++){
-            ggg[gg]=listG.get(gg);
+            IdriForG[gg]=listG.get(gg);
         } for(int ii=0;ii<listI.size();ii++){
-            iii[ii]=listI.get(ii);
+            IdriForI[ii]=listI.get(ii);
         } for(int kk=0;kk<listK.size();kk++){
-            kkk[kk]=listK.get(kk);
+            IdriForK[kk]=listK.get(kk);
         }
         /*封装折线参数*/
-        double[][] data = new double[][]{bbb,ccc,ddd,eee,fff,ggg,iii,kkk};
+        double[][] data = new double[][]{IdriForB,IdriForC,IdriForD,IdriForE,IdriForF,IdriForG,IdriForI,IdriForK};
         CategoryDataset dataset = getBarData(data, rowKeys, columnKeys);
-        String title="行业信贷风险指数等权-等权";
-        String name="lineAndShap.jpg";
-        String weight="02";
-        String change="01";
-        createTimeXYChar(title, "", "", dataset, name, weight,change);
-        return list;
+        String title="";
+        // 加权类型（01：等权；02：债券加权）
+        if("01".equals(weightType)){
+            /*白色背景*/
+            createTimeXYChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShap.jpg", weightType,"01");
+           /*暗色背景*/
+            createTimeXYChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShapBlack.jpg", weightType,"02");
+        }else{
+             /*白色背景*/
+            createTimeXYChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeighting.jpg", weightType,"01");
+            /*暗色背景*/
+            createTimeXYChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeightBlack.jpg", weightType,"02");
+        }
+        return "生成图片成功";
     }
+   /* public void generateLineChart(Date startTime,Date endTime,String weightType,String change ){
+
+    }*/
     // 柱状图,折线图 数据集
     public CategoryDataset getBarData(double[][] data, String[] rowKeys,
                                       String[] columnKeys) {
@@ -193,7 +210,7 @@ public class Query {
      */
     public String createTimeXYChar(String chartTitle, String x, String y, CategoryDataset xyDataset, String charName,
                                    String weightType,String change) {
-
+        /*chartTitle图标题，x y，文字介绍，xyDataset 折线参数，*/
         JFreeChart chart = ChartFactory.createLineChart(chartTitle, x, y, xyDataset, PlotOrientation.VERTICAL, true,
                 true, false);
         chart.setTextAntiAlias(false);
@@ -212,6 +229,7 @@ public class Query {
         CategoryPlot p = chart.getCategoryPlot();
         // 设置标签字体
         TextTitle title = new TextTitle(chartTitle);
+
         CategoryPlot categoryplot = (CategoryPlot) chart.getPlot();
         // 设置线条加粗
         LineAndShapeRenderer lasp = (LineAndShapeRenderer) p.getRenderer();
@@ -228,6 +246,7 @@ public class Query {
         chart.setTitle(title);
         chart.getLegend().setItemFont(kfont);
         chart.getTitle().setFont(titleFont);
+
 
         p.setBackgroundAlpha(0.1f);
         // 将网格线改为实线
@@ -274,50 +293,102 @@ public class Query {
         // Lable
         // 45度倾斜
         // 设置距离图片左端距离
-        domainAxis.setLowerMargin(0.0);
+        domainAxis.setLowerMargin(0.001);
         // 设置距离图片右端距离
-        domainAxis.setUpperMargin(0.0);
+        domainAxis.setUpperMargin(0.001);
+        domainAxis.setMaximumCategoryLabelLines(100);
 
         NumberAxis numberaxis = (NumberAxis) categoryplot.getRangeAxis();
         numberaxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         numberaxis.setAutoRangeIncludesZero(true);
 
+        TickUnitSource units = NumberAxis.createIntegerTickUnits();
+        numberaxis.setStandardTickUnits(units);
         // 获得renderer 注意这里是lineandshaperenderer！！
         LineAndShapeRenderer lineandshaperenderer = (LineAndShapeRenderer) categoryplot.getRenderer();
 
         lineandshaperenderer.setBaseShapesVisible(false); // series 点（即数据点）可见
 
         lineandshaperenderer.setBaseLinesVisible(true); // series 点（即数据点）间有连线可见
+
         // 显示折点数据
-        // lineandshaperenderer.setBaseItemLabelGenerator(new
-        // StandardCategoryItemLabelGenerator());
-        // lineandshaperenderer.setBaseItemLabelsVisible(true);
-
+        /*lineandshaperenderer.setBaseItemLabelGenerator(new
+        StandardCategoryItemLabelGenerator());
+         lineandshaperenderer.setBaseItemLabelsVisible(true);*/
+        /*文件所在位置及文件名称*/
         FileOutputStream fos_jpg = null;
-        try {
-            File directory = new File("");// 参数为空
-            String courseFile = directory.getCanonicalPath();
-
-            String pash = courseFile + CHART_PATH;
-            System.out.println(pash);
-            isChartPathExist(pash);
-            String chartName = pash + charName;
-            fos_jpg = new FileOutputStream(chartName);
-
-            // 将报表保存为png文件
-            // ChartUtilities.writeChartAsPNG(fos_jpg, chart, 500, 510);
-            // 保存为JPEG文件
-            ChartUtilities.writeChartAsJPEG(fos_jpg, chart, 700, 500);
-            return chartName;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        } finally {
+        if ("01".equals(change)) {
+            // 设置图的背景颜色
+            // p.setBackgroundPaint(ChartColor.WHITE);
+            // 设置表格线颜色
+            p.setRangeGridlinePaint(ChartColor.GRAY);
+            // 设置表格线颜色
+            p.setDomainGridlinePaint(ChartColor.BLACK);
+            // 设置外边框颜色
+            chart.setBackgroundPaint(Color.WHITE);
             try {
-                fos_jpg.close();
-                System.out.println("create time-createTimeXYChar.");
+                File directory = new File("");// 参数为空
+                String courseFile = directory.getCanonicalPath();
+
+                String pash = courseFile + CHART_PATH;
+                System.out.println(pash);
+                isChartPathExist(pash);
+                String chartName = pash + charName;
+                fos_jpg = new FileOutputStream(chartName);
+                // 将报表保存为png文件
+                // ChartUtilities.writeChartAsPNG(fos_jpg, chart, 500, 510);
+                // 保存为JPEG文件
+                ChartUtilities.writeChartAsJPEG(fos_jpg, chart, 700, 550);
+                return chartName;
             } catch (Exception e) {
                 e.printStackTrace();
+                return null;
+            } finally {
+                try {
+                    fos_jpg.close();
+                    System.out.println("create time-createTimeXYChar.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            // 设置底部图标外围颜色
+            chart.getTitle().setBackgroundPaint(new Color(30, 33, 49));
+
+            chart.getLegend().setBackgroundPaint(new Color(30, 33, 49));
+
+            title.setPaint(ChartColor.white);
+            // 设置图的背景颜色
+            p.setBackgroundPaint(new Color(30, 33, 49));
+            p.setBackgroundAlpha(0.1f);
+            // 设置表格线颜色
+            p.setRangeGridlinePaint(new Color(52, 57, 74));
+            // 设置表格线颜色
+            p.setDomainGridlinePaint(new Color(52, 57, 74));
+            // 设置外边框颜色
+            chart.setBackgroundPaint(new Color(30, 33, 49));
+            try {
+                File directory = new File("");// 参数为空
+                String courseFile = directory.getCanonicalPath();
+
+                String pash = courseFile + CHART_PATH;
+                System.out.println(pash);
+                isChartPathExist(pash);
+                String chartName = pash + charName;
+                fos_jpg = new FileOutputStream(chartName);
+                // 保存为JPEG文件
+                ChartUtilities.writeChartAsJPEG(fos_jpg, chart, 700, 550);
+                return chartName;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            } finally {
+                try {
+                    fos_jpg.close();
+                    System.out.println("create time-createTimeXYChar.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
