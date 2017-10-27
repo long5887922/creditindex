@@ -55,6 +55,16 @@ public class IdriService {
      * @return
      */
     public List<IdriBean> findIdriByTimesTotto( Date starttime, Date endtime){
-        return idriRepostory.findByTimesTotto(starttime,endtime);
+        return idriRepostory.findByTimesTotto(starttime, endtime);
+    }
+    /**
+     * 行业代码和加权等权计算日期联合查询
+     * @param startTime
+     * @param endTime
+     * @param weightType
+     * @return
+     */
+    public List<IdriBean> queryIdriByCondition(Date startTime,Date endTime,String weightType ){
+        return idriRepostory.queryIdriByCondition(startTime, endTime, weightType);
     }
 }

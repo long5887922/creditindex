@@ -69,7 +69,6 @@ public class CreateJFreeChartLine {
         int x = BigData.length;
         int y = 0;
         for (int i = BigData.length - 1; i < BigData.length; i++) {
-
             for (int j = BigData[i].length - 1; j < BigData[i].length; j++) {
                 y = BigData[i].length;
             }
@@ -93,7 +92,7 @@ public class CreateJFreeChartLine {
         }
         else {
             title="行业信贷风险指数等权-加权";
-            if("02".equals(change)) {
+            if("01".equals(change)) {
                 name="lineAndShapWeighting.jpg";
             }else {
                 name="lineAndShapWeightBlack.jpg";
