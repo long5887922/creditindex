@@ -1,5 +1,6 @@
 package com.zy.creditindex.controller;
 
+import com.google.common.collect.Maps;
 import com.zy.creditindex.entity.JsonEntry;
 import com.zy.creditindex.entity.JsonEntryLine;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 /**
  * 查询管理员权限类
  * @author huaqin
@@ -43,6 +46,10 @@ public class TableController {
 			jsonEntry.setQuke("0");
 			jsonEntry.setUsername("刘晓");
 			list.add(jsonEntry);
+		}
+		List<Object> l = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			l.add("测试"+i);
 		}
 		return list;
 	}
