@@ -1,10 +1,10 @@
 package com.zy.creditindex.controller.indexandidri;
 
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
-import com.zy.creditindex.chartLine.CreateJFreeChartLine;
+
 import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.service.IndexService.IdriService;
+
+import com.zy.creditindex.util.DateTimeUtil;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.jfree.chart.ChartColor;
@@ -14,7 +14,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
@@ -23,22 +22,12 @@ import org.jfree.ui.RectangleInsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.awt.*;
-import java.awt.geom.Arc2D;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * Created by huaqin on 2017/10/26.
@@ -66,49 +55,57 @@ public class Query {
 	}
 
 	@RequestMapping("/creatJFreeChart")
-	public String creatJFreeChart(Date startTime, Date endTime, String weightType) {
-		List<IdriBean>  list = idriService.queryIdriByCondition(startTime, endTime, weightType);
-		if (CollectionUtils.isEmpty(list)) {
-			return "查询数据为空";
-		}
-		Map<String, String> map = IdriBean.getMap();
-		//title
-		List<String> columns = new ArrayList<String>(map.size());
-		List<String> columnList = new ArrayList<String>();
-		List<List<Double>> dataList = new ArrayList<List<Double>>();
-		for (String key : map.keySet()) {
-			List<Double> d = new ArrayList<Double>();
-			for (IdriBean idr : list) {
-				if(idr.getInducode().equals(key)) {
-					columnList.add(idr.getIndexdate().toString());
-					d.add(idr.getIdri().doubleValue());
-				}
+	public String creatJFreeChart( String weightType)  {
+		Date startTime = null;//开始时间
+		try {
+			startTime = DateTimeUtil.startTime();
+			Date endTime = DateTimeUtil.endTime();
+			//结束时间
+			List<IdriBean>  list = idriService.queryIdriByCondition(startTime, endTime, weightType);
+			if (CollectionUtils.isEmpty(list)) {
+				return "查询数据为空";
 			}
-			dataList.add(d);
-			columns.add(map.get(key));
-		}
-		String[] rowKeys =  columns.toArray(new String[0]);
+			Map<String, String> map = IdriBean.getMap();
+			//title
+			List<String> columns = new ArrayList<String>(map.size());
+			List<String> columnList = new ArrayList<String>();
+			List<List<Double>> dataList = new ArrayList<List<Double>>();
+			for (String key : map.keySet()) {
+				List<Double> d = new ArrayList<Double>();
+				for (IdriBean idr : list) {
+					if(idr.getInducode().equals(key)) {
+						columnList.add(idr.getIndexdate().toString());
+						d.add(idr.getIdri().doubleValue());
+					}
+				}
+				dataList.add(d);
+				columns.add(map.get(key));
+			}
+			String[] rowKeys =  columns.toArray(new String[0]);
 		/* 封装折线参数 */
-		double[][] data = getArray(dataList);
-		columnList = columnList.subList(0, data[0].length);
-		CategoryDataset dataset = getBarData(data, rowKeys, columnList.toArray(new String[0]));
-		String title = "";
+			double[][] data = getArray(dataList);
+			columnList = columnList.subList(0, data[0].length);
+			CategoryDataset dataset = getBarData(data, rowKeys, columnList.toArray(new String[0]));
+			String title = "";
 //		 加权类型（01：等权；02：债券加权）
-		 if("01".equals(weightType)){
+			if("01".equals(weightType)){
 		 /*白色背景*/
-		 createTimeXYChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShap.jpg",
-		 weightType,"01");
+				createTimeXYChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShap.jpg",
+						weightType,"01",startTime,endTime);
 		 /*暗色背景*/
-		 createTimeXYChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShapBlack.jpg",
-		 weightType,"02");
-		 }else{
+				createTimeXYChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShapBlack.jpg",
+						weightType,"02",startTime,endTime);
+			}else{
 		 /*白色背景*/
-		 createTimeXYChar("行业信贷风险指数等权-加权", "", "", dataset,
-		 "lineAndShapWeighting.jpg", weightType,"01");
+				createTimeXYChar("行业信贷风险指数等权-加权", "", "", dataset,
+						"lineAndShapWeighting.jpg", weightType,"01",startTime,endTime);
 		 /*暗色背景*/
-		 createTimeXYChar("行业信贷风险指数等权-加权", "", "", dataset,
-		 "lineAndShapWeightBlack.jpg", weightType,"02");
-		 }
+				createTimeXYChar("行业信贷风险指数等权-加权", "", "", dataset,
+						"lineAndShapWeightBlack.jpg", weightType,"02",startTime,endTime);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "生成图片成功";
 	}
     public static double[][] getArray(List<List<Double>> list){  
@@ -154,10 +151,8 @@ public class Query {
 			file.mkdirs();
 		}
 	}
-
 	/**
 	 * 折线图
-	 * 
 	 * @param chartTitle
 	 * @param x
 	 * @param y
@@ -166,12 +161,13 @@ public class Query {
 	 * @return
 	 */
 	public String createTimeXYChar(String chartTitle, String x, String y, CategoryDataset xyDataset, String charName,
-			String weightType, String change) {
+			String weightType, String change,Date startTime,Date endTime) throws Exception {
 		/* chartTitle图标题，x y，文字介绍，xyDataset 折线参数， */
 		JFreeChart chart = ChartFactory.createLineChart(chartTitle, x, y, xyDataset, PlotOrientation.VERTICAL, true,
 				true, false);
 		chart.setTextAntiAlias(false);
 		chart.setBackgroundPaint(Color.WHITE);
+
 		// 设置图标题的字体重新设置title
 		Font font = new Font("微软雅黑", Font.BOLD, 11);
 		// Y轴
@@ -188,6 +184,7 @@ public class Query {
 		TextTitle title = new TextTitle(chartTitle);
 
 		CategoryPlot categoryplot = (CategoryPlot) chart.getPlot();
+
 		// 设置线条加粗
 		LineAndShapeRenderer lasp = (LineAndShapeRenderer) p.getRenderer();
 		for (int i = 0; i < xyDataset.getRowKeys().size(); i++) {
@@ -236,13 +233,18 @@ public class Query {
 			// 设置外边框颜色
 			chart.setBackgroundPaint(new Color(30, 33, 49));
 		}
-
 		CategoryAxis domainAxis = categoryplot.getDomainAxis();
-
+		// 坐标轴是否可见
+		/*domainAxis.setVisible(false);*/
+		// 坐标轴线条是否可见
+		/*domainAxis.setAxisLineVisible(false);*/
+		domainAxis.setTickLabelsVisible(false);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		/*设置X轴参数区间*/
+		domainAxis.setLabel(format.format(startTime)+"                                        " +
+				"                                        "+DateTimeUtil.amongTime()+"                                                                                "+format.format(endTime));
 		domainAxis.setLabelFont(labelFont);// 轴标题
-
 		domainAxis.setTickLabelFont(labelFont);// 轴数值
-
 		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); // 横轴上的
 		// 设置两轴之间的边距
 		domainAxis.setCategoryMargin(1);
@@ -257,6 +259,8 @@ public class Query {
 		NumberAxis numberaxis = (NumberAxis) categoryplot.getRangeAxis();
 		numberaxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 		numberaxis.setAutoRangeIncludesZero(true);
+
+
 
 		TickUnitSource units = NumberAxis.createIntegerTickUnits();
 		numberaxis.setStandardTickUnits(units);
