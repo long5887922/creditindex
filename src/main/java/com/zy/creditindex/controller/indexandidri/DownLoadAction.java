@@ -59,7 +59,7 @@ public class DownLoadAction {
         } catch (DocumentException e) {
             e.printStackTrace();
         }
-        return "文件已生成:E:/指数介绍.pdf";
+        return "true";
     }
     private String getChineseFont(){  
   
