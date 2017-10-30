@@ -16,14 +16,35 @@
 	<script type="text/javascript" src="<%=basePath%>js/login.js"></script>
 	<script type="text/javascript" src="<%=basePath%>bootstrap/js/bootstrap.min.js"></script>
 	<link href="<%=basePath%>bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-
+	<script type="text/javascript">
+        $(function(){
+            $('#subBut').click(function(){//点击按钮提交
+                alert("1");
+                //要提交的表单id为form1
+                $.ajax({
+                    url:"/user/controller",
+                    data:$("#loginForm").serialize(),
+                    type:"post",
+                    success:function(result){//ajax返回的数
+                        if(result.success==true){
+//                            window.location.href='/um/frameset';
+                            location.href="/um/frameset";
+                        }else{
+                            $.message("error",result.message);
+                        }
+                    }
+                });
+//                alert("2");
+            });
+        });
+	</script>
 </head>
 
 <body>
 <br/>
 <div class="container">
 	<%-- 由于本次的编写需要基于表单，同时还需要考虑到数据验证的问题，那么就可以不写row样式 --%>
-	<form id="loginForm" action="/user/controller" method="post" class="form-horizontal"><%--/um/frameset--%>
+	<form id="loginForm" action="/um/frameset" method="post" class="form-horizontal"><%--/um/frameset--%>
 		<div class="border1" style="left: 0px; top: 0px; width: 170px; height: 95px;">
 			<img style="width: 180px;height: 120px;" src="../../img/app/xhcj.png"/>
 		</div>
