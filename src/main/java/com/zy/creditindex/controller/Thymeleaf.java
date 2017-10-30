@@ -7,6 +7,10 @@ import com.zy.creditindex.entity.Role;
 import com.zy.creditindex.entity.User;
 import com.zy.creditindex.repostory.UserRepostory;
 import com.zy.creditindex.service.AdminUserService;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +91,13 @@ public class Thymeleaf {
         return  new ModelAndView("marketView");
     }
     @RequestMapping("/line")
-    public String line(){
+    public String line(ModelMap model){
+    	
+    	List<Object> l = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			l.add("测试"+i);
+		}
+		model.addAttribute("list",l);
         return  "weightingAndIsobar";
     }
 }

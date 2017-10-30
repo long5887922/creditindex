@@ -34,6 +34,6 @@ public interface IdriRepostory extends JpaRepository<IdriBean,String> {
     @Query(value ="select i.indu_code,i.index_date,i.weight_type,i.corp_count,i.idri from idri i where  i.idri=?1 and i.index_date=?2 order by i.index_date asc",nativeQuery = true)
     public List<IdriBean> finfByIdriAndDate(BigDecimal idri,Date indexdate);
     /*根据日期和加权类型查询数据*/
-    @Query(value="select  i.indu_code, i.index_date,i.idri ,i.weight_type ,i.corp_count from idri_20171027 i where i.index_date>?1 and i.index_date<?2 and i.weight_type=?3 and i.indu_code IN('B','C','D','E','F','G','I','K')  ORDER BY i.indu_code",nativeQuery = true)
+    @Query(value="select  i.indu_code, i.index_date,i.idri ,i.weight_type ,i.corp_count from idri i where i.index_date>?1 and i.index_date<?2 and i.weight_type=?3 and i.indu_code IN('B','C','D','E','F','G','I','K')  ORDER BY i.indu_code",nativeQuery = true)
     public List<IdriBean> queryIdriByCondition(Date startTime,Date endTime,String weightType );
 }
