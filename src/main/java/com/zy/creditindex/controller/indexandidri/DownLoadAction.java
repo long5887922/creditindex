@@ -1,17 +1,21 @@
 package com.zy.creditindex.controller.indexandidri;
 
 
+
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.ByteArrayOutputStream;
+
+
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
-import java.io.IOException;
+
 
 /**
  * 下载pdf
@@ -47,9 +51,9 @@ public class DownLoadAction {
             Paragraph paragraph1 = new Paragraph();
 
             String font_cn = getChineseFont();  
-            BaseFont   bf = BaseFont.createFont(font_cn+",1", //注意这里有一个,1  
+            BaseFont bf = BaseFont.createFont(font_cn+",1", //注意这里有一个,1
                      BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);  
-            Font  font = new Font(bf,12);  
+            Font font = new Font(bf,12);
             paragraph1.setSpacingBefore(50);
             paragraph1.add(anchorTarget);
             document.add(paragraph1);
