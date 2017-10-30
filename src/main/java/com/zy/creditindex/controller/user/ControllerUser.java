@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.http.HttpSession;
@@ -84,9 +85,9 @@ public class ControllerUser {
     }
 
     @PostMapping("/controller")
-    public Map<String,Object> loginController(@RequestParam("usernumber")String usernumber,
-                                  @RequestParam("password")String password,
-                                    HttpSession session){
+    public String loginController(@RequestParam("usernumber")String usernumber,
+                                        @RequestParam("password")String password,
+                                        HttpSession session){
         logger.info("--------------------------登录请求-----------------------------");
         logger.info(usernumber);
         logger.info(password);
@@ -95,10 +96,9 @@ public class ControllerUser {
             Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(usernumber,password);
             subject.login(usernamePasswordToken);
-            User user = (User) subject.getPrincipal();
             System.out.println(subject.isAuthenticated());
-            session.setAttribute("user",user);
             map.put("success", true);
+            return "/frame";
         } catch (UnknownAccountException e) {
             e.printStackTrace();
             map.put("success", false);
@@ -110,7 +110,7 @@ public class ControllerUser {
             map.put("success", false);
             map.put("message", e.getMessage());
         }
-        return map;
+        return "/403";
     }
 
     @PostMapping("/logout")

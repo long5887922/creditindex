@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.Date;
 import java.util.List;
 
@@ -56,6 +55,7 @@ public class LineChartAction {
         parameter.setBorderColor("rgba(151,187,205,1)");
         parameter.setBackgroundColor("rgba(151,187,205,1)");
         parameter.setLabel("建筑");
+
         XParameter parameter2 = new XParameter();
         List<BigDecimal> xlist2 = new ArrayList<>();
         BigDecimal loanAmount5 = new BigDecimal("61.22");
@@ -67,6 +67,7 @@ public class LineChartAction {
         xlist2.add(loanAmount7);
         xlist2.add(loanAmount8);
         parameter2.setData(xlist2);
+
         parameter2.setLabel("房地产");
         parameter2.setBorderColor("rgba(131,137,205,1)");
         parameter2.setBackgroundColor("rgba(131,137,205,1)");

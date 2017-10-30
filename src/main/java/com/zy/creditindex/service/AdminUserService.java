@@ -41,7 +41,7 @@ public class AdminUserService {
         String salt = RandomSaltUtil.getRandomSalt(4);
         //给密码加MD5和散列
         System.out.println(salt+"qwwww=====================");
-        Md5Hash md5Hash = new Md5Hash(user.getPassword(), salt, 20);
+        Md5Hash md5Hash = new Md5Hash(user.getPassword(), salt, 20);//hashiterations散列次数
         //处理后密码设置
         System.out.println(md5Hash+"===============================");
         user.setPassword(md5Hash.toString());
