@@ -92,25 +92,20 @@ public class ControllerUser {
         logger.info(usernumber);
         logger.info(password);
         Map<String, Object> map = new HashMap<String, Object>();//传递异常信息
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(usernumber,password);
         try {
-            Subject subject = SecurityUtils.getSubject();
-            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(usernumber,password);
-            subject.login(usernamePasswordToken);
-            System.out.println(subject.isAuthenticated());
-            map.put("success", true);
-            return "/frame";
-        } catch (UnknownAccountException e) {
-            e.printStackTrace();
-            map.put("success", false);
-            map.put("message", "用户名不存在···");
-        }catch (IncorrectCredentialsException e) {
-            map.put("success", false);
-            map.put("message", "密码错误···");
-        }catch (RuntimeException e) {
-            map.put("success", false);
-            map.put("message", e.getMessage());
+            subject.login(usernamePasswordToken);   //完成登录
+            subject.checkRole("admin");//角色
+            subject.isPermitted("/menu/abc");//权限
+            subject.checkPermission("add");
+//            User user=(User) subject.getPrincipal();
+//            session.setAttribute("user", user);
+            return "index";
+        } catch(Exception e) {
+            return "/um/tologin";//返回登录页面
         }
-        return "/403";
+
     }
 
     @PostMapping("/logout")
