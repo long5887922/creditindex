@@ -6,8 +6,6 @@
 <head>
     <meta charset="utf-8">
     <title>风险指数排序</title>
-    <!-- 引入 echarts.js -->
-    <script src="E:\GONGJU_RUANJIAN\Echarts\echarts.min.js"></script>
 </head>
 <body>
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
