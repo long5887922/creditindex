@@ -56,9 +56,9 @@ public class Query {
 
 	@RequestMapping("/creatJFreeChart")
 	public String creatJFreeChart( String weightType)  {
-		Date startTime = null;//开始时间
+
 		try {
-			startTime = DateTimeUtil.startTime();
+			Date startTime = DateTimeUtil.startTime();
 			Date endTime = DateTimeUtil.endTime();
 			//结束时间
 			List<IdriBean>  list = idriService.queryIdriByCondition(startTime, endTime, weightType);

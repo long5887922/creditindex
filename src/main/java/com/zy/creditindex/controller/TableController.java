@@ -6,13 +6,12 @@ import com.zy.creditindex.entity.JsonEntryLine;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 /**
  * 查询管理员权限类
  * @author huaqin
@@ -71,5 +70,16 @@ public class TableController {
 			list.add(jsonEntry);
 		}
 		return list;
+	}
+	@RequestMapping("/priceTable")
+	public String line(ModelMap model){
+		/*当前日期*/
+		Date endTime;
+		List<Object> l = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			l.add("测试"+i);
+		}
+		model.addAttribute("list",l);
+		return  "priceTable";
 	}
 }

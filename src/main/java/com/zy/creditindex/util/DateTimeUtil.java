@@ -44,6 +44,7 @@ public class DateTimeUtil {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new Date());//设置当前日期
+        calendar.add(Calendar.DATE, -1);//日期减一
         /*获取当前节假日*/
         initHolidayList(format.format(calendar.getTime()));
         return   format.parse(format.format(time(calendar).getTime()));
