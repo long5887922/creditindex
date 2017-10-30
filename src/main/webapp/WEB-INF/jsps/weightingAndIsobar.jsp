@@ -64,7 +64,7 @@
 					<span style="font-size: 22px; font-family: Arial, Helvetica">指数介绍</span>
 				</div>
 				<textarea id="TextArea1" cols="50" rows="10" name="creditRisk"
-					style="color: #9e9e9e">
+					style="color: #9e9e9e"  readonly="readonly">
         行业信贷风险指数(Industry Credit Risk Index)衡量并描述了国内10个大类行业的综合债务违约风险的一套信用风险指数体系。
         指数以全体A股上市企业为样本，依据证监会行业分类标准，基于算数平均法、债务加权法等2种方法
             </textarea>
@@ -204,10 +204,7 @@
 				dataType : 'json',
 				success : function(data) {
 					console.log(data);
-					alert(data);
-				},error:function(data){
-					console.log(data);
-					alert("文件导出失败");
+					alert("文件已生成:E:/指数介绍.pdf");
 				}
 			});
 		}
