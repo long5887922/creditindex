@@ -65,7 +65,6 @@ public class IdriContorller {
      */
     @PostMapping("idritimetoto")
     public List<IdriBean> queryByTimesTotto(Date starttime, Date endtime){
-
         return idriService.findIdriByTimesTotto(starttime,endtime);
     }
 
