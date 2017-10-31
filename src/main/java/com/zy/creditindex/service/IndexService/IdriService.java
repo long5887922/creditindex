@@ -3,6 +3,7 @@ package com.zy.creditindex.service.IndexService;
 
 import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.repostory.indexJpa.IdriRepostory;
+import com.zy.creditindex.util.SortTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,5 +67,35 @@ public class IdriService {
      */
     public List<IdriBean> queryIdriByCondition(Date startTime,Date endTime,String weightType ){
         return idriRepostory.queryIdriByCondition(startTime, endTime, weightType);
+    }
+
+    /**
+     *当前时间的违约指数
+     * @param indexdate
+     * @return
+     */
+    public List<IdriBean> findIndexdateNew(Date indexdate){
+//        return idriRepostory.findByIndexdate(indexdate);
+        List<IdriBean> byIndexdate = idriRepostory.findByIndexdate(indexdate);
+        for (IdriBean date:byIndexdate) {
+           if (date.getInducode().equals("I")){
+               date.setInducode("信息");
+           }else if (date.getInducode().equals("B")){
+               date.setInducode("采矿业");
+           }else if(date.getInducode().equals("C")){
+               date.setInducode("制造业");
+           }else if(date.getInducode().equals("D")){
+               date.setInducode("电热气");
+           }else if(date.getInducode().equals("E")){
+               date.setInducode("建筑业");
+           }else if(date.getInducode().equals("F")){
+               date.setInducode("批发");
+           }else if(date.getInducode().equals("G")){
+               date.setInducode("交通业");
+           }else if(date.getInducode().equals("K")){
+               date.setInducode("房地产");
+           }
+        }
+        return byIndexdate;
     }
 }
