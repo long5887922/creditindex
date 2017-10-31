@@ -69,7 +69,7 @@ public class IdriContorller {
     }
 
     /**
-     *根据当前时间自动查询
+     *根据当前时间自动查询(一个月内的数据)
      * @return
      */
     @GetMapping("/queryTimeTotto")
@@ -79,6 +79,28 @@ public class IdriContorller {
         return idriService.findIdriByTimesTotto(starttime,endtime);
     }
 
+    /**
+     * 风险指数同比
+     * @return
+     */
+    @GetMapping("/queryOneYerTotto")
+    public List<IdriBean> queryOneYerTotto(){
+        Date starttime = DateUtil.oneYer();//一年前的数据
+        Date endtime = DateUtil.endtime();
+        return idriService.findIdriByTimesTotto(starttime,endtime);
+    }
 
-
+    /**
+     * 当前时间的违约指数
+     * @return
+     */
+    @PostMapping("/queryIndexdateNew")
+    public List<IdriBean> queryIndexdateNew(){
+        Date endtime = DateUtil.endtime();
+        List<IdriBean> aNew = idriService.findIndexdateNew(endtime);
+        for (IdriBean i:aNew) {
+          System.out.println( i.getInducode()+":"+i.getIdri());
+        }
+        return aNew;
+    }
 }
