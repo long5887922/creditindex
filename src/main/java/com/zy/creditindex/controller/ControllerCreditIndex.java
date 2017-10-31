@@ -59,12 +59,12 @@ public class ControllerCreditIndex {
 
     /**trd_code查询
      * 根据
-     * @param trd_code
+     * @param code
      * @return
      */
-    @GetMapping(value = "/trd_code/{id}")
-    public CreditIndex CreditOne(@PathVariable("id") String trd_code){
-        return creditIndexService.queryOne(trd_code);
+    @GetMapping(value = "/trdcode")
+    public CreditIndex CreditOne(@RequestParam(value = "code",required = false,defaultValue = "001")String  code){
+        return creditIndexService.queryOne(code);
     }
 
     /**
