@@ -48,12 +48,12 @@ public class IdriContorller {
     }
 
     /**
-     * id查询
+     * id查询 问号传参
      * @param inducode
      * @return
      */
     @GetMapping("/idribyid")
-    public List<IdriBean> querIdriById(@RequestParam(value = "id")String inducode){
+    public List<IdriBean> querIdriById(@RequestParam(value = "inducode")String inducode){//@RequestParam(value = "id")
         return idriService.findIdriId(inducode);
     }
 
@@ -80,7 +80,7 @@ public class IdriContorller {
     }
 
     /**
-     * 风险指数同比
+     * 风险指数同比时间段
      * @return
      */
     @GetMapping("/queryOneYerTotto")
@@ -91,16 +91,27 @@ public class IdriContorller {
     }
 
     /**
+     * 同比
+     * @return
+     */
+    @GetMapping("/queryYoyg")
+    public List<IdriBean> queryYoyg(){
+        Date starttime = DateUtil.oneYer();//一年前的数据
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(format.format("一年前的年月日："+starttime));
+        return idriService.findIndexdateNew(starttime);
+    }
+    /**
      * 当前时间的违约指数
      * @return
      */
     @PostMapping("/queryIndexdateNew")
-    public List<IdriBean> queryIndexdateNew(){
-        Date endtime = DateUtil.endtime();
-        List<IdriBean> aNew = idriService.findIndexdateNew(endtime);
-        for (IdriBean i:aNew) {
-          System.out.println( i.getInducode()+":"+i.getIdri());
-        }
-        return aNew;
+    public List<IdriBean> queryIndexdateNew(){//Yoyg
+            Date endtime = DateUtil.endtime();
+            List<IdriBean> aNew = idriService.findIndexdateNew(endtime);
+            for (IdriBean i:aNew) {
+                System.out.println( i.getInducode()+":"+i.getIdri());
+            }
+            return aNew;
     }
 }
