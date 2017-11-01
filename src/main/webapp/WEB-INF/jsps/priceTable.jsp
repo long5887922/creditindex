@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+         pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="cxt" value="${pageContent.request.contentPath}"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta
             content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-            name='viewport' />
-    <meta name="description" content="Developed By M Abdur Rokib Promy" />
+            name='viewport'/>
+    <meta name="description" content="Developed By M Abdur Rokib Promy"/>
     <meta name="keywords"
-          content="Admin, Bootstrap 3, Template, Theme, Responsive" />
+          content="Admin, Bootstrap 3, Template, Theme, Responsive"/>
     <link href="${ctx}/bootstrap/css/bootstrap.css" type="text/css"
           rel="stylesheet">
     <link
@@ -34,40 +34,55 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    <style>
+        .table th, .table td {
+            text-align: center;
+            height:38px;
+        }
+    </style>
 </head>
 <body>
-<table id="table">
-    <thead>
-    <tr>
-        <th>操作 </th>
-        <th>空白 </th>
-        <c:forEach items="${list}" var="t">
-            <th>${t}</th>
-        </c:forEach>
-    </tr>
-    </thead>
-</table>
+<div>
+    <table id="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <c:forEach items="${list}" var="t">
+                <th>${t}</th>
+            </c:forEach>
 
+        </tr>
+        </thead>
+    </table>
+</div>
 <script>
     $('#table')
             .bootstrapTable(
             {
-                url : "${ctx}/json/table/list.json",
-                method : 'get',
-                dataType : 'json',
+                url: "${ctx}/um/list9.json",
+                method: 'get',
+                dataType: 'json',
                 /* showHeader:false,*/
-                striped : true,
-                pageNumber : 1, //初始化加载第一页，默认第一页
-                pageSize : 5,
-                pageList : [ 5 ],
-                pagination : true,
-                columns : [
+                striped: true,
+                pageNumber: 1, //初始化加载第一页，默认第一页
+                pageSize: 5,
+                pageList: [5],
+                pagination: true,
+                columns: [
                     {
-                        field : 'username'
+                        field: 'username'
                     },
                     {
-                        field : 'garch',
-                        formatter : function(value, row, index) {
+                        formatter: function (value, row, index) {
+
+                            var ul="<a href='#'onclick='toUpdateManager("+row.username+")'><span class='glyphicon glyphicon-signal'></span></a>"
+                            return ul;
+                        }
+                    },
+                    {
+                        field: 'garch',
+                        formatter: function (value, row, index) {
                             if ('1' == row.garch) {
                                 return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                             } else {
@@ -76,8 +91,8 @@
                         }
                     },
                     {
-                        field : 'merton',
-                        formatter : function(value, row, index) {
+                        field: 'merton',
+                        formatter: function (value, row, index) {
                             if ('1' == row.merton) {
                                 return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                             } else {
@@ -86,8 +101,8 @@
                         }
                     },
                     {
-                        field : 'quke',
-                        formatter : function(value, row, index) {
+                        field: 'quke',
+                        formatter: function (value, row, index) {
                             if ('1' == row.quke) {
                                 return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                             } else {
@@ -96,8 +111,8 @@
                         }
                     },
                     {
-                        field : 'cf',
-                        formatter : function(value, row, index) {
+                        field: 'cf',
+                        formatter: function (value, row, index) {
                             if ('1' == row.cf) {
                                 return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                             } else {
@@ -106,8 +121,8 @@
                         }
                     },
                     {
-                        field : 'liudong',
-                        formatter : function(value, row, index) {
+                        field: 'liudong',
+                        formatter: function (value, row, index) {
                             if ('1' == row.liudong) {
                                 return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                             } else {
@@ -115,22 +130,17 @@
                                 return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
                             }
                         }
-                    },
-                    {
-                        field : 'caozup',
-                        formatter : function(value, row, index) {
-                            return "<a href='#'onclick='toUpdateManager("
-                                    + row.id
-                                    + ")'>修改</a>|<a href='#'onclick='del("
-                                    + row.id + ")'>删除</a>"
-                        }
-                    } ],
-                responseHandler : function(res) {
+                    }
+                    ],
+              /*  responseHandler: function (res) {
 
                     return res;
-                }
+                }*/
             });
+    function toUpdateManager(name){
 
+        alert(name);
+    }
 </script>
 </body>
 </html>

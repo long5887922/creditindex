@@ -1,7 +1,9 @@
 package com.zy.creditindex.controller.indexandidri;
 
 
+import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
+import com.zy.creditindex.service.IndexService.BastrdtInfoService;
 import com.zy.creditindex.service.IndexService.IdriService;
 
 import com.zy.creditindex.util.DateTimeUtil;
@@ -37,6 +39,10 @@ import java.util.List;
 public class Query {
 	@Autowired
 	private IdriService idriService;
+	@Autowired
+	private BastrdtInfoService bastrdtInfoService;
+
+	DateTimeUtil dataTimeUtil = new  DateTimeUtil();
 	// 设置文件下载路径
 	private static final String CHART_PATH = "\\src\\main\\webapp\\img\\";
 
@@ -58,8 +64,13 @@ public class Query {
 	public String creatJFreeChart( String weightType)  {
 
 		try {
-			Date startTime = DateTimeUtil.startTime();
-			Date endTime = DateTimeUtil.endTime();
+
+			BastrdtINFOBean bean = bastrdtInfoService.queryStartTime(dataTimeUtil.startTime());
+			Date startTime =bean.getTrd_day();
+			bean=bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
+			Date endTime = bean.getTrd_day();
+			bean=bastrdtInfoService.queryStartTime(dataTimeUtil.amongTime());
+			Date amongTime = bean.getTrd_day();
 			//结束时间
 			List<IdriBean>  list = idriService.queryIdriByCondition(startTime, endTime, weightType);
 			if (CollectionUtils.isEmpty(list)) {
@@ -91,17 +102,17 @@ public class Query {
 			if("01".equals(weightType)){
 		 /*白色背景*/
 				createTimeXYChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShap.jpg",
-						weightType,"01",startTime,endTime);
+						weightType,"01",startTime,endTime,amongTime);
 		 /*暗色背景*/
 				createTimeXYChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShapBlack.jpg",
-						weightType,"02",startTime,endTime);
+						weightType,"02",startTime,endTime,amongTime);
 			}else{
 		 /*白色背景*/
 				createTimeXYChar("行业信贷风险指数等权-加权", "", "", dataset,
-						"lineAndShapWeighting.jpg", weightType,"01",startTime,endTime);
+						"lineAndShapWeighting.jpg", weightType,"01",startTime,endTime,amongTime);
 		 /*暗色背景*/
 				createTimeXYChar("行业信贷风险指数等权-加权", "", "", dataset,
-						"lineAndShapWeightBlack.jpg", weightType,"02",startTime,endTime);
+						"lineAndShapWeightBlack.jpg", weightType,"02",startTime,endTime,amongTime);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -161,7 +172,7 @@ public class Query {
 	 * @return
 	 */
 	public String createTimeXYChar(String chartTitle, String x, String y, CategoryDataset xyDataset, String charName,
-			String weightType, String change,Date startTime,Date endTime) throws Exception {
+			String weightType, String change,Date startTime,Date endTime,Date amongTime) throws Exception {
 		/* chartTitle图标题，x y，文字介绍，xyDataset 折线参数， */
 		JFreeChart chart = ChartFactory.createLineChart(chartTitle, x, y, xyDataset, PlotOrientation.VERTICAL, true,
 				true, false);
@@ -242,7 +253,7 @@ public class Query {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		/*设置X轴参数区间*/
 		domainAxis.setLabel(format.format(startTime)+"                                        " +
-				"                                        "+DateTimeUtil.amongTime()+"                                                                                "+format.format(endTime));
+				"                                        "+format.format(amongTime)+"                                                                                "+format.format(endTime));
 		domainAxis.setLabelFont(labelFont);// 轴标题
 		domainAxis.setTickLabelFont(labelFont);// 轴数值
 		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); // 横轴上的
