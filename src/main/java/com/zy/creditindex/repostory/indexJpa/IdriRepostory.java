@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IdriRepostory extends JpaRepository<IdriBean,String> {
     //当天的违约指数
-    @Query(value ="select i.indu_code,i.index_date,i.weight_type,i.corp_count,i.idri from idri i where  i.index_date=?1 order by i.idri desc",nativeQuery = true)
+    @Query(value ="select i.indu_code,i.index_date,i.weight_type,i.corp_count,i.idri from idri i where  i.index_date=?1 and i.weight_type='01' and i.indu_code IN('B','C','D','E','F','G','I','K') order by i.idri desc",nativeQuery = true)
     public List<IdriBean> findByIndexdate(Date indexdate);
     //通过id查询
     @Query(value ="select i.indu_code,i.index_date,i.weight_type,i.corp_count,i.idri from idri i where i.indu_code = ?1",nativeQuery = true)
