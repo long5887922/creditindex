@@ -48,16 +48,65 @@
             data:['行业排名']
         },
         //X轴
-        xAxis: {
-            data: ["房地产业","制造业","建筑业","交通业","批发零售","电，热","采矿业","信息传输"]
-        },
+        xAxis: [
+            {
+                type: 'category',
+                data: (function(){
+                    var arr=[];
+                    $.ajax({
+                        type : "post",
+                        async : false, //同步执行
+                        url : "/idri/queryIndexdateNew",
+                        data : {},
+                        dataType : "json", //返回数据形式为json
+                        success : function(json) {
+                            if (json) {
+                                for(var i=0;i<json.length;i++){
+                                    console.log(json[i].context);
+                                    arr.push(json[i].inducode);
+                                }
+                            }
+                        },
+                        error : function(errorMsg) {
+                            alert("不好意思,图表请求数据失败啦!");
+                            myChart.hideLoading();
+                        }
+                    })
+                    return arr;
+                })()
+            }
+        ],
         //Y轴
-        yAxis: {},
+        yAxis: {
+            type: 'value'
+        },
         //具体数据
         series: [{
-            name: '行业排名',
-            type: 'line',//'bar'表示直方图
-            data: [5, 20, 36, 10, 10, 20,1,8],
+            name: '行业信贷违约指数',
+            type: 'bar',//'bar'表示直方图; line 折线图
+            data: (function(){
+                var arr=[];
+                $.ajax({
+                    type : "post",
+                    async : false, //同步执行
+                    url : "/idri/queryIndexdateNew",
+                    data : {},
+                    dataType : "json", //返回数据形式为json
+                    success : function(json) {
+                        if (json) {
+                            for(var i=0;i<json.length;i++){
+                                console.log(json[i].context);
+                                arr.push(json[i].idri);
+                            }
+                        }
+                    },
+                    error : function(errorMsg) {
+                        alert("不好意思,图表请求数据失败啦!");
+                        myChart.hideLoading();
+                    }
+                })
+                return arr;
+            })(),
             markPoint:{
                 data: [
                     {type: 'max', name: '最大值'},
