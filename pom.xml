@@ -112,6 +112,23 @@
 			<artifactId>guava</artifactId>
 			<version>16.0.1</version>
 		</dependency>
+		<!--@RequestBody来接收jason格式的参数-->
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>0.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-lgpl</artifactId>
+			<version>1.8.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-lgpl</artifactId>
+			<version>1.8.5</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
