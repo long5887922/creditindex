@@ -1,54 +1,50 @@
 package com.zy.creditindex.entity;
 
-public class JsonEntry implements java.io.Serializable {
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * 列表图左侧行业名称及编码 开始日期截止日期
+ * @author huaqin
+ * @date 2017/11/1
+ */
+public class JsonEntry implements Serializable {
+	/**/
 	private static final long serialVersionUID = 1L;
-	private Integer id;
+	private String id;
 	private String username;
-	private String garch;
-	private String merton;
-	private String quke;
-	private String cf;
-	private String liudong;
+	private String creditorType;
+	private String startTime;
+	private String endTime;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getGarch() {
-		return garch;
+
+	public String getCreditorType() {
+		return creditorType;
 	}
-	public void setGarch(String garch) {
-		this.garch = garch;
+	public void setCreditorType(String creditorType) {
+		this.creditorType = creditorType;
 	}
-	public String getMerton() {
-		return merton;
+	public String getStartTime() {
+		return startTime;
 	}
-	public void setMerton(String merton) {
-		this.merton = merton;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
 	}
-	public String getQuke() {
-		return quke;
+	public String getEndTime() {
+		return endTime;
 	}
-	public void setQuke(String quke) {
-		this.quke = quke;
-	}
-	public String getCf() {
-		return cf;
-	}
-	public void setCf(String cf) {
-		this.cf = cf;
-	}
-	public String getLiudong() {
-		return liudong;
-	}
-	public void setLiudong(String liudong) {
-		this.liudong = liudong;
-	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 }
