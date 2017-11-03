@@ -74,9 +74,9 @@ public class IdriService {
      * @param indexdate
      * @return
      */
-    public List<IdriBean> findIndexdateNew(Date indexdate){
+    public List<IdriBean> findIndexdateNew(Date indexdate,String weighttype){
 //        return idriRepostory.findByIndexdate(indexdate);
-        List<IdriBean> byIndexdate = idriRepostory.findByIndexdate(indexdate);
+        List<IdriBean> byIndexdate = idriRepostory.findByIndexdate(indexdate,weighttype);
         for (IdriBean date:byIndexdate) {
            if (date.getInducode().equals("I")){
                date.setInducode("信息");
