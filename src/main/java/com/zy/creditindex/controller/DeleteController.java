@@ -29,21 +29,5 @@ public class DeleteController {
 		return "";
 	}
 
-	/*@RequestMapping("/list.json")
-	@ResponseBody
-	public Object list() {
-		List<Object> list = new ArrayList<>();
-		for (int i = 0; i < 100; i++) {
-			JsonEntry jsonEntry = new JsonEntry();
-			jsonEntry.setCf("ssafa");
-			jsonEntry.setGarch("asd");
-			jsonEntry.setLiudong("sdddd");
-			jsonEntry.setMerton("bbbbbbbb");
-			jsonEntry.setQuke("ssssssssss");
-			jsonEntry.setUsername("adminnnnn");
-			list.add(jsonEntry);
-		}
-		return list;
-	}*/
 
 }
