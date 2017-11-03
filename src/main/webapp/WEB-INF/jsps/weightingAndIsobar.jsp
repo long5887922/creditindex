@@ -1,220 +1,236 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-		 pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+         pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="cxt" value="${pageContent.request.contentPath}"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8" />
-	<meta
-			content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-			name='viewport' />
-	<meta name="description" content="Developed By M Abdur Rokib Promy" />
-	<meta name="keywords"
-		  content="Admin, Bootstrap 3, Template, Theme, Responsive" />
-	<link href="${ctx}/bootstrap/css/bootstrap.css" type="text/css"
-		  rel="stylesheet">
-	<link
-			href="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css"
-			rel="stylesheet">
-	<script src="${cxt}/js/jquery.min.js" type="text/javascript"></script>
-	<script src="${cxt}/js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
-	<script src="${cxt}/js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="${cxt}/js/plugins/daterangepicker/daterangepicker.js"
-			type="text/javascript"></script>
-	<script
-			src="https://cdn.bootcss.com/bootstrap-table/1.8.1/bootstrap-table-all.min.js"></script>
-	<script
-			src="https://cdn.bootcss.com/bootstrap-table/1.8.1/locale/bootstrap-table-zh-CN.js"></script>
-	<script src="${cxt}/js/plugins/chart.js" type="text/javascript"></script>
-	<script src="${cxt}/js/plugins/utils.js" type="text/javascript"></script>
-	<script src="${cxt}/js/plugins/iCheck/icheck.min.js"
-			type="text/javascript"></script>
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-	<![endif]-->
+    <meta charset="UTF-8"/>
+    <meta
+            content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+            name='viewport'/>
+    <meta name="description" content="Developed By M Abdur Rokib Promy"/>
+    <meta name="keywords"
+          content="Admin, Bootstrap 3, Template, Theme, Responsive"/>
+    <link href="${ctx}/bootstrap/css/bootstrap.css" type="text/css"
+          rel="stylesheet">
+    <link
+            href="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css"
+            rel="stylesheet">
+    <script src="${cxt}/js/jquery.min.js" type="text/javascript"></script>
+    <script src="${cxt}/js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
+    <script src="${cxt}/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="${cxt}/js/plugins/daterangepicker/daterangepicker.js"
+            type="text/javascript"></script>
+    <script
+            src="https://cdn.bootcss.com/bootstrap-table/1.8.1/bootstrap-table-all.min.js"></script>
+    <script
+            src="https://cdn.bootcss.com/bootstrap-table/1.8.1/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="${cxt}/js/plugins/chart.js" type="text/javascript"></script>
+    <script src="${cxt}/js/plugins/utils.js" type="text/javascript"></script>
+    <script src="${cxt}/js/plugins/iCheck/icheck.min.js"
+            type="text/javascript"></script>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-<form id="equalWeight">
-	<div class="modal-footer">
-		<button class="btn btn-primary" Text="等权" onclick="isobar(1)" name="">等权</button>
-		<button class="btn" data-dismiss="modal" Text="债务加权"
-				onclick="weighted(2)">债务加权</button>
-	</div>
-	<div style="width: 40%;">
-		<canvas id="canvas"></canvas>
-	</div>
-</form>
-<table id="table">
-	<thead>
-	<tr>
-		<th>空白 </th>
-		<c:forEach items="${list}" var="t">
-			<th>${t}</th>
-		</c:forEach>
-		<th>操作 </th>
-	</tr>
-	</thead>
-</table>
-<div style="left: 300px;">
-	<form id="download">
-		<div style="float:left;">
-			<div>
-				<span style="font-size: 22px;margin-left:-650px; font-family: Arial, Helvetica">指数介绍</span>
-				<%--八个行业信贷风险指数排名--%>
-				<div style="width:20%;height:30px;float:left;margin-left:450px;">
-					<%@include file="IndustryRanking/IndustryRanking.jsp"%>
-				</div>
-			</div>
-			<br><br>
+<div style="width:99%;">
+    <div align="left">
+        <span>信贷指数</span>
+        <select id="selectTest" name="select">
+            <option value="01" selected>等权</option>
+            <option value="02">加权</option>
+        </select>
+    </div>
+
+    <div style="width: 45%;float:left;">
+        <img src="../../img/lineAndShap.jpg" width="560px" height="400px">
+    </div>
+    <div style="width: 52%;float:left;margin-top:10px;" align="right">
+        <div align="left"><label>指数值</label></div>
+        <table class="table" id="table">
+            <thead>
+            <tr>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th></th>
+                <c:forEach items="${list}" var="t">
+                    <th>${t}</th>
+                </c:forEach>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${list2}" var="idri" varStatus="t">
+                <tr>
+                    <td class="text-center">
+                            ${idri.username}
+                    </td>
+                    <td>
+                        <a href='#' onclick='openLineWindon("${idri.id}","${idri.startTime}","${idri.endTime}")'><span
+                                class='glyphicon glyphicon-signal'></span></a>
+                    </td>
+                    <c:forEach items="${bodyList}" var="beans">
+                        <c:if test="${beans.inducode eq idri.id}">
+                            <td>
+                                    ${beans.idri}
+                            </td>
+                        </c:if>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+        <table class="table" id="weighting" style="display:none" border="1">
+            <thead>
+            <tr>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th></th>
+                <c:forEach items="${list}" var="t">
+                    <th>${t}</th>
+                </c:forEach>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${list2}" var="idri" varStatus="t">
+                <tr>
+                    <td class="text-center">
+                            ${idri.username}
+                    </td>
+                    <td>
+                        <a href='#' onclick='openLineWindon("${idri.id}","${idri.startTime}","${idri.endTime}")'><span
+                                class='glyphicon glyphicon-signal'></span></a>
+                    </td>
+                    <c:forEach items="${weighting}" var="weight">
+                        <c:if test="${weight.inducode eq idri.id}">
+                            <td>
+                                    ${weight.idri}
+                            </td>
+                        </c:if>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+    <div style="width: 45%;">
+        <form id="download">
+            <div>
+                <%--<div>
+                    <span style="font-size: 22px;margin-left:-650px; font-family: Arial, Helvetica">指数介绍</span>
+                    &lt;%&ndash;八个行业信贷风险指数排名&ndash;%&gt;
+                    <div style="width:20%;height:30px;float:left;margin-left:450px;">
+                        <%@include file="IndustryRanking/IndustryRanking.jsp"%>
+                    </div>
+                </div>--%>
+                <span>指数介绍</span>
+            </div>
+            <div>
 			<textarea id="TextArea1" cols="50" rows="10" name="creditRisk"
-					  style="color: #9e9e9e">
+                      style="color: #9e9e9e;width: 560px;height: 180px;">
         行业信贷风险指数(Industry Credit Risk Index)衡量并描述了国内10个大类行业的综合债务违约风险的一套信用风险指数体系。
         指数以全体A股上市企业为样本，依据证监会行业分类标准，基于算数平均法、债务加权法等2种方法
             </textarea>
-			<div>
-				<br><br><br>
-				<span>下载:</span> <a href="#" onclick="addPDF()">编制方法.pdf</a>
-			</div>
-		</div>
 
-	</form>
+                <div>
+                    <span>下载:</span> <a href="#" onclick="addPDF()">编制方法.pdf</a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div id="showLine" data-backdrop="static" class="modal col-md-6 col-md-offset-3"
+         style="height: 354px;background: #fff; margin-top: 70px; margin-bottom: 50px;" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header" style="padding: 0px;">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group" id="lineChartParent">
+                <canvas id="canvas" height="98px"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
-
-<br>
-<br>
 <script>
-    $('#table')
-        .bootstrapTable(
-            {
-                url : "${ctx}/json/table/list.json",
-                method : 'get',
-                dataType : 'json',
-                /* showHeader:false,*/
-                striped : true,
-                pageNumber : 1, //初始化加载第一页，默认第一页
-                pageSize : 5,
-                pageList : [ 5 ],
-                pagination : true,
-                columns : [
-                    {
-                        field : 'username'
-                    },
-                    {
-                        field : 'garch',
-                        formatter : function(value, row, index) {
-                            if ('1' == row.garch) {
-                                return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
-                            } else {
-                                return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
-                            }
-                        }
-                    },
-                    {
-                        field : 'merton',
-                        formatter : function(value, row, index) {
-                            if ('1' == row.merton) {
-                                return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
-                            } else {
-                                return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
-                            }
-                        }
-                    },
-                    {
-                        field : 'quke',
-                        formatter : function(value, row, index) {
-                            if ('1' == row.quke) {
-                                return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
-                            } else {
-                                return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
-                            }
-                        }
-                    },
-                    {
-                        field : 'cf',
-                        formatter : function(value, row, index) {
-                            if ('1' == row.cf) {
-                                return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
-                            } else {
-                                return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
-                            }
-                        }
-                    },
-                    {
-                        field : 'liudong',
-                        formatter : function(value, row, index) {
-                            if ('1' == row.liudong) {
-                                return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
-                            } else {
-
-                                return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
-                            }
-                        }
-                    },
-                    {
-                        field : 'caozup',
-                        formatter : function(value, row, index) {
-                            return "<a href='#'onclick='toUpdateManager("
-                                + row.id
-                                + ")'>修改</a>|<a href='#'onclick='del("
-                                + row.id + ")'>删除</a>"
-                        }
-                    } ],
-                responseHandler : function(res) {
-
-                    return res;
-                }
-            });
-    var config;
-    var colorNames;
-    var colorName;
-    var newColor;
-    var newDataset;
-    var newTest = '行业信贷风险指数';
-    $(function() {
+    $(function () {
+        $("#showLine").on("hidden.bs.modal", function () {
+            $('#canvas').remove();
+        });
+    });
+    $('#selectTest').change(function () {
+        w = $('#selectTest').val();
+        if (w == '02') {
+            $('#weighting').bootstrapTable();
+            $("#weighting").show();
+            $("#table").hide();
+        }
+        if (w == '01') {
+            $("#weighting").hide();
+            $("#table").show();
+        }
+    });
+    $('#table').bootstrapTable();
+    function openLineWindon(id, startTime, endTime) {
+        $('#lineChartParent').append('<canvas id="canvas" height="98px"></canvas>');
+        var config;
+        var newTest = '等权';
         $.ajax({
-            url : '${ctx}/mp/selectData',
-            type : 'post',
-            dataType : 'json',
-            success : function(data) {
+            url: '${ctx}/um/tradeLineChart',
+            type: 'post',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                id: id,
+                creditorType: $('#selectTest').val(),
+                startTime: startTime,
+                endTime: endTime
+            }),
+            dataType: 'json',
+            success: function (data) {
                 console.log(data);
+
                 config = {
-                    type : 'line',
-                    data : data,
-                    options : {
-                        responsive : true,
-                        title : {
-                            display : true,
-                            text : newTest
+                    type: 'line',
+                    data: data,
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: newTest
                         },
-                        tooltips : {
-                            mode : 'index',
-                            intersect : false
+                        tooltips: {
+                            mode: 'index',
+                            intersect: false
                         },
-                        hover : {
-                            mode : 'nearest',
-                            intersect : true
+                        hover: {
+                            mode: 'nearest',
+                            intersect: false
                         }
                     }
                 };
-                var ctx = document.getElementById("canvas")
-                    .getContext("2d");
+                var ctx = document.getElementById("canvas").getContext("2d");
                 window.myLine = new Chart(ctx, config);
             }
         });
-    });
+        $('#showLine').modal('show');
+    }
     function addPDF() {
         $.ajax({
-            url : '${ctx}/mp/downloadPDF',
-            type : 'post',
-            data : $('#download').serialize(),
-            dataType : 'json',
-            success : function(data) {
+            url: '${ctx}/mp/downloadPDF',
+            type: 'post',
+            data: $('#download').serialize(),
+            dataType: 'json',
+            success: function (data) {
                 console.log(data);
-                alert(data);
-            },error:function(data){
-                console.log(data);
+                alert("文档已下载至：E:/指数介绍.pdf");
+            }, error: function (data) {
                 alert("文件导出失败");
             }
         });

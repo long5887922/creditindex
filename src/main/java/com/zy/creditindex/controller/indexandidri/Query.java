@@ -1,7 +1,7 @@
 package com.zy.creditindex.controller.indexandidri;
 
 
-import com.zy.creditindex.entity.idri.BastrdtINFOBean;
+import com.zy.creditindex.entity.idri.BastrdtInfoBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.service.IndexService.BastrdtInfoService;
 import com.zy.creditindex.service.IndexService.IdriService;
@@ -65,7 +65,7 @@ public class Query {
 
 		try {
 
-			BastrdtINFOBean bean = bastrdtInfoService.queryStartTime(dataTimeUtil.startTime());
+			BastrdtInfoBean bean = bastrdtInfoService.queryStartTime(dataTimeUtil.startTime());
 			Date startTime =bean.getTrd_day();
 			bean=bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
 			Date endTime = bean.getTrd_day();
@@ -150,7 +150,6 @@ public class Query {
 		// return DatasetUtilities.createCategoryDataset(rowKeys, columnKeys, data);
 		return DatasetUtilities.createCategoryDataset(rowKeys, columnKeys, data);
 	}
-
 	/**
 	 * 判断文件夹是否存在，如果不存在则新建
 	 * 
@@ -218,7 +217,7 @@ public class Query {
 		p.setRangeGridlineStroke(new BasicStroke());
 		// 去除背景边框线
 		p.setOutlinePaint(null);
-		if ("01".equals(weightType)) {
+		if ("01".equals(change)) {
 			// 设置图的背景颜色
 			// p.setBackgroundPaint(ChartColor.WHITE);
 			// 设置表格线颜色
@@ -246,14 +245,15 @@ public class Query {
 		}
 		CategoryAxis domainAxis = categoryplot.getDomainAxis();
 		// 坐标轴是否可见
-		/*domainAxis.setVisible(false);*/
+		domainAxis.setVisible(false);
 		// 坐标轴线条是否可见
-		/*domainAxis.setAxisLineVisible(false);*/
+		domainAxis.setAxisLineVisible(false);
 		domainAxis.setTickLabelsVisible(false);
+		domainAxis.setTickMarksVisible(false);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		/*设置X轴参数区间*/
-		domainAxis.setLabel(format.format(startTime)+"                                        " +
-				"                                        "+format.format(amongTime)+"                                                                                "+format.format(endTime));
+		domainAxis.setLabel(format.format(startTime) + "                                        " +
+				"                                        " + format.format(amongTime) + "                                                                                " + format.format(endTime));
 		domainAxis.setLabelFont(labelFont);// 轴标题
 		domainAxis.setTickLabelFont(labelFont);// 轴数值
 		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); // 横轴上的

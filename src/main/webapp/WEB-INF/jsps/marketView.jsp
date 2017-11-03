@@ -5,9 +5,6 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport' />
-    <meta name="description" content="Developed By M Abdur Rokib Promy" />
-    <meta name="keywords"  content="Admin, Bootstrap 3, Template, Theme, Responsive" />
     <link href="${ctx}/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
     <script src="${cxt}/js/jquery.min.js" type="text/javascript"></script>
     <script src="${cxt}/js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>

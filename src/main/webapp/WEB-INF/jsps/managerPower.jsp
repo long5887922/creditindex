@@ -133,50 +133,50 @@
             field : 'username',
             title : '用戶名'
         }, {
-            field : 'garch',
+            field : 'one',
             title : 'GARCH模型',
             formatter :function(value,row,index){
-                if('1' == row.garch){
+                if('1' == row.one){
                     return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                 }else{
                     return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
                 }
             }
         }, {
-            field : 'merton',
+            field : 'two',
             title : 'Merton模型',
             formatter :function(value,row,index){
-                if('1' == row.merton){
+                if('1' == row.two){
                     return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                 }else{
                     return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
                 }
             }
         }, {
-            field : 'quke',
+            field : 'three',
             title : '去壳模型',
             formatter :function(value,row,index){
-                if('1' == row.quke){
+                if('1' == row.three){
                     return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                 }else{
                     return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
                 }
             }
         }, {
-            field : 'cf',
+            field : 'four',
             title : 'CF模型',
             formatter :function(value,row,index){
-                if('1' == row.cf){
+                if('1' == row.four){
                     return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                 }else{
                     return '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
                 }
             }
         }, {
-            field : 'liudong',
+            field : 'five',
             title : '流动性模型',
             formatter :function(value,row,index){
-                if('1' == row.liudong){
+                if('1' == row.five){
                     return '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                 }else{
 
@@ -187,7 +187,8 @@
             field : 'caozup',
             title : '操作',
             formatter :function(value,row,index){
-                return "<a href='#'onclick='toUpdateManager("+row.id+")'>修改</a>|<a href='#'onclick='del("+row.id+")'>删除</a>"
+                var a=row.id+","+row.one;
+                return "<a href='#'onclick='toUpdateManager("+row.id+","+row.one+")'>修改</a>|<a href='#'onclick='del("+row.id+")'>删除</a>"
             }
         }]
     });
@@ -212,7 +213,7 @@
         });
     }
     /*显示弹出的修改页面*/
-    function toUpdateManager(id){
+    function toUpdateManager(id,name){
         $('#updateModal').modal('show');
     }
 </script>

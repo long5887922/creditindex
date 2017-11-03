@@ -15,10 +15,10 @@ public class DateTimeUtil {
     private  List<Calendar> holidayList = new ArrayList<Calendar>();
     //周末为工作日
     private  List<Calendar> weekendList = new ArrayList<Calendar>();*/
-
+  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     /*获取一年前的日期*/
     public  Date startTime() throws Exception {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new Date());//设置当前日期
         calendar.add(Calendar.YEAR, -1);//份减一
@@ -30,7 +30,7 @@ public class DateTimeUtil {
     }
     //获取当前系统日期
     public  Date endTime() throws Exception {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new Date());//设置当前日期
         calendar.add(Calendar.DATE, -1);//日期减一
@@ -41,7 +41,6 @@ public class DateTimeUtil {
     }
     /*10个工作日前*/
     public  Date withinTenDay() throws Exception {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new Date());//设置当前日期
         /*前一天日期*/
@@ -73,7 +72,6 @@ public class DateTimeUtil {
     }
     /*获取当前日期6月前的日期*/
     public  Date amongTime() throws Exception {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new java.util.Date());//设置当前日期
         calendar.add(Calendar.MONTH, -6);//份减6
@@ -103,7 +101,6 @@ public class DateTimeUtil {
     }
     /*前一个月的最后一天*/
     public  Date lastTime() throws Exception {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         //当前月前一个月的1号日期
         Calendar cal = Calendar.getInstance();//获取当前日期
         cal.add(Calendar.MONTH, -1);//设置月份为当前月上个月
