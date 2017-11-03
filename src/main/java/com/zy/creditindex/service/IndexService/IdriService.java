@@ -98,4 +98,7 @@ public class IdriService {
         }
         return byIndexdate;
     }
+    public void setIdriRepostory(IdriRepostory idriRepostory) {
+        this.idriRepostory = idriRepostory;
+    }
 }
