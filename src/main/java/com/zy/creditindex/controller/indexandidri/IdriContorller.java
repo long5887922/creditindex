@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,7 +23,8 @@ public class IdriContorller {
 
     @Autowired
     private IdriService idriService;
-
+    //初始化权重
+    private String weighttype = "01";
     /**
      * 行业代码和指数计算日期联合查询
      * @param inducode
@@ -94,12 +95,24 @@ public class IdriContorller {
      * 同比
      * @return
      */
-    @GetMapping("/queryYoyg")
-    public List<IdriBean> queryYoyg(){
+    @PostMapping("/queryYoygT")
+    public List<IdriBean> queryYoygT(){
         Date starttime = DateUtil.oneYer();//一年前的数据
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println(format.format("一年前的年月日："+starttime));
+        System.out.println("一年前的年月日："+format.format(starttime));
         return idriService.findIndexdateNew(starttime);
+    }
+
+    /**
+     * 环比
+     * @return
+     */
+    @PostMapping("/queryYoygH")
+    public List<IdriBean> queryYoygH(){
+        Date onemonth = DateUtil.starttime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("一月前的年月日："+format.format(onemonth));
+        return idriService.findIndexdateNew(onemonth);
     }
     /**
      * 当前时间的违约指数
