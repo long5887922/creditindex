@@ -98,7 +98,7 @@ public class IdriService {
         }
         return byIndexdate;
     }
-    public void setIdriRepostory(IdriRepostory idriRepostory) {
-        this.idriRepostory = idriRepostory;
+    public List<IdriBean> queryIdriByTrade(Date startTime,Date endTime,String type,String trade){
+        return idriRepostory.queryIdriByTrade(startTime,endTime,type,trade);
     }
 }
