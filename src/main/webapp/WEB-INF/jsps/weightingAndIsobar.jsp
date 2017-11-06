@@ -47,7 +47,7 @@
     </div>
 
     <div style="width: 45%;float:left;">
-        <img src="../../img/lineAndShap.jpg" width="560px" height="400px">
+        <img id="changeJPG" src="../../img/lineAndShap.jpg" width="560px" height="400px">
     </div>
     <div style="width: 52%;float:left;margin-top:10px;" align="right">
         <div align="left"><label>指数值</label></div>
@@ -176,6 +176,7 @@
     $('#selectTest').change(function () {
         w = $('#selectTest').val();
         if (w == '02') {
+            $("#changeJPG").attr("src","../../img/lineAndShapWeighting.jpg");
             $('#weighting').bootstrapTable();
             $("#weighting").show();
             $("#table").hide();
@@ -183,6 +184,7 @@
         if (w == '01') {
             $("#weighting").hide();
             $("#table").show();
+            $("#changeJPG").attr("src","../../img/lineAndShap.jpg");
         }
     });
     $('#table').bootstrapTable();
