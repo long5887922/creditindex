@@ -37,29 +37,29 @@
             <option value="02">加权</option>
         </select>
     </div>
-    <table id="table" border="1" align="center">
+    <table id="table">
         <thead>
         <tr>
-            <th align="center">行业名称</th>
+            <th>行业名称</th>
             <th></th>
             <c:forEach items="${list}" var="t">
-                <th align="center">${t}</th>
+                <th>${t}</th>
             </c:forEach>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${list2}" var="idri" varStatus="t">
             <tr>
-                <td align="center">
+                <td>
                         ${idri.username}
                 </td>
-                <td align="center">
+                <td>
                     <a href='#' onclick='openLineWindon("${idri.id}","${idri.startTime}","${idri.endTime}")'><span
                             class='glyphicon glyphicon-signal'></span></a>
                 </td>
                 <c:forEach items="${bodyList}" var="beans">
                     <c:if test="${beans.inducode eq idri.id}">
-                        <td align="center">
+                        <td>
                                 ${beans.idri}
                         </td>
                     </c:if>
@@ -68,28 +68,28 @@
         </c:forEach>
         </tbody>
     </table>
-    <table id="weighting" style="display:none" border="1" align="center">
+    <table id="weighting" style="display:none">
         <thead>
         <tr>
-            <th align="center">行业名称</th>
+            <th>行业名称</th>
             <th></th>
             <c:forEach  items="${list}" var="t">
-                <th align="center">${t}</th>
+                <th>${t}</th>
             </c:forEach>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${list2}" var="idri" varStatus="t">
             <tr>
-                <td align="center">
+                <td>
                         ${idri.username}
                 </td>
-                <td align="center">
+                <td>
                     <a href='#'onclick='openLineWindon("${idri.id}","${idri.startTime}","${idri.endTime}")'><span class='glyphicon glyphicon-signal'></span></a>
                 </td>
                 <c:forEach items="${weighting}" var="weight">
                     <c:if test="${weight.inducode eq idri.id}">
-                        <td align="center">
+                        <td>
                                 ${weight.idri}
                         </td>
                     </c:if>
@@ -120,7 +120,7 @@
     $('#selectTest').change(function () {
         w = $('#selectTest').val();
         if (w == '02') {
-           // $('#weighting').bootstrapTable();
+            $('#weighting').bootstrapTable();
             $("#weighting").show();
             $("#table").hide();
         }
@@ -129,7 +129,7 @@
             $("#table").show();
         }
     });
-    //$('#table').bootstrapTable();
+    $('#table').bootstrapTable();
     function openLineWindon(id, startTime, endTime) {
         $('#lineChartParent').append('<canvas id="canvas" height="98px"></canvas>');
         var config;

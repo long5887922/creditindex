@@ -1,7 +1,7 @@
 package com.zy.creditindex.controller.indexandidri;
 
 
-import com.zy.creditindex.entity.idri.BastrdtInfoBean;
+import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.service.IndexService.BastrdtInfoService;
 import com.zy.creditindex.service.IndexService.IdriService;
@@ -62,10 +62,8 @@ public class Query {
 
 	@RequestMapping("/creatJFreeChart")
 	public String creatJFreeChart( String weightType)  {
-
 		try {
-
-			BastrdtInfoBean bean = bastrdtInfoService.queryStartTime(dataTimeUtil.startTime());
+			BastrdtINFOBean bean = bastrdtInfoService.queryStartTime(dataTimeUtil.startTime());
 			Date startTime =bean.getTrd_day();
 			bean=bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
 			Date endTime = bean.getTrd_day();

@@ -3,7 +3,7 @@ package com.zy.creditindex.controller.indexandidri;
 import com.zy.creditindex.entity.JsonEntry;
 import com.zy.creditindex.entity.LineChartBean;
 import com.zy.creditindex.entity.XParameter;
-import com.zy.creditindex.entity.idri.BastrdtInfoBean;
+import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.repostory.indexJpa.BastrdtInfoRepostory;
 import com.zy.creditindex.service.IndexService.BastrdtInfoService;
@@ -17,7 +17,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.plugin2.util.ColorUtil;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -45,15 +44,15 @@ public class PriceTableList {
 /*当前日期*/
         try {
             /*获取当前日期*/
-            BastrdtInfoBean bean  = bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
+            BastrdtINFOBean bean  = bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
             Date endTime = bean.getTrd_day();
             /*获取10天前的日期*/
             bean =bastrdtInfoService.queryBeforTime(dataTimeUtil.withinTenDay());
             Date startTime =bean.getTrd_day();
             /*查询期间的交易日*/
-            List<BastrdtInfoBean> list =  bastrdtInfoService.findWithinTenDay(startTime, endTime);
+            List<BastrdtINFOBean> list =  bastrdtInfoService.findWithinTenDay(startTime, endTime);
             List<Object> l = new ArrayList<>();
-            for(BastrdtInfoBean b: list){
+            for(BastrdtINFOBean b: list){
                 l.add(format.format(b.getTrd_day()));
             }
             List<IdriBean>  bodyList = idriService.queryIdriByCondition(startTime, endTime, "01");
@@ -85,15 +84,15 @@ public class PriceTableList {
 		/*当前日期*/
         try {
             /*获取当前日期*/
-            BastrdtInfoBean bean  = bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
+            BastrdtINFOBean bean  = bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
             Date endTime = bean.getTrd_day();
             /*获取10天前的日期*/
             bean =bastrdtInfoService.queryBeforTime(dataTimeUtil.withinTenDay());
             Date startTime =bean.getTrd_day();
             /*查询期间的交易日*/
-            List<BastrdtInfoBean> list =  bastrdtInfoService.findWithinTenDay(startTime, endTime);
+            List<BastrdtINFOBean> list =  bastrdtInfoService.findWithinTenDay(startTime, endTime);
             List<Object> l = new ArrayList<>();
-            for(BastrdtInfoBean b: list){
+            for(BastrdtINFOBean b: list){
                 l.add(format.format(b.getTrd_day()));
             }
             List<IdriBean>  bodyList = idriService.queryIdriByCondition(startTime, endTime, "01");

@@ -3,10 +3,9 @@ package com.zy.creditindex.service.IndexService;
 
 import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.repostory.indexJpa.IdriRepostory;
-import com.zy.creditindex.util.SortTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.List;
  * Created by ${ZhaoYing}on 2017/10/23 0023
  */
 @Service
+@Transactional
 public class IdriService {
     @Autowired
     private IdriRepostory idriRepostory;
