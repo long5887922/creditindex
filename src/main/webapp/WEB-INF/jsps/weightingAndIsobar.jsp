@@ -133,11 +133,11 @@
             </div>
             <div>
 			<textarea id="TextArea1" cols="50" rows="10" name="creditRisk"
-                      style="color: #9e9e9e;width: 560px;height: 180px;">
+                      style="color: #9e9e9e;width: 560px;height: 280px;">
      行业信贷风险指数（Industry Credit Risk Index）衡量并描述了国内8个大类行业的综合债务违约风险的一套信用风险指数体系。指数以全体A股上市企业为样本，依据证监会行业分类标准，基于算数平均法、债务加权法等2种方法，进行自下而上的指数计算，让使用者从不同角度和侧重追踪和分析各行业的信用违约风险水平与趋势，为国内信贷和债券市场提供了一个“风向标”和“指示器”。
    行业信贷风险指数的数据采集均来自公开市场交易、上市企业季报、年报等公开数据。指数成分样本的筛选和权重的计算循序《行业信贷风险指数的编制方法》，后经指数评审委员会的最后确认而形成。个体预期违约概率经流动性指标模型、Merton违约概率模型、“壳”价值修正模型等的计算得出，并按相应指数计算公式计算出最终指数。
             </textarea>
-                <br>
+                <br/> <br/>
                 <div>
                     <span>下载:</span> <a href="#" onclick="addPDF()">编制方法.pdf</a>
                 </div>
@@ -163,7 +163,16 @@
         $("#showLine").on("hidden.bs.modal", function () {
             $('#canvas').remove();
         });
+        var code = window.localStorage.getItem("theme");
+        skin(code,true);
     });
+    function skin(code, clientFlag) {
+        if(code=="black"){
+            //document.body.style.backgroundColor="#ff9999";
+        }else if(code=="white"){
+           // document.body.style.backgroundColor="#ff9999";
+        }
+    }
     $('#selectTest').change(function () {
         w = $('#selectTest').val();
         if (w == '02') {
