@@ -24,7 +24,7 @@ public class IdriContorller {
     @Autowired
     private IdriService idriService;
     //初始化权重
-    private String weighttype = "01";
+    private String weighttype = "01";//默认等权
     /**
      * 行业代码和指数计算日期联合查询
      * @param inducode
@@ -100,7 +100,7 @@ public class IdriContorller {
         Date starttime = DateUtil.oneYer();//一年前的数据
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println("一年前的年月日："+format.format(starttime));
-        return idriService.findIndexdateNew(starttime);
+        return idriService.findIndexdateNew(starttime,weighttype);
     }
 
     /**
@@ -112,19 +112,32 @@ public class IdriContorller {
         Date onemonth = DateUtil.starttime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println("一月前的年月日："+format.format(onemonth));
-        return idriService.findIndexdateNew(onemonth);
+        return idriService.findIndexdateNew(onemonth,weighttype);
     }
     /**
      * 当前时间的违约指数
-     * @return
+     * 参数：
+     * 1.行业内排名：同比环比（默认获取），当前时间（默认获取）
+     * 2.加权类型（总页面获取,默认等权）//01：等权；02：债券加权
      */
     @PostMapping("/queryIndexdateNew")
-    public List<IdriBean> queryIndexdateNew(){//Yoyg
+    public List<IdriBean> queryIndexdateNew(String Yoyg,String weighttype){//Yoyg
+        System.out.println("排名类型"+Yoyg);
+        System.out.println("加权类型："+weighttype);
+        if(Yoyg=="yer"){
+            Date oneyer = DateUtil.oneYer();//一年前的数据
+            return idriService.findIndexdateNew(oneyer,weighttype);
+        }else if(Yoyg=="months"){
+            Date onemonth = DateUtil.starttime();//一个月前的方法
+            return idriService.findIndexdateNew(onemonth,weighttype);
+        }else {
             Date endtime = DateUtil.endtime();
-            List<IdriBean> aNew = idriService.findIndexdateNew(endtime);
+            List<IdriBean> aNew = idriService.findIndexdateNew(endtime,weighttype);
             for (IdriBean i:aNew) {
-                System.out.println( i.getInducode()+":"+i.getIdri());
+                System.out.println("行业-->"+ i.getInducode()+"；违约指数:"+i.getIdri()+"；加权类型："+i.getWeighttype());
             }
             return aNew;
+        }
+
     }
 }
