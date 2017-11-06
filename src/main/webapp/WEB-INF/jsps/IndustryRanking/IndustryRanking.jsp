@@ -38,7 +38,19 @@
         // 指定图表的配置项和数据
         var option = {
             title: {//标题
-                text: '八个行业信贷风险指数排名'
+                text: '八个行业信贷风险指数排名',
+                textStyle:{
+                    //文字颜色
+//                    color:'#ccc',
+//                    //字体风格,'normal','italic','oblique'
+                    fontStyle:'normal',
+//                    //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+//                    fontWeight:'bold',
+//                    //字体系列
+                    fontFamily:'sans-serif',
+//                    //字体大小
+                    fontSize:13
+                }
             },
             toolbox:{
                 show:true,
