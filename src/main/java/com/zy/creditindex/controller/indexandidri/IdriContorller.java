@@ -1,5 +1,6 @@
 package com.zy.creditindex.controller.indexandidri;
 
+import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 
 import com.zy.creditindex.service.IndexService.IdriService;
@@ -122,7 +123,7 @@ public class IdriContorller {
      */
     @PostMapping("/queryIndexdateNew")
     public List<IdriBean> queryIndexdateNew(String Yoyg,String weighttype){//Yoyg
-        System.out.println("排名类型"+Yoyg);
+        System.out.println("排名类型："+Yoyg);
         System.out.println("加权类型："+weighttype);
         if(Yoyg=="yer"){
             Date oneyer = DateUtil.oneYer();//一年前的数据
@@ -131,13 +132,14 @@ public class IdriContorller {
             Date onemonth = DateUtil.starttime();//一个月前的方法
             return idriService.findIndexdateNew(onemonth,weighttype);
         }else {
-            Date endtime = DateUtil.endtime();
-            List<IdriBean> aNew = idriService.findIndexdateNew(endtime,weighttype);
+            Date endtime = DateUtil.endtime();//当前时间
+            BastrdtINFOBean day = idriService.findRecentTradingDay(endtime);//获取最近交易日
+            Date trd_day = day.getTrd_day();
+            List<IdriBean> aNew = idriService.findIndexdateNew(trd_day,weighttype);
             for (IdriBean i:aNew) {
                 System.out.println("行业-->"+ i.getInducode()+"；违约指数:"+i.getIdri()+"；加权类型："+i.getWeighttype());
             }
             return aNew;
         }
-
     }
 }
