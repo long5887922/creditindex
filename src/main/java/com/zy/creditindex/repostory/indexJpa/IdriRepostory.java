@@ -1,5 +1,6 @@
 package com.zy.creditindex.repostory.indexJpa;
 
+import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -41,4 +42,9 @@ public interface IdriRepostory extends JpaRepository<IdriBean,String> {
     /*根据日期行业类型查询数据*/
     @Query(value="select  i.indu_code, i.index_date,i.idri ,i.weight_type ,i.corp_count from idri_20171027 i where i.index_date>=?1 and i.index_date<=?2 and i.weight_type=?3 and i.indu_code =?4",nativeQuery = true)
     public List<IdriBean> queryIdriByTrade(Date startTime,Date endTime,String type,String trade);
+
+    /*查询最近交易日
+     */
+    @Query(value="select b.TRD_DAY,b.EXCH_CODE from BAS_TRDT_INFO b  where b.NORM_DAY=?1 and b.EXCH_CODE in('101','105')",nativeQuery = true)
+    public BastrdtINFOBean findByLatestDate(Date dateTime);
 }

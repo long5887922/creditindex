@@ -15,7 +15,7 @@
         <tr>
             <td>
                 <select  class="easyui-combobox"  id="mySelect"  name="s1"onchange="ch3()">
-                    <option value="day"selected>行业内排名</option>
+                    <option value="day"selected>最近交易日</option>
                     <option value="yer">同比</option>
                     <option value="months">环比</option>
                 </select>

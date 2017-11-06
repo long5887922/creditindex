@@ -1,6 +1,7 @@
 package com.zy.creditindex.service.IndexService;
 
 
+import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.repostory.indexJpa.IdriRepostory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,5 +101,14 @@ public class IdriService {
     }
     public List<IdriBean> queryIdriByTrade(Date startTime,Date endTime,String type,String trade){
         return idriRepostory.queryIdriByTrade(startTime,endTime,type,trade);
+    }
+
+    /**
+     * 查询最近交易日
+     * @param dateTime
+     * @return
+     */
+    public BastrdtINFOBean findRecentTradingDay(Date dateTime){
+       return idriRepostory.findByLatestDate(dateTime);
     }
 }
