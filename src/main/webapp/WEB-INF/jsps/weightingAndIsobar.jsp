@@ -33,13 +33,14 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <script src="${cxt}/js/Echarts/indexUtil.js" type="text/javascript"></script>
     <![endif]-->
 </head>
 <body>
 <div style="width:99%;">
     <div align="left">
         <span>信贷指数</span>
-        <select id="selectTest" name="select">
+        <select id="selectTest" name="select"onchange="ch2()">
             <option value="01" selected>等权</option>
             <option value="02">加权</option>
         </select>
@@ -122,14 +123,13 @@
     <div style="width: 45%;">
         <form id="download">
             <div>
-                <%--<div>
-                    <span style="font-size: 22px;margin-left:-650px; font-family: Arial, Helvetica">指数介绍</span>
-                    &lt;%&ndash;八个行业信贷风险指数排名&ndash;%&gt;
-                    <div style="width:20%;height:30px;float:left;margin-left:450px;">
+                <div>
+                    <div style="width:20%;height:30px;float:left;margin-left:600px;">
                         <%@include file="IndustryRanking/IndustryRanking.jsp"%>
                     </div>
-                </div>--%>
+                </div>
                 <span>指数介绍</span>
+                <br>
             </div>
             <div>
 			<textarea id="TextArea1" cols="50" rows="10" name="creditRisk"
@@ -137,7 +137,7 @@
         行业信贷风险指数(Industry Credit Risk Index)衡量并描述了国内10个大类行业的综合债务违约风险的一套信用风险指数体系。
         指数以全体A股上市企业为样本，依据证监会行业分类标准，基于算数平均法、债务加权法等2种方法
             </textarea>
-
+                <br> <br> <br> <br> <br> <br>
                 <div>
                     <span>下载:</span> <a href="#" onclick="addPDF()">编制方法.pdf</a>
                 </div>
