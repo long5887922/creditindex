@@ -9,13 +9,14 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by huaqin on 2017/11/2.
+ * 定时调取方法生成图片
  */
 @Component
 public class SchedulingConfig {
 	@Autowired
 	CreatJFreeChartService chartService;
 
-	@Scheduled(cron = "00 43 10 * * ?")
+	@Scheduled(cron = "00 00 10 * * ?")
 	public void scheduler() {
 		initCreatJFreeChart();
 	}

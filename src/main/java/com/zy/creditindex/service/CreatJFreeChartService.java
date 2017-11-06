@@ -46,28 +46,35 @@ public class CreatJFreeChartService {
 	// 设置文件下载路径
 	private static final String CHART_PATH = "\\src\\main\\webapp\\img\\";
 	public DateTimeUtil dataTimeUtil = new DateTimeUtil();
+	/*查询工作日内各个行业的书*/
 	@Autowired
 	IdriService idriService;
+	/*查询有效工作日*/
 	@Autowired
 	BastrdtInfoService bastrdtInfoService;
 
 	public void creatJFreeChart(String weightType) {
 		try {
+			/*查询起始工作日日期*/
 			BastrdtINFOBean bean = bastrdtInfoService.queryStartTime(dataTimeUtil.startTime());
 			Date startTime = bean.getTrd_day();
+			/*查询上一个工作日期*/
 			bean = bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
 			Date endTime = bean.getTrd_day();
+			/*查询6个月的日期*/
 			bean = bastrdtInfoService.queryStartTime(dataTimeUtil.amongTime());
 			Date amongTime = bean.getTrd_day();
-			// 结束时间
+			/*查询期间内各个行业的数据*/
 			List<IdriBean> list = idriService.queryIdriByCondition(startTime, endTime, weightType);
 			if (CollectionUtils.isEmpty(list)) {
 				return;
 			}
 			Map<String, String> map = IdriBean.getMap();
-			// title
+			// 行业名称
 			List<String> columns = new ArrayList<String>(map.size());
+			/*日期*/
 			List<String> columnList = new ArrayList<String>();
+			/*数据*/
 			List<List<Double>> dataList = new ArrayList<List<Double>>();
 			for (String key : map.keySet()) {
 				List<Double> d = new ArrayList<Double>();
@@ -128,12 +135,6 @@ public class CreatJFreeChartService {
 		return data;
 	}
 
-	/*
-	 * public void generateLineChart(Date startTime,Date endTime,String
-	 * weightType,String change ){
-	 *
-	 * }
-	 */
 	// 柱状图,折线图 数据集
 	public CategoryDataset getBarData(double[][] data, String[] rowKeys, String[] columnKeys) {
 		// return DatasetUtilities.createCategoryDataset(rowKeys, columnKeys, data);
@@ -234,7 +235,9 @@ public class CreatJFreeChartService {
 		/* domainAxis.setVisible(false); */
 		// 坐标轴线条是否可见
 		/* domainAxis.setAxisLineVisible(false); */
+		/*设置X轴日期不可见*/
 		domainAxis.setTickLabelsVisible(false);
+		/*设置X轴刻度尺不可见*/
 		domainAxis.setTickMarksVisible(false);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		/* 设置X轴参数区间 */
@@ -242,6 +245,7 @@ public class CreatJFreeChartService {
 				+ "                                        " + format.format(amongTime)
 				+ "                                                                                "
 				+ format.format(endTime));
+		/*设置样式*/
 		domainAxis.setLabelFont(labelFont);// 轴标题
 		domainAxis.setTickLabelFont(labelFont);// 轴数值
 		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); // 横轴上的
