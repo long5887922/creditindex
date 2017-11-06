@@ -180,7 +180,15 @@
     function openLineWindon(id, startTime, endTime) {
         $('#lineChartParent').append('<canvas id="canvas" height="98px"></canvas>');
         var config;
-        var newTest = '等权';
+        var newTest;
+        w = $('#selectTest').val();
+        if (w == '02') {
+            newTest = '加权';
+        }
+        if (w == '01') {
+            newTest = '等权';
+        }
+
         $.ajax({
             url: '${ctx}/um/tradeLineChart',
             type: 'post',
