@@ -33,4 +33,15 @@ public class DateUtil {
         Date starttimeyer = calendar.getTime();
         return starttimeyer;
     }
+
+    /**
+     * 获取今天是星期几
+     * @return
+     */
+    public static int getWeekend(){
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date(System.currentTimeMillis()));
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        return dayOfWeek;
+    }
 }
