@@ -79,6 +79,12 @@ public class DownLoadAction {
         return font1;  
     }
 
+    /**
+     * PDF文件下载
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/Download", method = RequestMethod.GET)
     public String Download(org.apache.catalina.servlet4preview.http.HttpServletRequest request, HttpServletResponse response) {
         String fileName = "行业违约风险指数编制方法.pdf";
