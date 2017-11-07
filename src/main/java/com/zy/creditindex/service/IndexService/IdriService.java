@@ -4,6 +4,7 @@ package com.zy.creditindex.service.IndexService;
 import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.repostory.indexJpa.IdriRepostory;
+import com.zy.creditindex.service.IndexService.ideiSeriviceInterface.IdriServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class IdriService {
+public class IdriService implements IdriServiceInterface{
     @Autowired
     private IdriRepostory idriRepostory;
 
@@ -71,12 +72,12 @@ public class IdriService {
     }
 
     /**
-     *当前时间的违约指数
-     * @param indexdate
+     * 八个行业信贷风险指数排名
+     * @param indexdate 查询日期（当前日期，同比，环比）
+     * @param weighttype 加权类型（等权/加权）
      * @return
      */
     public List<IdriBean> findIndexdateNew(Date indexdate,String weighttype){
-//        return idriRepostory.findByIndexdate(indexdate);
         List<IdriBean> byIndexdate = idriRepostory.findByIndexdate(indexdate,weighttype);
         for (IdriBean date:byIndexdate) {
            if (date.getInducode().equals("I")){
@@ -102,10 +103,9 @@ public class IdriService {
     public List<IdriBean> queryIdriByTrade(Date startTime,Date endTime,String type,String trade){
         return idriRepostory.queryIdriByTrade(startTime,endTime,type,trade);
     }
-
     /**
      * 查询最近交易日
-     * @param dateTime
+     * @param dateTime（当当天日期是非交易日时）
      * @return
      */
     public BastrdtINFOBean findRecentTradingDay(Date dateTime){

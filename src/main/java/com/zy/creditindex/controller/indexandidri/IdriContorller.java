@@ -116,10 +116,10 @@ public class IdriContorller {
         return idriService.findIndexdateNew(onemonth,weighttype);
     }
     /**
-     * 当前时间的违约指数
+     * 八个行业信贷风险指数排名
      * 参数：
-     * 1.行业内排名：同比环比（默认获取），当前时间（默认获取）
-     * 2.加权类型（总页面获取,默认等权）//01：等权；02：债券加权
+     * 1.（Yoyg）行业内排名：同比环比（默认获取），当前时间（默认获取）
+     * 2.（weighttype）加权类型（总页面获取,默认等权）//01：等权；02：债券加权
      */
     @PostMapping("/queryIndexdateNew")
     public List<IdriBean> queryIndexdateNew(String Yoyg,String weighttype){//Yoyg
@@ -129,17 +129,18 @@ public class IdriContorller {
             Date oneyer = DateUtil.oneYer();//一年前的数据
             return idriService.findIndexdateNew(oneyer,weighttype);
         }else if(Yoyg=="months"){
-            Date onemonth = DateUtil.starttime();//一个月前的方法
+            Date onemonth = DateUtil.starttime();//一个月前的数据
             return idriService.findIndexdateNew(onemonth,weighttype);
         }else {
             Date endtime = DateUtil.endtime();//当前时间
             BastrdtINFOBean day = idriService.findRecentTradingDay(endtime);//获取最近交易日
             Date trd_day = day.getTrd_day();
-            List<IdriBean> aNew = idriService.findIndexdateNew(trd_day,weighttype);
-            for (IdriBean i:aNew) {
-                System.out.println("行业-->"+ i.getInducode()+"；违约指数:"+i.getIdri()+"；加权类型："+i.getWeighttype());
+            int week = DateUtil.getWeekend();
+            if(week==1||week==7){
+                return  idriService.findIndexdateNew(trd_day,weighttype);//周末(默认查询最近交易日)
+            }else {
+                return idriService.findIndexdateNew(endtime,weighttype);//正常工作日;
             }
-            return aNew;
         }
     }
 }
