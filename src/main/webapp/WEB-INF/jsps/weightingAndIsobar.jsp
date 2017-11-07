@@ -139,7 +139,8 @@
             </textarea>
                 <br/> <br/>
                 <div>
-                    <span>下载:</span> <a href="#" onclick="addPDF()">编制方法.pdf</a>
+                    <%--<span>下载:</span> <a href="#" onclick="addPDF()">编制方法.pdf</a>--%>
+                        <a href="http://localhost:8282/mp/Download">下载:行业违约风险指数编制方法</a>
                 </div>
             </div>
 
@@ -240,6 +241,7 @@
         });
         $('#showLine').modal('show');
     }
+
     function addPDF() {
         $.ajax({
             url: '${ctx}/mp/downloadPDF',
