@@ -241,10 +241,10 @@ public class CreatJFreeChartService {
 		domainAxis.setTickMarksVisible(false);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		/* 设置X轴参数区间 */
-		domainAxis.setLabel(format.format(startTime) + "                                        "
-				+ "                                        " + format.format(amongTime)
-				+ "                                                                                "
-				+ format.format(endTime));
+        domainAxis.setLabel(format.format(startTime) + "                              "
+                + "                                    " + format.format(amongTime)
+                + "                                                                     "
+                + format.format(endTime));
 		/*设置样式*/
 		domainAxis.setLabelFont(labelFont);// 轴标题
 		domainAxis.setTickLabelFont(labelFont);// 轴数值
@@ -286,7 +286,7 @@ public class CreatJFreeChartService {
 				isChartPathExist(pash);
 				String chartName = pash + charName;
 				fos_jpg = new FileOutputStream(chartName);
-				ChartUtilities.writeChartAsJPEG(fos_jpg, chart, 700, 550);
+				ChartUtilities.writeChartAsJPEG(fos_jpg, chart, 620, 370);
 				return chartName;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -322,7 +322,7 @@ public class CreatJFreeChartService {
 				String chartName = pash + charName;
 				fos_jpg = new FileOutputStream(chartName);
 				// 保存为JPEG文件
-				ChartUtilities.writeChartAsJPEG(fos_jpg, chart, 700, 550);
+				ChartUtilities.writeChartAsJPEG(fos_jpg, chart, 620, 370);
 				return chartName;
 			} catch (Exception e) {
 				e.printStackTrace();

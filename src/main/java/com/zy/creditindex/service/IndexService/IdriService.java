@@ -70,7 +70,16 @@ public class IdriService implements IdriServiceInterface{
     public List<IdriBean> queryIdriByCondition(Date startTime,Date endTime,String weightType ){
         return idriRepostory.queryIdriByCondition(startTime, endTime, weightType);
     }
-
+    /**
+     * 行业代码和加权等权计算日期联合查询降序
+     * @param startTime
+     * @param endTime
+     * @param weightType
+     * @return
+     */
+    public List<IdriBean> queryIdriByGradeDown(Date startTime,Date endTime,String weightType ){
+        return idriRepostory.queryIdriByGradeDown(startTime, endTime, weightType);
+    }
     /**
      * 八个行业信贷风险指数排名
      * @param indexdate 查询日期（当前日期，同比，环比）

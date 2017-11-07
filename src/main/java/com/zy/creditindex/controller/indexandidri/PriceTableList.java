@@ -55,7 +55,8 @@ public class PriceTableList {
             for(BastrdtINFOBean b: list){
                 l.add(format.format(b.getTrd_day()));
             }
-            List<IdriBean>  bodyList = idriService.queryIdriByCondition(startTime, endTime, "01");
+            /*查询10个交易日的行业数据降序*/
+            List<IdriBean>  bodyList = idriService.queryIdriByGradeDown(startTime, endTime, "01");
             Map<String, String> map = IdriBean.getMap();
             List<Object> list2 = new ArrayList<>();
             for (String key : map.keySet()) {
@@ -67,7 +68,7 @@ public class PriceTableList {
                 jsonEntry.setUsername(map.get(key));
                 list2.add(jsonEntry);
             }
-            List<IdriBean>  weighting = idriService.queryIdriByCondition(startTime, endTime, "02");
+            List<IdriBean>  weighting = idriService.queryIdriByGradeDown(startTime, endTime, "02");
             model.addAttribute("list2", list2);
             model.addAttribute("bodyList", bodyList);
             model.addAttribute("weighting", weighting);

@@ -1,9 +1,7 @@
 package com.zy.creditindex.chartLine;
 
 import com.zy.creditindex.service.CreatJFreeChartService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +14,7 @@ public class SchedulingConfig {
 	@Autowired
 	CreatJFreeChartService chartService;
 
-	@Scheduled(cron = "00 00 10 * * ?")
+	@Scheduled(cron = "55 12 17 * * ?")
 	public void scheduler() {
 		initCreatJFreeChart();
 	}
