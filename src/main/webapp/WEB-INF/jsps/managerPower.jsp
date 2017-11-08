@@ -8,11 +8,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="${ctx}/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
     <link href="${ctx}/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet">
+    <link href="${ctx}/bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
     <script type="text/javascript" src="${ctx}/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="${ctx}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-table/1.8.1/bootstrap-table-all.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-table/1.8.1/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="${ctx}/bootstrap/js/bootstrap-table-all.min.js"></script>
+    <script src="${ctx}/bootstrap/js/bootstrap-table-zh-CN.js"></script>
 
     <style>
         .table th, .table td {

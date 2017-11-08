@@ -12,7 +12,7 @@
 
     <link href="${ctx}/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
     <link href="${ctx}/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet">
+    <link href="${ctx}/bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
     <script src="${cxt}/js/jquery.min.js" type="text/javascript"></script>
     <script src="${cxt}/js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
     <script src="${cxt}/js/bootstrap.min.js" type="text/javascript"></script>
@@ -20,8 +20,8 @@
     <script src="${cxt}/js/plugins/chart.js" type="text/javascript"></script>
     <script src="${cxt}/js/plugins/utils.js" type="text/javascript"></script>
     <script src="${cxt}/js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-table/1.8.1/bootstrap-table-all.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-table/1.8.1/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="${ctx}/bootstrap/js/bootstrap-table-all.min.js"></script>
+    <script src="${ctx}/bootstrap/js/bootstrap-table-zh-CN.js"></script>
     <style>
         .table th, .table td {
             text-align: center;
