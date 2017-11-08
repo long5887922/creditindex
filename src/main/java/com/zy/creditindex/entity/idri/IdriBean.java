@@ -1,8 +1,6 @@
 package com.zy.creditindex.entity.idri;
 
-import com.google.common.collect.Maps;
-import com.zy.creditindex.entity.pk.IdriPKBean;
-
+import com.zy.creditindex.entity.pk.IdriPK;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,7 +13,7 @@ import java.util.Map;
  * Created by ${ZhaoYing}on 2017/10/23 0023
  */
 @Entity
-@IdClass(IdriPKBean.class)
+@IdClass(IdriPK.class)
 @Table(name = "idri")
 public class IdriBean implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -3,6 +3,7 @@ package com.zy.creditindex.controller.indexandidri;
 import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 
+import com.zy.creditindex.service.IndexService.BastrdtInfoService;
 import com.zy.creditindex.service.IndexService.IdriService;
 import com.zy.creditindex.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class IdriContorller {
     private IdriService idriService;
     //初始化权重
     private String weighttype = "01";//默认等权
+    @Autowired
+    private BastrdtInfoService bastrdtInfoService;
     /**
      * 行业代码和指数计算日期联合查询
      * @param inducode
@@ -115,6 +118,26 @@ public class IdriContorller {
         System.out.println("一月前的年月日："+format.format(onemonth));
         return idriService.findIndexdateNew(onemonth,weighttype);
     }
+    @GetMapping("/LatestDate")
+    public List<IdriBean> LatestDate(){
+//        BastrdtINFOBean day =null;
+        List<IdriBean> list = null;
+//            Date endtime = DateUtil.endtime();//当前时间
+//            BastrdtINFOBean oneday = bastrdtInfoService.queryStartTime(endtime);
+//            Date trd_day = oneday.getTrd_day();
+//            day = idriService.findRecentTradingDay(endtime);//获取最近交易日
+//            Date trd_day = day.getTrd_day();
+//            System.out.println("==============最近交易日controller==================="+trd_day);
+
+        try {
+            Date endtime = DateUtil.endtime();//当前时间
+            list =  idriService.findIndexdateNew(endtime, weighttype);//正常工作日
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     /**
      * 八个行业信贷风险指数排名
      * 参数：
@@ -125,22 +148,28 @@ public class IdriContorller {
     public List<IdriBean> queryIndexdateNew(String Yoyg,String weighttype){//Yoyg
         System.out.println("排名类型："+Yoyg);
         System.out.println("加权类型："+weighttype);
-        if(Yoyg=="yer"){
-            Date oneyer = DateUtil.oneYer();//一年前的数据
-            return idriService.findIndexdateNew(oneyer,weighttype);
-        }else if(Yoyg=="months"){
-            Date onemonth = DateUtil.starttime();//一个月前的数据
-            return idriService.findIndexdateNew(onemonth,weighttype);
-        }else {
-            Date endtime = DateUtil.endtime();//当前时间
-            BastrdtINFOBean day = idriService.findRecentTradingDay(endtime);//获取最近交易日
-            Date trd_day = day.getTrd_day();
-            int week = DateUtil.getWeekend();
-            if(week==1||week==7){
-                return  idriService.findIndexdateNew(trd_day,weighttype);//周末(默认查询最近交易日)
+        List<IdriBean> indexdateNew = null;
+        try {
+            if(Yoyg.equals("yer")){
+                Date oneyer = DateUtil.oneYer();//一年前的数据
+                indexdateNew  = idriService.findIndexdateNew(oneyer, weighttype);
+            }else if(Yoyg.equals("months")){
+                Date onemonth = DateUtil.starttime();//一个月前的数据
+                indexdateNew  = idriService.findIndexdateNew(onemonth,weighttype);
             }else {
-                return idriService.findIndexdateNew(endtime,weighttype);//正常工作日;
+                Date endtime = DateUtil.endtime();//当前时间
+                int week = DateUtil.getWeekend();
+                if(week==1||week==7){
+                    BastrdtINFOBean day = idriService.findRecentTradingDay(endtime);//获取最近交易日
+                    Date trd_day = day.getTrd_day();
+                    indexdateNew  =  idriService.findIndexdateNew(trd_day,weighttype);//周末没有交易(默认查询最近交易日)
+                }else {
+                    indexdateNew =idriService.findIndexdateNew(endtime,weighttype);//正常工作日;
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return indexdateNew;
     }
 }

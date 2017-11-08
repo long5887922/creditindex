@@ -12,6 +12,7 @@ import java.util.Date;
  */
 public class DateUtil {
     //获取当天对应的上个月的日期
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     public static Date starttime(){
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new java.util.Date());//设置当前日期
@@ -19,9 +20,13 @@ public class DateUtil {
         Date starttime = calendar.getTime();
         return starttime;
     }
-    //获取当前系统日期
+    //获取当前系统日期（即昨天的交易，【业务要求】当天的交易还未开始）
     public static Date endtime(){
-        Date endtime=new java.sql.Date(new Date().getTime());
+//        Date endtime=new java.sql.Date(new Date().getTime());
+        Calendar calendar = Calendar.getInstance();//日历对象
+        calendar.setTime(new java.util.Date());//设置当前日期
+        calendar.add(Calendar.DATE, -1);//当天减一 ：昨天
+        Date endtime = calendar.getTime();
         return endtime;
     }
     // 一年前的数据
@@ -29,7 +34,7 @@ public class DateUtil {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new java.util.Date());//设置当前日期
-        calendar.add(Calendar.MONTH, -12);//份减6
+        calendar.add(Calendar.YEAR, -1);//YEAR-1
         Date starttimeyer = calendar.getTime();
         return starttimeyer;
     }
