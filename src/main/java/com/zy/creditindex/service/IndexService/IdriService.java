@@ -107,6 +107,9 @@ public class IdriService implements IdriServiceInterface{
                date.setInducode("房地产");
            }
         }
+        for (IdriBean i:byIndexdate) {
+            System.out.println("查询日期是："+i.getIndexdate()+"行业："+i.getInducode()+"；指数："+i.getIdri());
+        }
         return byIndexdate;
     }
     public List<IdriBean> queryIdriByTrade(Date startTime,Date endTime,String type,String trade){
@@ -118,6 +121,8 @@ public class IdriService implements IdriServiceInterface{
      * @return
      */
     public BastrdtINFOBean findRecentTradingDay(Date dateTime){
-       return idriRepostory.findByLatestDate(dateTime);
+        BastrdtINFOBean d = idriRepostory.findByLatestDate(dateTime);
+       System.out.println("-==============最近交易日==================="+d.getTrd_day());
+        return idriRepostory.findByLatestDate(dateTime);
     }
 }
