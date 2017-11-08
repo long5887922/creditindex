@@ -31,7 +31,7 @@
 <div style="width:99%;">
     <div align="left" style="margin-left:10px;;margin-top:10px;">
         <span style="font-size: 20px;" id="index"><strong>信贷指数:</strong></span>
-        <select id="selectTest" name="select" style="width:150px;height: 32px;font-size: 16px;">
+        <select id="selectTest" name="select" onchange="ch2()"style="width:150px;height: 32px;font-size: 16px;">
             <option value="01" selected>等权</option>
             <option value="02">加权</option>
         </select>
