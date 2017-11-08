@@ -73,7 +73,7 @@ public class Query {
 			bean = bastrdtInfoService.queryStartTime(dataTimeUtil.amongTime());
 			Date amongTime = bean.getTrd_day();
 			/*查询期间内各个行业的数据*/
-			List<IdriBean> list = idriService.queryIdriByCondition(startTime, endTime, weightType);
+			List<IdriBean> list = idriService.queryAllIdri(endTime, weightType);
 			if (CollectionUtils.isEmpty(list)) {
 				return;
 			}
@@ -89,7 +89,12 @@ public class Query {
 				for (IdriBean idr : list) {
 					if (idr.getInducode().equals(key)) {
 						columnList.add(idr.getIndexdate().toString());
-						d.add(idr.getIdri().doubleValue());
+						if(idr.getIdri()!=null){
+							d.add(idr.getIdri().doubleValue());
+						}else {
+							d.add(0.00);
+						}
+
 					}
 				}
 				dataList.add(d);
@@ -249,10 +254,12 @@ public class Query {
 		domainAxis.setTickMarksVisible(false);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		/* 设置X轴参数区间 */
-		domainAxis.setLabel(format.format(startTime) + "                              "
+		/*domainAxis.setLabel(format.format(startTime) + "                              "
 				+ "                                    " + format.format(amongTime)
 				+ "                                                                     "
-				+ format.format(endTime));
+				+ format.format(endTime));*/
+		domainAxis.setLabel("2004"+"      "+"2005"+"      "+"2006"+"      "+"2007"+"      "+"2008"+"      "+"2009"+"      "+"2010"+"      "+
+				"2011"+"      "+"2012"+"      "+"2013"+"      "+"2014"+"      "+"2015"+"      "+"2016"+"      "+"2017");
 		/*设置样式*/
 		domainAxis.setLabelFont(labelFont);// 轴标题
 		domainAxis.setTickLabelFont(labelFont);// 轴数值
