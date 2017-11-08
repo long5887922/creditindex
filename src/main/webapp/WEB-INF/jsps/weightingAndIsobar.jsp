@@ -145,7 +145,7 @@
 
             <div id="down">
                 <span style="font-size: 20px">下载:</span><a href="/img/IDRICM.pdf"
-                                                           style="font-size: 16px"><img src="../../img/app/pdf.png">编制方法.pdf</a><%--“http://localhost:8282”此域名可省，工程自行提供--%>
+                                                           style="font-size: 16px" download><img src="../../img/app/pdf.png">编制方法.pdf</a><%--“http://localhost:8282”此域名可省，工程自行提供--%>
             </div>
         </div>
     </div>
