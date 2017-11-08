@@ -65,7 +65,7 @@ public class CreatJFreeChartService {
 			bean = bastrdtInfoService.queryStartTime(dataTimeUtil.amongTime());
 			Date amongTime = bean.getTrd_day();
 			/*查询期间内各个行业的数据*/
-			List<IdriBean> list = idriService.queryIdriByCondition(startTime, endTime, weightType);
+			List<IdriBean> list = idriService.queryAllIdri(endTime, weightType);
 			if (CollectionUtils.isEmpty(list)) {
 				return;
 			}
@@ -188,7 +188,7 @@ public class CreatJFreeChartService {
 		// 设置线条加粗
 		LineAndShapeRenderer lasp = (LineAndShapeRenderer) p.getRenderer();
 		for (int i = 0; i < xyDataset.getRowKeys().size(); i++) {
-			lasp.setSeriesStroke(i, new BasicStroke(3F));
+			lasp.setSeriesStroke(i, new BasicStroke(1F));
 		}
 		// x轴 // 分类轴网格是否可见
 		categoryplot.setDomainGridlinesVisible(false);

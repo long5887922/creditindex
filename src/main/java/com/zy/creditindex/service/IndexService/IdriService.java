@@ -17,112 +17,130 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class IdriService implements IdriServiceInterface{
+public class IdriService implements IdriServiceInterface {
     @Autowired
     private IdriRepostory idriRepostory;
 
     /**
-     *id查询
+     * id查询
      */
-    public List<IdriBean> findIdriId(String id){
+    public List<IdriBean> findIdriId(String id) {
         return idriRepostory.findByID(id);
     }
 
     /**
      * 查询所有的数据
+     *
      * @return
      */
-    public List<IdriBean> findIdriAll(){
+    public List<IdriBean> findIdriAll() {
         return idriRepostory.findAll();
     }
 
     /**
      * 行业代码和指数计算日期联合查询
+     *
      * @return
      */
-    public List<IdriBean> findIdriByCodeAndDate(String inducode, Date indexdate){
+    public List<IdriBean> findIdriByCodeAndDate(String inducode, Date indexdate) {
         return idriRepostory.findIdriByCodeAndDate(inducode, indexdate);
     }
 
     /**
      * 加权类型,行业代码,指数计算日期联合查询
+     *
      * @return
      */
-    public IdriBean findIdriByCDT(String inducode, Date indexdate,String weighttype){
+    public IdriBean findIdriByCDT(String inducode, Date indexdate, String weighttype) {
         return idriRepostory.findIdriByCDT(inducode, indexdate, weighttype);
     }
+
     /**
      * 任意时间段查询
+     *
      * @param starttime
      * @param endtime
      * @return
      */
-    public List<IdriBean> findIdriByTimesTotto( Date starttime, Date endtime){
+    public List<IdriBean> findIdriByTimesTotto(Date starttime, Date endtime) {
         return idriRepostory.findByTimesTotto(starttime, endtime);
     }
+
     /**
      * 行业代码和加权等权计算日期联合查询
+     *
      * @param startTime
      * @param endTime
      * @param weightType
      * @return
      */
-    public List<IdriBean> queryIdriByCondition(Date startTime,Date endTime,String weightType ){
+    public List<IdriBean> queryIdriByCondition(Date startTime, Date endTime, String weightType) {
         return idriRepostory.queryIdriByCondition(startTime, endTime, weightType);
     }
+
     /**
      * 行业代码和加权等权计算日期联合查询降序
+     *
      * @param startTime
      * @param endTime
      * @param weightType
      * @return
      */
-    public List<IdriBean> queryIdriByGradeDown(Date startTime,Date endTime,String weightType ){
+    public List<IdriBean> queryIdriByGradeDown(Date startTime, Date endTime, String weightType) {
         return idriRepostory.queryIdriByGradeDown(startTime, endTime, weightType);
     }
+
     /**
      * 八个行业信贷风险指数排名
-     * @param indexdate 查询日期（当前日期，同比，环比）
+     *
+     * @param indexdate  查询日期（当前日期，同比，环比）
      * @param weighttype 加权类型（等权/加权）
      * @return
      */
-    public List<IdriBean> findIndexdateNew(Date indexdate,String weighttype){
-        List<IdriBean> byIndexdate = idriRepostory.findByIndexdate(indexdate,weighttype);
-        for (IdriBean date:byIndexdate) {
-           if (date.getInducode().equals("I")){
-               date.setInducode("信息");
-           }else if (date.getInducode().equals("B")){
-               date.setInducode("采矿业");
-           }else if(date.getInducode().equals("C")){
-               date.setInducode("制造业");
-           }else if(date.getInducode().equals("D")){
-               date.setInducode("电热气");
-           }else if(date.getInducode().equals("E")){
-               date.setInducode("建筑业");
-           }else if(date.getInducode().equals("F")){
-               date.setInducode("批发");
-           }else if(date.getInducode().equals("G")){
-               date.setInducode("交通业");
-           }else if(date.getInducode().equals("K")){
-               date.setInducode("房地产");
-           }
+    public List<IdriBean> findIndexdateNew(Date indexdate, String weighttype) {
+        List<IdriBean> byIndexdate = idriRepostory.findByIndexdate(indexdate, weighttype);
+        for (IdriBean date : byIndexdate) {
+            if (date.getInducode().equals("I")) {
+                date.setInducode("信息");
+            } else if (date.getInducode().equals("B")) {
+                date.setInducode("采矿业");
+            } else if (date.getInducode().equals("C")) {
+                date.setInducode("制造业");
+            } else if (date.getInducode().equals("D")) {
+                date.setInducode("电热气");
+            } else if (date.getInducode().equals("E")) {
+                date.setInducode("建筑业");
+            } else if (date.getInducode().equals("F")) {
+                date.setInducode("批发");
+            } else if (date.getInducode().equals("G")) {
+                date.setInducode("交通业");
+            } else if (date.getInducode().equals("K")) {
+                date.setInducode("房地产");
+            }
         }
-        for (IdriBean i:byIndexdate) {
-            System.out.println("查询日期是："+i.getIndexdate()+"行业："+i.getInducode()+"；指数："+i.getIdri());
+        for (IdriBean i : byIndexdate) {
+            System.out.println("查询日期是：" + i.getIndexdate() + "行业：" + i.getInducode() + "；指数：" + i.getIdri());
         }
         return byIndexdate;
     }
-    public List<IdriBean> queryIdriByTrade(Date startTime,Date endTime,String type,String trade){
-        return idriRepostory.queryIdriByTrade(startTime,endTime,type,trade);
+
+    public List<IdriBean> queryIdriByTrade(Date startTime, Date endTime, String type, String trade) {
+        return idriRepostory.queryIdriByTrade(startTime, endTime, type, trade);
     }
+
+    public List<IdriBean> queryAllIdri(Date endTime, String weightType) {
+        return idriRepostory.queryAllIdri(endTime, weightType);
+    }
+
     /**
      * 查询最近交易日
+     *
      * @param dateTime（当当天日期是非交易日时）
      * @return
      */
-    public BastrdtINFOBean findRecentTradingDay(Date dateTime){
+    public BastrdtINFOBean findRecentTradingDay(Date dateTime) {
         BastrdtINFOBean d = idriRepostory.findByLatestDate(dateTime);
-       System.out.println("-==============最近交易日==================="+d.getTrd_day());
+        System.out.println("-==============最近交易日===================" + d.getTrd_day());
         return idriRepostory.findByLatestDate(dateTime);
     }
 }

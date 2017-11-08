@@ -45,6 +45,9 @@ public interface IdriRepostory extends JpaRepository<IdriBean,String> {
     /*根据日期行业类型查询数据*/
     @Query(value="select  i.indu_code, i.index_date,i.idri ,i.weight_type ,i.corp_count from idri i where i.index_date>=?1 and i.index_date<=?2 and i.weight_type=?3 and i.indu_code =?4",nativeQuery = true)
     public List<IdriBean> queryIdriByTrade(Date startTime,Date endTime,String type,String trade);
+    /*根据日期行业类型查询数据*/
+    @Query(value="select  i.indu_code, i.index_date,i.idri ,i.weight_type ,i.corp_count from idri i where i.index_date<=?1 and i.weight_type=?2 and i.indu_code IN('B','C','D','E','F','G','I','K') ",nativeQuery = true)
+    public List<IdriBean> queryAllIdri(Date endTime,String type);
 
     /*查询最近交易日
      */
