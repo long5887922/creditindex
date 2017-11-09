@@ -58,13 +58,13 @@
                 }
             },
             toolbox: {
-                show: false,
+                show: true,
                 feature: {
                     dataView: {
-                        show: false
+                        show: true
                     },
                     restore: {//还原到初始状态
-                        show: false
+                        show: true
                     },
                     dataZoom: {
                         show: false
@@ -115,7 +115,7 @@
                     show: true,
                     textStyle: {
                         show: true,
-                        color: '#2B99FF'
+                        color: '#fff'
                     }
                 }
                 }
@@ -125,7 +125,7 @@
                 type: 'value',
                 axisLine: {
                     lineStyle: {
-                        color:'#2B99FF'
+                        color:'#fff'
                     }
                 },
             },
