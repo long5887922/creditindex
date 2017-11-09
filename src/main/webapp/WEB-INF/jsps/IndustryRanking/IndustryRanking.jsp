@@ -53,7 +53,7 @@
 //                    //字体系列
                     fontFamily: 'sans-serif',
 //                    //字体大小
-                    fontSize: 13
+                    fontSize: 20
                 }
             },
             toolbox: {
