@@ -19,10 +19,7 @@ import org.jfree.chart.ChartColor;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.CategoryLabelPositions;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.TickUnitSource;
+import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
@@ -194,6 +191,10 @@ public class CreatJFreeChartService {
 		for (int i = 0; i < xyDataset.getRowKeys().size(); i++) {
 			lasp.setSeriesStroke(i, new BasicStroke(1F));
 		}
+		/*X轴*/
+		CategoryAxis domainAxis = categoryplot.getDomainAxis();
+		/*Y轴*/
+		ValueAxis rangeAxis = p.getRangeAxis();
 		// x轴 // 分类轴网格是否可见
 		categoryplot.setDomainGridlinesVisible(false);
 		// y轴 //数据轴网格是否可见
@@ -202,6 +203,7 @@ public class CreatJFreeChartService {
 		categoryplot.setAxisOffset(new RectangleInsets(5D, 5D, 5D, 5D));
 		title.setFont(font);
 		chart.setTitle(title);
+		/*设置底部字体*/
 		chart.getLegend().setItemFont(kfont);
 		chart.getTitle().setFont(titleFont);
 		p.setBackgroundAlpha(0.1f);
@@ -233,8 +235,13 @@ public class CreatJFreeChartService {
 			p.setDomainGridlinePaint(new Color(52, 57, 74));
 			// 设置外边框颜色
 			chart.setBackgroundPaint(new Color(30, 33, 49));
+			/*X轴颜色*/
+			domainAxis.setLabelPaint(ChartColor.white);
+			/*Y轴颜色*/
+			rangeAxis.setTickLabelPaint(ChartColor.white);
+			/*底部字体颜色*/
+			chart.getLegend().setItemPaint(ChartColor.white);
 		}
-		CategoryAxis domainAxis = categoryplot.getDomainAxis();
 		// 坐标轴是否可见
 		/* domainAxis.setVisible(false); */
 		// 坐标轴线条是否可见

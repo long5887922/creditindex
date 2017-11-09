@@ -203,6 +203,11 @@ public class Query {
 		for (int i = 0; i < xyDataset.getRowKeys().size(); i++) {
 			lasp.setSeriesStroke(i, new BasicStroke(1F));
 		}
+		/*X轴*/
+		CategoryAxis domainAxis = categoryplot.getDomainAxis();
+		/*Y轴*/
+		ValueAxis rangeAxis = p.getRangeAxis();
+
 		// x轴 // 分类轴网格是否可见
 		categoryplot.setDomainGridlinesVisible(false);
 		// y轴 //数据轴网格是否可见
@@ -211,6 +216,7 @@ public class Query {
 		categoryplot.setAxisOffset(new RectangleInsets(5D, 5D, 5D, 5D));
 		title.setFont(font);
 		chart.setTitle(title);
+		/*底部字体设置*/
 		chart.getLegend().setItemFont(kfont);
 		chart.getTitle().setFont(titleFont);
 		p.setBackgroundAlpha(0.1f);
@@ -242,8 +248,15 @@ public class Query {
 			p.setDomainGridlinePaint(new Color(52, 57, 74));
 			// 设置外边框颜色
 			chart.setBackgroundPaint(new Color(30, 33, 49));
+			/*X轴颜色*/
+			domainAxis.setLabelPaint(ChartColor.white);
+			/*Y轴颜色*/
+			rangeAxis.setTickLabelPaint(ChartColor.white);
+			/*底部字颜色设置*/
+			/*chart.getLegend().setItemPaint(ChartColor.white);*/
+
 		}
-		CategoryAxis domainAxis = categoryplot.getDomainAxis();
+
 		// 坐标轴是否可见
 		/* domainAxis.setVisible(false); */
 		// 坐标轴线条是否可见
@@ -284,6 +297,7 @@ public class Query {
 		lineandshaperenderer.setBaseLinesVisible(true); // series 点（即数据点）间有连线可见
 		/* 文件所在位置及文件名称 */
 		FileOutputStream fos_jpg = null;
+
 		if ("01".equals(change)) {
 			// 设置图的背景颜色
 			// p.setBackgroundPaint(ChartColor.WHITE);
