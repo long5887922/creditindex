@@ -129,7 +129,7 @@
         <div style="margin-left:10px;margin-top:40px;">
             <div>
                 <div style="width:20%;height:30px;float:left;margin-left:650px;">
-                    <%--<%@include file="IndustryRanking/IndustryRanking.jsp" %>--%>
+                    <%@include file="IndustryRanking/IndustryRanking.jsp" %>
                 </div>
             </div>
 
