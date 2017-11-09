@@ -207,7 +207,7 @@
             $("#weight tr td").css({color: "#333"});
             $("#weight th").css({color: "#222"});
             $("#weight th").css({backgroundColor: "white"});
-            $("#showLine").css({backgroundColor: "#CACACA"});
+            $("#showLine").css({backgroundColor: "#FFFFFF"});
             $("#lable").css({color: "#222"});
             $("#index").css({color: "#222"});
             $("#spa").css({color: "#222"});
