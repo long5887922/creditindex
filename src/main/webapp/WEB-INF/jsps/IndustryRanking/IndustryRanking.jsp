@@ -15,7 +15,8 @@
         <table border="1">
             <tr>
                 <td>
-                    <select class="easyui-combobox" id="mySelect" name="s1" onchange="ch3()">
+                    <select class="easyui-combobox" id="mySelect" name="s1" onchange="ch3()"
+                            style="width:150px;height: 32px;font-size: 16px;background-color:#34394A;color:#999">
                         <option value="day" selected>最近交易日</option>
                         <option value="yer">同比</option>
                         <option value="months">环比</option>
@@ -45,7 +46,7 @@
                 text: '八个行业信贷风险指数排名',
                 textStyle: {
                     //文字颜色
-                    color:'#ccc',
+                    color:'#fff',
 //                    //字体风格,'normal','italic','oblique'
                     fontStyle: 'normal',
 //                    //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
@@ -57,19 +58,19 @@
                 }
             },
             toolbox: {
-                show: true,
+                show: false,
                 feature: {
                     dataView: {
-                        show: true
+                        show: false
                     },
                     restore: {//还原到初始状态
-                        show: true
+                        show: false
                     },
                     dataZoom: {
-                        show: true
+                        show: false
                     },
                     saveAsImage: {//存为图片
-                        show: true
+                        show: false
                     },
                     magicType: {//动态类型切换
                         //show:true
@@ -85,8 +86,7 @@
                 data: ['行业排名']
             },
             //X轴
-            xAxis: [
-                {
+            xAxis: [{
                     type: 'category',
                     data: (function () {
                         var arr = [];
@@ -110,17 +110,34 @@
                             }
                         })
                         return arr;
-                    })()
+                    })(),
+                axisLabel: {//设置X轴的颜色
+                    show: true,
+                    textStyle: {
+                        show: true,
+                        color: '#2B99FF'
+                    }
+                }
                 }
             ],
             //Y轴
             yAxis: {
-                type: 'value'
+                type: 'value',
+                axisLine: {
+                    lineStyle: {
+                        color:'#2B99FF'
+                    }
+                },
             },
             //具体数据
             series: [{
                 name: '行业信贷违约指数',
                 type: 'bar',//'bar'表示直方图; line 折线图
+                itemStyle:{//设置柱形图的颜色
+                    normal:{
+                        color:'#2B99FF'
+                    },
+                },
                 data: (function () {
                     var arr = [];
                     $.ajax({
