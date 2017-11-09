@@ -5,12 +5,10 @@ import com.zy.creditindex.entity.LineChartBean;
 import com.zy.creditindex.entity.XParameter;
 import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
-import com.zy.creditindex.repostory.indexJpa.BastrdtInfoRepostory;
 import com.zy.creditindex.service.IndexService.BastrdtInfoService;
 import com.zy.creditindex.service.IndexService.IdriService;
 import com.zy.creditindex.util.DateTimeUtil;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
