@@ -12,8 +12,8 @@
     <link href="${ctx}/bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
 
     <script src="${cxt}/js/jquery.min.js" type="text/javascript"></script>
-    <script src="${cxt}/js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
-    <script src="${cxt}/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="${cxt}/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="${cxt}/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="${cxt}/bootstrap/js/bootstrap-table-all.min.js"></script>
     <script src="${cxt}/bootstrap/js/bootstrap-table-zh-CN.js"></script>
     <script src="${cxt}/js/plugins/chart.js" type="text/javascript"></script>
@@ -129,7 +129,7 @@
         <div style="margin-left:10px;margin-top:40px;">
             <div>
                 <div style="width:20%;height:30px;float:left;margin-left:650px;">
-                    <%@include file="IndustryRanking/IndustryRanking.jsp" %>
+                    <%--<%@include file="IndustryRanking/IndustryRanking.jsp" %>--%>
                 </div>
             </div>
 
@@ -166,9 +166,6 @@
 <script>
     var theme;
     $(function () {
-        $("#showLine").on("hidden.bs.modal", function () {
-            $('#canvas').remove();
-        });
         theme = window.localStorage.getItem("theme");
         skin(theme, true);
     });
@@ -250,12 +247,12 @@
     });
     $('#weight').bootstrapTable();
     $('#table').bootstrapTable();
+    $("#showLine").on("hidden.bs.modal", function () {
+        $('#canvas').remove();
+    });
     function openLineWindon(id, startTime, endTime) {
         $('#lineChartParent').append('<canvas id="canvas" height="98px"></canvas>');
-        var config;
-        var newTest;
         w = $('#selectTest').val();
-
         if (w == '02') {
             newTest = '加权';
         }
