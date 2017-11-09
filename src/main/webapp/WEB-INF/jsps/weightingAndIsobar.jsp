@@ -33,7 +33,7 @@
     </style>
 </head>
 <body style="background-color: #1E2131">
-<div style="width:99%;">
+<div style="width:100%;">
     <div align="left" style="margin-left:10px;;margin-top:10px;">
         <span style="font-size: 20px;color:#fff" id="index"><strong>信贷指数:</strong></span>
         <select id="selectTest"  name="select" onchange="ch2()"
@@ -45,10 +45,10 @@
     <div style="width: 45%;margin-left:10px;margin-top:10px;">
         <div>
             <div>
-                <div style="width:100%;height:20px;float:left;margin-left:650px;">
+                <div style="width:100%;height:20px;float:left;margin-left:650px;margin-right: 20px;">
                     <div style="height: 370px;width: 760px; border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
                         <div align="left"><label id="lable"
-                                                 style="font-size: 20px;color:#fff"><strong>指数值</strong></label></div>
+                                                 style="font-size: 20px;color:#fff"><strong>指数值(单位:bp)</strong></label></div>
                         <table class="table" id="table" style="width:740px;height:300px;">
                             <thead>
                             <tr>
@@ -120,7 +120,7 @@
         </div>
         <div style="width: 620px;height: 392px; border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
             <div style="width:618px;height: 368px;">
-                <img id="changeJPG" src="../../img/lineAndShapBlack.jpg" width="618px" height="368px;">
+                <img id="changeJPG" src="/img/lineAndShapBlack.jpg" width="618px" height="368px;">
             </div>
         </div>
     </div>
@@ -129,7 +129,7 @@
         <div style="margin-left:10px;margin-top:40px;">
             <div>
                 <div style="width:20%;height:30px;float:left;margin-left:650px;">
-                    <%--<%@include file="IndustryRanking/IndustryRanking.jsp" %>--%>
+                    <%@include file="IndustryRanking/IndustryRanking.jsp" %>
                 </div>
             </div>
 
@@ -193,9 +193,9 @@
             $("#TextArea1").css({color: "#999"});
             $("#selectTest").css({color: "#fff"});
             if (w == "02") {
-                $("#changeJPG").attr("src", "../../img/lineAndShapWeightBlack.jpg");
+                $("#changeJPG").attr("src", "/img/lineAndShapWeightBlack.jpg");
             } else {
-                $("#changeJPG").attr("src", "../../img/lineAndShapBlack.jpg");
+                $("#changeJPG").attr("src", "/img/lineAndShapBlack.jpg");
             }
         } else if (code == "white") {
             theme = code;
@@ -218,9 +218,9 @@
             $("#selectTest").css({backgroundColor: "white"});
             $("#cls").attr("src", "../../img/app/close.png");
             if (w == "02") {
-                $("#changeJPG").attr("src", "../../img/lineAndShapWeighting.jpg");
+                $("#changeJPG").attr("src", "/img/lineAndShapWeighting.jpg");
             } else {
-                $("#changeJPG").attr("src", "../../img/lineAndShap.jpg");
+                $("#changeJPG").attr("src", "/img/lineAndShap.jpg");
             }
         }
     }
@@ -231,17 +231,17 @@
             $("#table").hide();
 
             if (theme == "black") {
-                $("#changeJPG").attr("src", "../../img/lineAndShapWeightBlack.jpg");
+                $("#changeJPG").attr("src", "/img/lineAndShapWeightBlack.jpg");
             } else {
-                $("#changeJPG").attr("src", "../../img/lineAndShapWeighting.jpg");
+                $("#changeJPG").attr("src", "/img/lineAndShapWeighting.jpg");
             }
         } else {
             $("#weight").hide();
             $("#table").show();
             if (theme == "black") {
-                $("#changeJPG").attr("src", "../../img/lineAndShapBlack.jpg");
+                $("#changeJPG").attr("src", "/img/lineAndShapBlack.jpg");
             } else {
-                $("#changeJPG").attr("src", "../../img/lineAndShap.jpg");
+                $("#changeJPG").attr("src", "/img/lineAndShap.jpg");
             }
         }
     });
