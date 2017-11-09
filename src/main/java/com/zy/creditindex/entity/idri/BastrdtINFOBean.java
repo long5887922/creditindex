@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by huaqin on 2017/10/31.
  */
 @Entity
-@Table(name = "bas_trdt_info")
+@Table(name = "BAS_TRDT_INFO")
 public class BastrdtINFOBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
