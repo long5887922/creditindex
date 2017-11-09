@@ -54,14 +54,6 @@ public class PriceTableList {
             }
             /*查询10个交易日的行业数据降序*/
             List<IdriBean>  bodyList = idriService.queryIdriByGradeDown(startTime, endTime, "01");
-            String s = "";
-            String e="";
-            String a="";
-            String b="";
-            String ce="";
-            String er="";
-
-
             Map<String, String> map = IdriBean.getMap();
             List<Object> list2 = new ArrayList<>();
             for (String key : map.keySet()) {

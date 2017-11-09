@@ -9,10 +9,7 @@ import com.zy.creditindex.service.IndexService.IdriService;
 import com.zy.creditindex.util.DateTimeUtil;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.jfree.chart.ChartColor;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
+import org.jfree.chart.*;
 import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -185,6 +182,9 @@ public class Query {
 		chart.setBackgroundPaint(Color.WHITE);
 		// 设置图标题的字体重新设置title
 		Font font = new Font("微软雅黑", Font.BOLD, 11);
+		StandardChartTheme chartTheme = new StandardChartTheme("CN");
+		chartTheme.setAxisLabelPaint(new Color(51, 51, 51));
+		ChartFactory.setChartTheme(chartTheme);
 		// Y轴
 		/* Font yfont = new Font("微软雅黑", Font.BOLD, 16); */
 		// 底部
@@ -201,7 +201,7 @@ public class Query {
 		// 设置线条加粗
 		LineAndShapeRenderer lasp = (LineAndShapeRenderer) p.getRenderer();
 		for (int i = 0; i < xyDataset.getRowKeys().size(); i++) {
-			lasp.setSeriesStroke(i, new BasicStroke(3F));
+			lasp.setSeriesStroke(i, new BasicStroke(1F));
 		}
 		// x轴 // 分类轴网格是否可见
 		categoryplot.setDomainGridlinesVisible(false);
@@ -258,8 +258,8 @@ public class Query {
 				+ "                                    " + format.format(amongTime)
 				+ "                                                                     "
 				+ format.format(endTime));*/
-		domainAxis.setLabel("2004"+"      "+"2005"+"      "+"2006"+"      "+"2007"+"      "+"2008"+"      "+"2009"+"      "+"2010"+"      "+
-				"2011"+"      "+"2012"+"      "+"2013"+"      "+"2014"+"      "+"2015"+"      "+"2016"+"      "+"2017");
+		domainAxis.setLabel("2004" + "      " + "2005" + "      " + "2006" + "      " + "2007" + "      " + "2008" + "      " + "2009" + "      " + "2010" + "      " +
+				"2011" + "      " + "2012" + "      " + "2013" + "      " + "2014" + "      " + "2015" + "      " + "2016" + "      " + "2017");
 		/*设置样式*/
 		domainAxis.setLabelFont(labelFont);// 轴标题
 		domainAxis.setTickLabelFont(labelFont);// 轴数值

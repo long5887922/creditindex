@@ -94,44 +94,6 @@ public class IdriContorller {
         Date endtime = DateUtil.endtime();
         return idriService.findIdriByTimesTotto(starttime,endtime);
     }
-
-    /**
-     * 同比
-     * @return
-     */
-    @PostMapping("/queryYoygT")
-    public List<IdriBean> queryYoygT()throws Exception{
-        Date starttime = DateUtil.oneYer();//一年前的数据
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("一年前的年月日："+format.format(starttime));
-        return idriService.findIndexdateNew(starttime,weighttype);
-    }
-
-    /**
-     * 环比
-     * @return
-     */
-    @PostMapping("/queryYoygH")
-    public List<IdriBean> queryYoygH()throws Exception{
-        Date onemonth = DateUtil.starttime();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("一月前的年月日："+format.format(onemonth));
-        return idriService.findIndexdateNew(onemonth,weighttype);
-    }
-    @GetMapping("/LatestDate")
-    public List<IdriBean> LatestDate(){
-        List<IdriBean> idriBeans = null;
-        try {
-            Date endtime = DateUtil.endtime();//当前时间
-            System.out.println(endtime);
-            idriBeans =  idriService.findIndexdateNew(endtime, weighttype);//正常工作日
-            idriBeans = IdriUtil.idriName(idriBeans);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return idriBeans;
-    }
-
     /**
      * 八个行业信贷风险指数排名
      * 参数：
