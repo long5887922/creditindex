@@ -3,16 +3,16 @@ package com.zy.creditindex.controller.indexandidri;
 import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 
+
 import com.zy.creditindex.service.IndexService.BastrdtInfoService;
 import com.zy.creditindex.service.IndexService.IdriService;
 import com.zy.creditindex.util.DateUtil;
+import com.zy.creditindex.util.IdriUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -78,7 +78,7 @@ public class IdriContorller {
      * @return
      */
     @GetMapping("/queryTimeTotto")
-    public List<IdriBean> queryTimeTotto(){
+    public List<IdriBean> queryTimeTotto()throws Exception {
         Date starttime = DateUtil.starttime();
         Date endtime = DateUtil.endtime();
         return idriService.findIdriByTimesTotto(starttime,endtime);
@@ -89,7 +89,7 @@ public class IdriContorller {
      * @return
      */
     @GetMapping("/queryOneYerTotto")
-    public List<IdriBean> queryOneYerTotto(){
+    public List<IdriBean> queryOneYerTotto()throws Exception {
         Date starttime = DateUtil.oneYer();//一年前的数据
         Date endtime = DateUtil.endtime();
         return idriService.findIdriByTimesTotto(starttime,endtime);
@@ -100,7 +100,7 @@ public class IdriContorller {
      * @return
      */
     @PostMapping("/queryYoygT")
-    public List<IdriBean> queryYoygT(){
+    public List<IdriBean> queryYoygT()throws Exception{
         Date starttime = DateUtil.oneYer();//一年前的数据
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println("一年前的年月日："+format.format(starttime));
@@ -112,7 +112,7 @@ public class IdriContorller {
      * @return
      */
     @PostMapping("/queryYoygH")
-    public List<IdriBean> queryYoygH(){
+    public List<IdriBean> queryYoygH()throws Exception{
         Date onemonth = DateUtil.starttime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println("一月前的年月日："+format.format(onemonth));
@@ -120,22 +120,16 @@ public class IdriContorller {
     }
     @GetMapping("/LatestDate")
     public List<IdriBean> LatestDate(){
-//        BastrdtINFOBean day =null;
-        List<IdriBean> list = null;
-//            Date endtime = DateUtil.endtime();//当前时间
-//            BastrdtINFOBean oneday = bastrdtInfoService.queryStartTime(endtime);
-//            Date trd_day = oneday.getTrd_day();
-//            day = idriService.findRecentTradingDay(endtime);//获取最近交易日
-//            Date trd_day = day.getTrd_day();
-//            System.out.println("==============最近交易日controller==================="+trd_day);
-
+        List<IdriBean> idriBeans = null;
         try {
             Date endtime = DateUtil.endtime();//当前时间
-            list =  idriService.findIndexdateNew(endtime, weighttype);//正常工作日
+            System.out.println(endtime);
+            idriBeans =  idriService.findIndexdateNew(endtime, weighttype);//正常工作日
+            idriBeans = IdriUtil.idriName(idriBeans);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return list;
+        return idriBeans;
     }
 
     /**
@@ -145,7 +139,7 @@ public class IdriContorller {
      * 2.（weighttype）加权类型（总页面获取,默认等权）//01：等权；02：债券加权
      */
     @PostMapping("/queryIndexdateNew")
-    public List<IdriBean> queryIndexdateNew(String Yoyg,String weighttype){//Yoyg
+    public List<IdriBean> queryIndexdateNew(String Yoyg, String weighttype){//Yoyg
         System.out.println("排名类型："+Yoyg);
         System.out.println("加权类型："+weighttype);
         List<IdriBean> indexdateNew = null;
@@ -153,9 +147,11 @@ public class IdriContorller {
             if(Yoyg.equals("yer")){
                 Date oneyer = DateUtil.oneYer();//一年前的数据
                 indexdateNew  = idriService.findIndexdateNew(oneyer, weighttype);
+                indexdateNew =IdriUtil.idriName(indexdateNew);
             }else if(Yoyg.equals("months")){
                 Date onemonth = DateUtil.starttime();//一个月前的数据
                 indexdateNew  = idriService.findIndexdateNew(onemonth,weighttype);
+                indexdateNew =IdriUtil.idriName(indexdateNew);
             }else {
                 Date endtime = DateUtil.endtime();//当前时间
                 int week = DateUtil.getWeekend();
@@ -163,8 +159,10 @@ public class IdriContorller {
                     BastrdtINFOBean day = idriService.findRecentTradingDay(endtime);//获取最近交易日
                     Date trd_day = day.getTrd_day();
                     indexdateNew  =  idriService.findIndexdateNew(trd_day,weighttype);//周末没有交易(默认查询最近交易日)
+                    indexdateNew =IdriUtil.idriName(indexdateNew);
                 }else {
                     indexdateNew =idriService.findIndexdateNew(endtime,weighttype);//正常工作日;
+                    indexdateNew =IdriUtil.idriName(indexdateNew);
                 }
             }
         } catch (Exception e) {

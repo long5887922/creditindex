@@ -28,7 +28,7 @@ public class LineChartAction {
     private IdriService idriService;
     @RequestMapping("/selectData")
     @ResponseBody
-    public LineChartBean selectLine(LineChartBean bean) {
+    public LineChartBean selectLine(LineChartBean bean) throws Exception {
         /*返回前台参数对象*/
         LineChartBean labels = new LineChartBean();
         /*设置X轴参数*/

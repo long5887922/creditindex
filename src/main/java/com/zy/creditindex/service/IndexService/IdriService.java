@@ -98,30 +98,30 @@ public class IdriService implements IdriServiceInterface {
      * @return
      */
     public List<IdriBean> findIndexdateNew(Date indexdate, String weighttype) {
-        List<IdriBean> byIndexdate = idriRepostory.findByIndexdate(indexdate, weighttype);
-        for (IdriBean date : byIndexdate) {
-            if (date.getInducode().equals("I")) {
-                date.setInducode("信息");
-            } else if (date.getInducode().equals("B")) {
-                date.setInducode("采矿业");
-            } else if (date.getInducode().equals("C")) {
-                date.setInducode("制造业");
-            } else if (date.getInducode().equals("D")) {
-                date.setInducode("电热气");
-            } else if (date.getInducode().equals("E")) {
-                date.setInducode("建筑业");
-            } else if (date.getInducode().equals("F")) {
-                date.setInducode("批发");
-            } else if (date.getInducode().equals("G")) {
-                date.setInducode("交通业");
-            } else if (date.getInducode().equals("K")) {
-                date.setInducode("房地产");
-            }
-        }
-        for (IdriBean i : byIndexdate) {
-            System.out.println("查询日期是：" + i.getIndexdate() + "行业：" + i.getInducode() + "；指数：" + i.getIdri());
-        }
-        return byIndexdate;
+//        List<IdriBean> byIndexdate = idriRepostory.findByIndexdate(indexdate, weighttype);
+//        for (IdriBean date : byIndexdate) {
+//            if (date.getInducode().equals("I")) {
+//                date.setInducode("信息");
+//            } else if (date.getInducode().equals("B")) {
+//                date.setInducode("采矿业");
+//            } else if (date.getInducode().equals("C")) {
+//                date.setInducode("制造业");
+//            } else if (date.getInducode().equals("D")) {
+//                date.setInducode("电热气");
+//            } else if (date.getInducode().equals("E")) {
+//                date.setInducode("建筑业");
+//            } else if (date.getInducode().equals("F")) {
+//                date.setInducode("批发");
+//            } else if (date.getInducode().equals("G")) {
+//                date.setInducode("交通业");
+//            } else if (date.getInducode().equals("K")) {
+//                date.setInducode("房地产");
+//            }
+//        }
+//        for (IdriBean i : byIndexdate) {
+//            System.out.println("查询日期是：" + i.getIndexdate() + "行业：" + i.getInducode() + "；指数：" + i.getIdri());
+//        }
+        return idriRepostory.findByIndexdate(indexdate, weighttype);
     }
 
     public List<IdriBean> queryIdriByTrade(Date startTime, Date endTime, String type, String trade) {

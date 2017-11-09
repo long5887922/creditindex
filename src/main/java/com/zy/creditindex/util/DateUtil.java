@@ -13,12 +13,14 @@ import java.util.Date;
 public class DateUtil {
     //获取当天对应的上个月的日期
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-    public static Date starttime(){
+    public static Date starttime()throws Exception{
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new java.util.Date());//设置当前日期
         calendar.add(Calendar.MONTH, -1);//月份减一
         Date starttime = calendar.getTime();
-        return starttime;
+        String date = format.format(starttime);
+        return format.parse(date);
     }
     //获取当前系统日期（即昨天的交易，【业务要求】当天的交易还未开始）
     public static Date endtime()throws Exception {
@@ -32,13 +34,14 @@ public class DateUtil {
         return format.parse(date);
     }
     // 一年前的数据
-    public static Date oneYer(){
+    public static Date oneYer()throws Exception{
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new java.util.Date());//设置当前日期
         calendar.add(Calendar.YEAR, -1);//YEAR-1
         Date starttimeyer = calendar.getTime();
-        return starttimeyer;
+        String date = format.format(starttimeyer);
+        return format.parse(date);
     }
 
     /**
