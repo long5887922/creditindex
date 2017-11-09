@@ -44,7 +44,7 @@ import com.zy.creditindex.util.DateTimeUtil;
 public class CreatJFreeChartService {
 
 	// 设置文件下载路径
-	private static final String CHART_PATH = "\\src\\main\\webapp\\img\\";
+	private static final String CHART_PATH = "/src/main/webapp/img/";
 	public DateTimeUtil dataTimeUtil = new DateTimeUtil();
 	/*查询工作日内各个行业的书*/
 	@Autowired
@@ -81,7 +81,11 @@ public class CreatJFreeChartService {
 				for (IdriBean idr : list) {
 					if (idr.getInducode().equals(key)) {
 						columnList.add(idr.getIndexdate().toString());
-						d.add(idr.getIdri().doubleValue());
+						if(idr.getIdri()!=null){
+							d.add(idr.getIdri().doubleValue());
+						}else {
+							d.add(0.00);
+						}
 					}
 				}
 				dataList.add(d);
