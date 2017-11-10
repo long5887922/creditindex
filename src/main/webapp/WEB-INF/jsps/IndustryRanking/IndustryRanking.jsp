@@ -134,7 +134,6 @@
                             success: function (json) {
                                 if (json) {
                                     for (var i = 0; i < json.length; i++) {
-                                        console.log(json[i].context);
                                         arr.push(json[i].idri);
                                     }
                                 }
@@ -160,7 +159,7 @@
                 }]
 
             };
-        }if (code == "white"){
+        }else{
             $("#mySelect").css({color: "#333"});
             $("#mySelect").css({backgroundColor: "white"});
             option  = {
@@ -200,7 +199,6 @@
                             success: function (json) {
                                 if (json) {
                                     for (var i = 0; i < json.length; i++) {
-                                        console.log(json[i].context);
                                         arr.push(json[i].inducode);
                                     }
                                 }

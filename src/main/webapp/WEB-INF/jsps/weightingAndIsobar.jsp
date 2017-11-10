@@ -272,7 +272,6 @@
             }),
             dataType: 'json',
             success: function (data) {
-                console.log(data);
                 config = {
                     type: 'line',
                     data: data,
