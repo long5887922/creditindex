@@ -38,7 +38,6 @@
 
         loadData(theme);
     });
-
     // 基于准备好的dom，初始化echarts实例
     function loadData(code) {
 
