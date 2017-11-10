@@ -24,6 +24,7 @@ public class IdriBean implements Serializable {
 	private String weighttype; // weight_type VARCHAR(4), -- 加权类型（01：等权；02：债券加权）
 	private Integer corpcount; // corp_count INT, -- 公司个数。真正计算在内的公司
 	private BigDecimal idri;// idri DECIMAL(30, 4), -- 行业信贷违约指数
+	private String remark;//对异常计算结果的说明
 	static {
 		map = new HashMap<String, String>();
 		map.put("B", "采矿业");
@@ -86,5 +87,12 @@ public class IdriBean implements Serializable {
 	public static Map<String, String> getMap() {
 		return map;
 	}
-	
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 }
