@@ -41,7 +41,7 @@ import com.zy.creditindex.util.DateTimeUtil;
 public class CreatJFreeChartService {
 
 	// 设置文件下载路径
-	private static final String CHART_PATH = "/src/main/webapp/img/";
+	private static final String CHART_PATH = "/img/";
 	public DateTimeUtil dataTimeUtil = new DateTimeUtil();
 	/*查询工作日内各个行业的书*/
 	@Autowired
