@@ -281,6 +281,7 @@ public class CreatJFreeChartService {
 		String pash = courseFile + CHART_PATH;
 		/* 文件所在位置及文件名称 */
 		FileOutputStream fos_jpg = null;
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		if ("01".equals(change)) {
 			// 设置图的背景颜色
 			// p.setBackgroundPaint(ChartColor.WHITE);
@@ -302,7 +303,7 @@ public class CreatJFreeChartService {
 			} finally {
 				try {
 					fos_jpg.close();
-					System.out.println("createLineChar.");
+					System.out.println(df.format(new Date())+": createLineChar.");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -334,7 +335,7 @@ public class CreatJFreeChartService {
 			} finally {
 				try {
 					fos_jpg.close();
-					System.out.println("createLineChar");
+					System.out.println(df.format(new Date())+": createLineChar.");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
