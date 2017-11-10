@@ -45,8 +45,8 @@
     <div style="width: 45%;margin-left:10px;margin-top:10px;">
         <div>
             <div>
-                <div style="width:100%;height:20px;float:left;margin-left:650px;margin-right: 20px;">
-                    <div style="height: 370px;width: 760px; border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
+                <div style="width:90%;height:20px;float:left;margin-left:650px;margin-right: 20px;">
+                    <div style="height: 370px; border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
                         <div align="left"><label id="lable"
                                                  style="font-size: 20px;color:#fff"><strong>指数值(单位:bp)</strong></label></div>
                         <table class="table" id="table" style="width:740px;height:300px;">
@@ -120,7 +120,7 @@
         </div>
         <div style="width: 620px;height: 392px; border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
             <div style="width:618px;height: 368px;">
-                <img id="changeJPG" src="/img/lineAndShapBlack.jpg" width="618px" height="368px;">
+                <img id="changeJPG" src="${cxt}/img/lineAndShapBlack.jpg" width="618px" height="368px;">
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@ public class SchedulingConfig {
 	@Autowired
 	CreatJFreeChartService chartService;
 
-	@Scheduled(cron = "00 00 09 * * ?")
+	@Scheduled(cron = "0 0/5 * * * ?")
 	public void scheduler() {
 		initCreatJFreeChart();
 	}
