@@ -26,7 +26,6 @@
             </tr>
         </table>
     </div>
-
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="main" style="width: 700px;height:280px;">
     </div>
@@ -35,12 +34,10 @@
     var theme;
     $(function () {
         theme = window.localStorage.getItem("theme");
-
         loadData(theme);
     });
     // 基于准备好的dom，初始化echarts实例
     function loadData(code) {
-
         var myChart = echarts.init(document.getElementById('main'));
         var s1 = document.getElementsByName("s1")[0];
         var timetype = s1.value;
