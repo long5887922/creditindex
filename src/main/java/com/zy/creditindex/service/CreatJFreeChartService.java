@@ -280,6 +280,9 @@ public class CreatJFreeChartService {
 		LineAndShapeRenderer lineandshaperenderer = (LineAndShapeRenderer) categoryplot.getRenderer();
 		lineandshaperenderer.setBaseShapesVisible(false); // series 点（即数据点）可见
 		lineandshaperenderer.setBaseLinesVisible(true); // series 点（即数据点）间有连线可见
+		File directory = new File("");// 参数为空
+		String courseFile = directory.getCanonicalPath();
+		String pash = courseFile + CHART_PATH;
 		/* 文件所在位置及文件名称 */
 		FileOutputStream fos_jpg = null;
 		if ("01".equals(change)) {
@@ -292,10 +295,6 @@ public class CreatJFreeChartService {
 			// 设置外边框颜色
 			chart.setBackgroundPaint(Color.WHITE);
 			try {
-				File directory = new File("");// 参数为空
-				String courseFile = directory.getCanonicalPath();
-				String pash = courseFile + CHART_PATH;
-				System.out.println(pash);
 				isChartPathExist(pash);
 				String chartName = pash + charName;
 				fos_jpg = new FileOutputStream(chartName);
@@ -327,10 +326,6 @@ public class CreatJFreeChartService {
 			// 设置外边框颜色
 			chart.setBackgroundPaint(new Color(30, 33, 49));
 			try {
-				File directory = new File("");// 参数为空
-				String courseFile = directory.getCanonicalPath();
-				String pash = courseFile + CHART_PATH;
-				System.out.println(pash);
 				isChartPathExist(pash);
 				String chartName = pash + charName;
 				fos_jpg = new FileOutputStream(chartName);
