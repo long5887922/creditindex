@@ -135,7 +135,7 @@ public class IdriService implements IdriServiceInterface {
     }
 
     /**
-     * 日环比
+     * 总的同比环比
      * @param indexdate
      * @param weighttype
      * @return
