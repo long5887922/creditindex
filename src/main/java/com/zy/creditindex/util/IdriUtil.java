@@ -2,16 +2,14 @@ package com.zy.creditindex.util;
 
 import com.zy.creditindex.entity.idri.IdriBean;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * Created by ${ZhaoYing}on 2017/11/9 0009
  */
 public class IdriUtil {
-
-
     public static List<IdriBean> idriName( List<IdriBean> idriBean){
-
         for (IdriBean date : idriBean) {
             if (date.getInducode().equals("I")) {
                 date.setInducode("信息");
@@ -31,6 +29,22 @@ public class IdriUtil {
                 date.setInducode("房地产");
             }
         }
+        for (IdriBean i:idriBean) {
+            BigDecimal idri = i.getIdri();
+
+        }
         return idriBean;
+    }
+
+    /**
+     * idri的计算结果
+     * @param idriBean
+     * @param beforeidri
+     * @return
+     */
+    public static BigDecimal CalculationIdri(BigDecimal idriBean,BigDecimal beforeidri){
+        BigDecimal bigDecimal = new BigDecimal(idriBean.subtract(beforeidri).doubleValue());//减
+        BigDecimal idriResult  = new BigDecimal(bigDecimal.divide(beforeidri, 2, BigDecimal.ROUND_HALF_UP).doubleValue());//除
+        return idriResult;
     }
 }

@@ -22,7 +22,7 @@ public class DateUtil {
         String date = format.format(starttime);
         return format.parse(date);
     }
-    //获取当前系统日期（即昨天的交易，【业务要求】当天的交易还未开始）
+    //获取当天系统日期的前一天日期（即昨天的交易，【业务要求】当天的交易还未开始）
     public static Date endtime()throws Exception {
 //        Date endtime=new java.sql.Date(new Date().getTime());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -33,6 +33,37 @@ public class DateUtil {
         String date = format.format(endtime);
         return format.parse(date);
     }
+    //获取前天的日期
+    public static Date theDayBeforeYesterday()throws Exception{
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();//日历对象
+        calendar.setTime(new Date());//设置当前日期
+        calendar.add(Calendar.DATE, -2);//当天减二 ：前天
+        Date endtime =calendar.getTime();
+        String date = format.format(endtime);
+        return format.parse(date);
+    }
+    //获取最近交易日的前一天
+    public static Date thedayBeforeTheLatestTradingDay(Date trd_day)throws Exception{
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();//日历对象
+        calendar.setTime(trd_day);//设置最近交易日
+        calendar.add(Calendar.DATE, -1);//设置最近交易日的前一天
+        Date endtime =calendar.getTime();
+        String date = format.format(endtime);
+        return format.parse(date);
+    }
+    //获取当天日期对应的上一周的日期
+    public static Date  lastWeek()throws Exception{
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();//日历对象
+        calendar.setTime(new Date());//设置当前日期
+        calendar.add(Calendar.DATE, -7);//当天减二 ：前天
+        Date endtime =calendar.getTime();
+        String date = format.format(endtime);
+        return format.parse(date);
+    }
+
     // 一年前的数据
     public static Date oneYer()throws Exception{
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -114,22 +115,80 @@ public class IdriContorller {
                 Date onemonth = DateUtil.starttime();//一个月前的数据
                 indexdateNew  = idriService.findIndexdateNew(onemonth,weighttype);
                 indexdateNew =IdriUtil.idriName(indexdateNew);
+            }else if(Yoyg.equals("week")){
+                Date lastweek = DateUtil.lastWeek();//获取当天对应的上周的日期
+                indexdateNew  = idriService.findIndexdateNew(lastweek,weighttype);//获取上周数据
+
             }else {
-                Date endtime = DateUtil.endtime();//当前时间
+                Date endtime = DateUtil.endtime();//当前时间（昨天）
                 int week = DateUtil.getWeekend();
                 if(week==1||week==7){
                     BastrdtINFOBean day = idriService.findRecentTradingDay(endtime);//获取最近交易日
-                    Date trd_day = day.getTrd_day();
+                    Date trd_day = day.getTrd_day();//最近交易日
+                    Date beforeTradingDay = DateUtil.thedayBeforeTheLatestTradingDay(trd_day);//最近交易日的前一天
+                    List<IdriBean> beforeTradingidri = idriService.DailyChain(beforeTradingDay, weighttype);//最近交易日前一天的数据
                     indexdateNew  =  idriService.findIndexdateNew(trd_day,weighttype);//周末没有交易(默认查询最近交易日)
+                    indexdateNew =ProportionalValue(indexdateNew,beforeTradingidri);//同比环比计算
                     indexdateNew =IdriUtil.idriName(indexdateNew);
                 }else {
-                    indexdateNew =idriService.findIndexdateNew(endtime,weighttype);//正常工作日;
-                    indexdateNew =IdriUtil.idriName(indexdateNew);
+                    Date Before = DateUtil.theDayBeforeYesterday();//前天
+                    List<IdriBean> beforeidri = idriService.DailyChain(Before, weighttype);
+                    indexdateNew =idriService.findIndexdateNew(endtime,weighttype);//正常工作日(昨天);
+                    indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
+                    indexdateNew =IdriUtil.idriName(indexdateNew);//X轴的汉字转换
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return indexdateNew;
+    }
+
+    /**
+     * 计算同比环比
+     * @param idriBean
+     * @param beforeidri
+     * @return
+     */
+    public  List<IdriBean> ProportionalValue( List<IdriBean> idriBean,List<IdriBean> beforeidri){
+        int num = 0;
+        for (IdriBean i:idriBean) {
+            if(num==0){
+                IdriBean bf = beforeidri.get(0);//前天
+//                bf.getIdri();//前天
+//                i.getIdri();//昨天
+                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
+            }else if(num==1){
+                IdriBean bf = beforeidri.get(1);//前天
+                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
+            }else if(num==2){
+                IdriBean bf = beforeidri.get(2);//前天
+                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
+            }else if(num==3){
+                IdriBean bf = beforeidri.get(3);//前天
+                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
+            }else if(num==4){
+                IdriBean bf = beforeidri.get(3);//前天
+                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
+            }else if(num==5){
+                IdriBean bf = beforeidri.get(3);//前天
+                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
+            }else if(num==6){
+                IdriBean bf = beforeidri.get(3);//前天
+                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
+            }else if(num==7){
+                IdriBean bf = beforeidri.get(3);//前天
+                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
+            }
+            num = num+1;
+        }
+
+        return idriBean;
+    }
+
+    @PostMapping("testDailyChainls")
+    public  List<IdriBean> testDailyChainls(Date indexdate, String weighttype){
+        List<IdriBean> idriBeans = idriService.DailyChainls(indexdate, weighttype);
+        return null;
     }
 }

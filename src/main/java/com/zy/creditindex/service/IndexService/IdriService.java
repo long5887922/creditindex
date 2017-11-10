@@ -101,17 +101,30 @@ public class IdriService implements IdriServiceInterface {
         return idriRepostory.findByIndexdate(indexdate, weighttype);
     }
 
+    /**
+     * 根据日期行业类型查询数据
+     * @param startTime
+     * @param endTime
+     * @param type
+     * @param trade
+     * @return
+     */
     public List<IdriBean> queryIdriByTrade(Date startTime, Date endTime, String type, String trade) {
         return idriRepostory.queryIdriByTrade(startTime, endTime, type, trade);
     }
 
+    /**
+     * 根据日期行业类型查询数据
+     * @param endTime
+     * @param weightType
+     * @return
+     */
     public List<IdriBean> queryAllIdri(Date endTime, String weightType) {
         return idriRepostory.queryAllIdri(endTime, weightType);
     }
 
     /**
      * 查询最近交易日
-     *
      * @param dateTime（当当天日期是非交易日时）
      * @return
      */
@@ -119,5 +132,25 @@ public class IdriService implements IdriServiceInterface {
         BastrdtINFOBean d = idriRepostory.findByLatestDate(dateTime);
         System.out.println("-==============最近交易日===================" + d.getTrd_day());
         return idriRepostory.findByLatestDate(dateTime);
+    }
+
+    /**
+     * 日环比
+     * @param indexdate
+     * @param weighttype
+     * @return
+     */
+    public List<IdriBean> DailyChain(Date indexdate, String weighttype){
+        return  idriRepostory.findByIndexdate(indexdate,weighttype);
+    }
+
+    /**
+     * 同比环比计算数据
+     * @param indexdate
+     * @param weighttype
+     * @return
+     */
+    public List<IdriBean> DailyChainls(Date indexdate, String weighttype){
+        return idriRepostory.findByIAndW( indexdate, weighttype);
     }
 }
