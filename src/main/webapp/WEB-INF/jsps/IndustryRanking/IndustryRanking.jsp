@@ -159,7 +159,7 @@
                 }]
 
             };
-        }if (code == "white"){
+        }else{
             $("#mySelect").css({color: "#333"});
             $("#mySelect").css({backgroundColor: "white"});
             option  = {
