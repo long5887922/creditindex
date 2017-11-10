@@ -134,7 +134,6 @@
                             success: function (json) {
                                 if (json) {
                                     for (var i = 0; i < json.length; i++) {
-                                        console.log(json[i].context);
                                         arr.push(json[i].idri);
                                     }
                                 }
@@ -200,7 +199,6 @@
                             success: function (json) {
                                 if (json) {
                                     for (var i = 0; i < json.length; i++) {
-                                        console.log(json[i].context);
                                         arr.push(json[i].inducode);
                                     }
                                 }
