@@ -17,9 +17,10 @@
                 <td>
                     <select class="easyui-combobox" id="mySelect" name="s1" onchange="ch3()"
                             style="width:150px;height: 32px;font-size: 16px;background-color:#34394A;color:#999">
-                        <option value="day" selected>最近交易日</option>
-                        <option value="yer">同比</option>
-                        <option value="months">环比</option>
+                        <option value="yer" selected>年同比</option>
+                        <option value="months">月同比</option>
+                        <option value="week">周同比</option>
+                        <option value="day">日环比</option>
                     </select>
                 </td>
             </tr>
