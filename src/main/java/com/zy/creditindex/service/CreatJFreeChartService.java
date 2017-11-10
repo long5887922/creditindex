@@ -97,17 +97,17 @@ public class CreatJFreeChartService {
 			// 加权类型（01：等权；02：债券加权）
 			if ("01".equals(weightType)) {
 				/* 白色背景 */
-				createTimeXYChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShap.jpg", weightType, "01", startTime,
+				createLineChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShap.jpg", weightType, "01", startTime,
 						endTime, amongTime);
 				/* 暗色背景 */
-				createTimeXYChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShapBlack.jpg", weightType, "02", startTime,
+				createLineChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShapBlack.jpg", weightType, "02", startTime,
 						endTime, amongTime);
 			} else {
 				/* 白色背景 */
-				createTimeXYChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeighting.jpg", weightType, "01",
+				createLineChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeighting.jpg", weightType, "01",
 						startTime, endTime, amongTime);
 				/* 暗色背景 */
-				createTimeXYChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeightBlack.jpg", weightType, "02",
+				createLineChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeightBlack.jpg", weightType, "02",
 						startTime, endTime, amongTime);
 			}
 		} catch (Exception e) {
@@ -164,7 +164,7 @@ public class CreatJFreeChartService {
 	 * @param charName
 	 * @return
 	 */
-	public String createTimeXYChar(String chartTitle, String x, String y, CategoryDataset xyDataset, String charName,
+	public String createLineChar(String chartTitle, String x, String y, CategoryDataset xyDataset, String charName,
 			String weightType, String change, Date startTime, Date endTime, Date amongTime) throws Exception {
 		/* chartTitle图标题，x y，文字介绍，xyDataset 折线参数， */
 		JFreeChart chart = ChartFactory.createLineChart(chartTitle, x, y, xyDataset, PlotOrientation.VERTICAL, true,
@@ -307,7 +307,7 @@ public class CreatJFreeChartService {
 			} finally {
 				try {
 					fos_jpg.close();
-					System.out.println("create time-createTimeXYChar.");
+					System.out.println("createLineChar.");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -343,7 +343,7 @@ public class CreatJFreeChartService {
 			} finally {
 				try {
 					fos_jpg.close();
-					System.out.println("create time-createTimeXYChar.");
+					System.out.println("createLineChar");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
