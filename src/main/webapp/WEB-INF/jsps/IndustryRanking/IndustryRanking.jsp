@@ -16,7 +16,7 @@
             <tr>
                 <td>
                     <select class="easyui-combobox" id="mySelect" name="s1" onchange="ch3()"
-                            style="width:150px;height: 32px;font-size: 16px;background-color:#34394A;color:#999">
+                            style="width:150px;height: 32px;font-size: 16px;background-color:#1E2131;color:#fff">
                         <option value="day" selected>最近交易日</option>
                         <option value="yer">同比</option>
                         <option value="months">环比</option>
@@ -34,13 +34,15 @@
     var theme;
     $(function () {
         theme = window.localStorage.getItem("theme");
-
         loadData(theme);
     });
 
     // 基于准备好的dom，初始化echarts实例
     function loadData(code) {
-
+        if(code == 'white'){
+            $("#mySelect").css({color: "#333"});
+            $("#mySelect").css({backgroundColor: "white"});
+        }
         var myChart = echarts.init(document.getElementById('main'));
         var s1 = document.getElementsByName("s1")[0];
         var timetype = s1.value;
@@ -164,8 +166,7 @@
 
             };
         }if (code == "white"){
-            $("#mySelect").css({color: "#333"});
-            $("#mySelect").css({backgroundColor: "white"});
+
             option  = {
                 title: {//标题
                     text: '八个行业信贷风险指数排名',

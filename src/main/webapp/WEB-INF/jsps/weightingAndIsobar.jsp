@@ -37,7 +37,7 @@
     <div align="left" style="margin-left:10px;;margin-top:10px;">
         <span style="font-family:微软雅黑;font-size: 20px;color:#fff" id="index"><strong>信贷指数:</strong></span>
         <select id="selectTest"  name="select" onchange="ch2()"
-                style="width:150px;height: 32px;font-size: 16px;background-color:#34394A;color:#999">
+                style="width:150px;height: 32px;font-size: 16px;background-color:#1E2131;color:#fff">
             <option value="01" selected>等权</option>
             <option value="02">加权</option>
         </select>
@@ -189,7 +189,7 @@
             $("#spa").css({color: "#fff"});
             $("#down").css({color: "#fff"});
             $("#TextArea1").css({backgroundColor: "#1E2131"});
-            $("#selectTest").css({backgroundColor: "#34394A"});
+            $("#selectTest").css({backgroundColor: "#1E2131"});
             $("#TextArea1").css({color: "#999"});
             $("#selectTest").css({color: "#fff"});
             if (w == "02") {
