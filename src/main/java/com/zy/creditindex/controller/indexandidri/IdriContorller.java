@@ -139,7 +139,7 @@ public class IdriContorller {
                     indexdateNew =IdriUtil.idriName(indexdateNew);
                 }else {
                     Date Before = DateUtil.theDayBeforeYesterday();//前天
-                    List<IdriBean> beforeidri = idriService.DailyChain(Before, weighttype);
+                    List<IdriBean> beforeidri = idriService.DailyChain(Before, weighttype);//前天的数据
                     indexdateNew =idriService.findIndexdateNew(endtime,weighttype);//正常工作日(昨天);
                     indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
                     indexdateNew =IdriUtil.idriName(indexdateNew);//X轴的汉字转换
@@ -162,6 +162,7 @@ public class IdriContorller {
         for (IdriBean i:idriBean) {
             if(num==0){
                 IdriBean bf = beforeidri.get(0);//前天
+               System.out.println("-------------指数--------------"+bf.getIdri());
 //                bf.getIdri();//前天
 //                i.getIdri();//昨天
                 i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
