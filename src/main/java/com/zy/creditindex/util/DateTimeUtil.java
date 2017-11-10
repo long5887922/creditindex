@@ -28,7 +28,7 @@ public class DateTimeUtil {
 
         return format.parse(date);
     }
-    //获取当前系统日期
+    //获取当前系统前一天日期
     public  Date endTime() throws Exception {
 
         Calendar calendar = Calendar.getInstance();//日历对象
@@ -37,6 +37,14 @@ public class DateTimeUtil {
         Date  dayTime= calendar.getTime();
         String date = format.format(dayTime);
 
+        return format.parse(date);
+    }
+    public Date befor() throws Exception {
+
+        Calendar calendar = Calendar.getInstance();//日历对象
+        calendar.setTime(new Date());//设置当前日期
+        Date dayTime = calendar.getTime();
+        String date = format.format(dayTime);
         return format.parse(date);
     }
     /*10个工作日前*/
