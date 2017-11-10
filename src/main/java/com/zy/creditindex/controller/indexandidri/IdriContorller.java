@@ -107,20 +107,27 @@ public class IdriContorller {
         System.out.println("加权类型："+weighttype);
         List<IdriBean> indexdateNew = null;
         try {
+            Date endtime = DateUtil.endtime();//当前时间（昨天）
             if(Yoyg.equals("yer")){
                 Date oneyer = DateUtil.oneYer();//一年前的数据
-                indexdateNew  = idriService.findIndexdateNew(oneyer, weighttype);
+                List<IdriBean> beforeidri  = idriService.findIndexdateNew(oneyer, weighttype);//获取去年的数据
+                indexdateNew =idriService.findIndexdateNew(endtime,weighttype);//(获取昨天的数据);
+                indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
                 indexdateNew =IdriUtil.idriName(indexdateNew);
             }else if(Yoyg.equals("months")){
                 Date onemonth = DateUtil.starttime();//一个月前的数据
-                indexdateNew  = idriService.findIndexdateNew(onemonth,weighttype);
+                List<IdriBean> beforeidri  = idriService.findIndexdateNew(onemonth,weighttype);//获取上月的数据
+                indexdateNew =idriService.findIndexdateNew(endtime,weighttype);//(获取昨天的数据);
+                indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
                 indexdateNew =IdriUtil.idriName(indexdateNew);
             }else if(Yoyg.equals("week")){
                 Date lastweek = DateUtil.lastWeek();//获取当天对应的上周的日期
-                indexdateNew  = idriService.findIndexdateNew(lastweek,weighttype);//获取上周数据
-
+                List<IdriBean> beforeidri  = idriService.findIndexdateNew(lastweek,weighttype);//获取上周数据
+                indexdateNew =idriService.findIndexdateNew(endtime,weighttype);//(获取昨天的数据);
+                indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
+                indexdateNew =IdriUtil.idriName(indexdateNew);//X轴的汉字转换
             }else {
-                Date endtime = DateUtil.endtime();//当前时间（昨天）
+//                Date endtime = DateUtil.endtime();//当前时间（昨天）
                 int week = DateUtil.getWeekend();
                 if(week==1||week==7){
                     BastrdtINFOBean day = idriService.findRecentTradingDay(endtime);//获取最近交易日
