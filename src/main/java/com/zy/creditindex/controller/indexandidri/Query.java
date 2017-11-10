@@ -180,19 +180,20 @@ public class Query {
 				true, false);
 		chart.setTextAntiAlias(false);
 		chart.setBackgroundPaint(Color.WHITE);
-		// 设置图标题的字体重新设置title
-		Font font = new Font("微软雅黑", Font.BOLD, 11);
+
 		StandardChartTheme chartTheme = new StandardChartTheme("CN");
 		chartTheme.setAxisLabelPaint(new Color(51, 51, 51));
 		ChartFactory.setChartTheme(chartTheme);
+		// 设置图标题的字体重新设置title
+		Font font = new Font("Microsoft YaHei", Font.PLAIN, 11);
 		// Y轴
 		/* Font yfont = new Font("微软雅黑", Font.BOLD, 16); */
 		// 底部
-		Font kfont = new Font("微软雅黑", Font.BOLD, 14);
+		Font kfont = new Font("Microsoft YaHei", Font.PLAIN, 14);
 		// 图片标题
-		Font titleFont = new Font("微软雅黑", Font.BOLD, 17);
+		Font titleFont = new Font("Microsoft YaHei", Font.PLAIN, 17);
 		// 设置面板字体
-		Font labelFont = new Font("SansSerif", Font.TRUETYPE_FONT, 11);
+		Font labelFont = new Font("Microsoft YaHei", Font.PLAIN, 11);
 		// 获得图表对象
 		CategoryPlot p = chart.getCategoryPlot();
 		// 设置标签字体

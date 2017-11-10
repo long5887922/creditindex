@@ -53,14 +53,12 @@ public class CreatJFreeChartService {
 	public void creatJFreeChart(String weightType) {
 		try {
 			/*查询起始工作日日期*/
-			BastrdtINFOBean bean = bastrdtInfoService.queryStartTime(dataTimeUtil.startTime());
-			Date startTime = bean.getTrd_day();
+			/*BastrdtINFOBean bean = bastrdtInfoService.queryStartTime(dataTimeUtil.startTime());
+			Date startTime = bean.getTrd_day();*/
 			/*查询上一个工作日期*/
-			bean = bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
+			BastrdtINFOBean	bean = bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
 			Date endTime = bean.getTrd_day();
-			/*查询6个月的日期*/
-			bean = bastrdtInfoService.queryStartTime(dataTimeUtil.amongTime());
-			Date amongTime = bean.getTrd_day();
+
 			/*查询期间内各个行业的数据*/
 			List<IdriBean> list = idriService.queryAllIdri(endTime, weightType);
 			if (CollectionUtils.isEmpty(list)) {
@@ -97,18 +95,16 @@ public class CreatJFreeChartService {
 			// 加权类型（01：等权；02：债券加权）
 			if ("01".equals(weightType)) {
 				/* 白色背景 */
-				createLineChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShap.jpg", weightType, "01", startTime,
-						endTime, amongTime);
+				createLineChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShap.jpg", weightType, "01",
+						endTime);
 				/* 暗色背景 */
-				createLineChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShapBlack.jpg", weightType, "02", startTime,
-						endTime, amongTime);
+				createLineChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShapBlack.jpg", weightType, "02",
+						endTime);
 			} else {
 				/* 白色背景 */
-				createLineChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeighting.jpg", weightType, "01",
-						startTime, endTime, amongTime);
+				createLineChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeighting.jpg", weightType, "01", endTime);
 				/* 暗色背景 */
-				createLineChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeightBlack.jpg", weightType, "02",
-						startTime, endTime, amongTime);
+				createLineChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeightBlack.jpg", weightType, "02", endTime);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,7 +152,7 @@ public class CreatJFreeChartService {
 
 	/**
 	 * 折线图
-	 * 
+	 *
 	 * @param chartTitle
 	 * @param x
 	 * @param y
@@ -165,22 +161,22 @@ public class CreatJFreeChartService {
 	 * @return
 	 */
 	public String createLineChar(String chartTitle, String x, String y, CategoryDataset xyDataset, String charName,
-			String weightType, String change, Date startTime, Date endTime, Date amongTime) throws Exception {
+			String weightType, String change,Date endTime) throws Exception {
 		/* chartTitle图标题，x y，文字介绍，xyDataset 折线参数， */
 		JFreeChart chart = ChartFactory.createLineChart(chartTitle, x, y, xyDataset, PlotOrientation.VERTICAL, true,
 				true, false);
 		chart.setTextAntiAlias(false);
 		chart.setBackgroundPaint(Color.WHITE);
 		// 设置图标题的字体重新设置title
-		Font font = new Font("微软雅黑", Font.BOLD, 11);
+		Font font = new Font("Microsoft YaHei", Font.PLAIN, 11);
 		// Y轴
 		/* Font yfont = new Font("微软雅黑", Font.BOLD, 16); */
 		// 底部
-		Font kfont = new Font("微软雅黑", Font.BOLD, 14);
+		Font kfont = new Font("Microsoft YaHei", Font.PLAIN, 14);
 		// 图片标题
-		Font titleFont = new Font("微软雅黑", Font.BOLD, 17);
+		Font titleFont = new Font("Microsoft YaHei", Font.PLAIN, 17);
 		// 设置面板字体
-		Font labelFont = new Font("SansSerif", Font.TRUETYPE_FONT, 11);
+		Font labelFont = new Font("Microsoft YaHei", Font.PLAIN, 11);
 		// 获得图表对象
 		CategoryPlot p = chart.getCategoryPlot();
 		// 设置标签字体
@@ -250,14 +246,14 @@ public class CreatJFreeChartService {
 		domainAxis.setTickLabelsVisible(false);
 		/*设置X轴刻度尺不可见*/
 		domainAxis.setTickMarksVisible(false);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy");
 		/* 设置X轴参数区间 */
         /*domainAxis.setLabel(format.format(startTime) + "                              "
                 + "                                    " + format.format(amongTime)
                 + "                                                                     "
                 + format.format(endTime));*/
-		domainAxis.setLabel("2004"+"      "+"2005"+"      "+"2006"+"      "+"2007"+"      "+"2008"+"      "+"2009"+"      "+"2010"+"      "+
-				"2011"+"      "+"2012"+"      "+"2013"+"      "+"2014"+"      "+"2015"+"      "+"2016"+"      "+"2017");
+		domainAxis.setLabel("2004"+"   "+"2005"+"    "+"2006"+"    "+"2007"+"    "+"2008"+"    "+"2009"+"    "+"2010"+"    "+
+				"2011"+"    "+"2012"+"    "+"2013"+"    "+"2014"+"    "+"2015"+"    "+"2016"+"   "+format.format(endTime));
 		/*设置样式*/
 		domainAxis.setLabelFont(labelFont);// 轴标题
 		domainAxis.setTickLabelFont(labelFont);// 轴数值

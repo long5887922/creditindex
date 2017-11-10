@@ -35,7 +35,7 @@
 <body style="background-color: #1E2131">
 <div style="width:100%;">
     <div align="left" style="margin-left:10px;;margin-top:10px;">
-        <span style="font-size: 20px;color:#fff" id="index"><strong>信贷指数:</strong></span>
+        <span style="font-family:微软雅黑;font-size: 20px;color:#fff" id="index"><strong>信贷指数:</strong></span>
         <select id="selectTest"  name="select" onchange="ch2()"
                 style="width:150px;height: 32px;font-size: 16px;background-color:#34394A;color:#999">
             <option value="01" selected>等权</option>
@@ -45,10 +45,10 @@
     <div style="width: 45%;margin-left:10px;margin-top:10px;">
         <div>
             <div>
-                <div style="width:90%;height:20px;float:left;margin-left:650px;margin-right: 20px;">
-                    <div style="height: 370px; border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
+                <div style="width:90%;height:20px;float:left;margin-left:650px;">
+                    <div style="height: 370px;width: 760px;border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
                         <div align="left"><label id="lable"
-                                                 style="font-size: 20px;color:#fff"><strong>指数值(单位:bp)</strong></label></div>
+                                                 style="font-family:微软雅黑;font-size: 18px;color:#fff"><strong>指数值(单位:bp)</strong></label></div>
                         <table class="table" id="table" style="width:740px;height:300px;">
                             <thead>
                             <tr>
@@ -136,7 +136,7 @@
             <br>
         </div>
         <div style="width: 625px;height: 300px;margin-top:-20px;margin-left:10px;border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
-            <span id="spa" style="font-size: 20px;color: #fff"><strong>指数介绍</strong></span>
+            <span id="spa" style="font-family:微软雅黑;font-size: 18px;color: #fff"><strong>指数介绍</strong></span>
 			<textarea id="TextArea1" cols="60" rows="10" name="creditRisk" readonly="readonly"
                       style="color:#999;background:transparent;border-style:none;width: 600px;resize: none;">
      行业信贷风险指数（Industry Credit Risk Index）衡量并描述了国内8个大类行业的综合债务违约风险的一套信用风险指数体系。指数以全体A股上市企业为样本，依据证监会行业分类标准，基于算数平均法、债务加权法等2种方法，进行自下而上的指数计算，让使用者从不同角度和侧重追踪和分析各行业的信用违约风险水平与趋势，为国内信贷和债券市场提供了一个“风向标”和“指示器”。
