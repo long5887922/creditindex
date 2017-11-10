@@ -43,8 +43,15 @@ public class IdriUtil {
      * @return
      */
     public static BigDecimal CalculationIdri(BigDecimal idriBean,BigDecimal beforeidri){
-        BigDecimal bigDecimal = new BigDecimal(idriBean.subtract(beforeidri).doubleValue());//减
-        BigDecimal idriResult  = new BigDecimal(bigDecimal.divide(beforeidri, 2, BigDecimal.ROUND_HALF_UP).doubleValue());//除
-        return idriResult;
+        BigDecimal zero = new BigDecimal(Double.toString(0));
+        if(beforeidri==null||beforeidri==zero){
+            return zero;
+        }else{
+            BigDecimal oneHundred = new BigDecimal(Double.toString(100));
+            BigDecimal bigDecimal = new BigDecimal(idriBean.subtract(beforeidri).doubleValue());//减
+            BigDecimal idriResult  = new BigDecimal(bigDecimal.divide(beforeidri, 2, BigDecimal.ROUND_HALF_UP).doubleValue());//除
+            BigDecimal idribigDecimalResult = new BigDecimal(idriResult.multiply(oneHundred).doubleValue());
+            return idribigDecimalResult;
+        }
     }
 }
