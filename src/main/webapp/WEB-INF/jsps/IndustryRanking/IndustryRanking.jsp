@@ -58,7 +58,7 @@
 //                    //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
 //                    fontWeight:'bold',
 //                    //字体系列
-                        fontFamily: 'sans-serif',
+                        fontFamily: 'Microsoft YaHei',
 //                    //字体大小
                         fontSize: 20
                     }
