@@ -15,7 +15,7 @@ import java.util.Map;
 @Entity
 @IdClass(IdriPK.class)
 @Table(name = "idri")
-public class IdriBean implements Serializable {
+public class IdriBean implements Serializable,Comparable<IdriBean>{
 	private static final long serialVersionUID = 1L;
 	private static Map<String, String> map;
 	// PRIMARY KEY(indu_code, index_date, weight_type)
@@ -95,4 +95,27 @@ public class IdriBean implements Serializable {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+	@Override
+	public String toString() {
+		return "IdriBean{" +
+				"inducode='" + inducode + '\'' +
+				", indexdate=" + indexdate +
+				", weighttype='" + weighttype + '\'' +
+				", corpcount=" + corpcount +
+				", idri=" + idri +
+				", remark='" + remark + '\'' +
+				", oneHundred=" + oneHundred +
+				'}';
+	}
+
+	BigDecimal oneHundred = new BigDecimal(Double.toString(100));
+
+	@Override
+	//实现Comparable的compareTo方法
+	public int compareTo(IdriBean stu) {
+		// TODO Auto-generated method stub
+		return (this.getIdri().multiply(oneHundred)).intValue()-((stu.getIdri().multiply(oneHundred)).intValue());
+	}
+
 }
