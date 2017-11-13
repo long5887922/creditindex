@@ -185,7 +185,8 @@ public class IdriContorller {
                 }
             }
         }
-        Collections.sort(idri);//排个序
+        Collections.sort(idri);//排个序升序
+        Collections.reverse(idri);//reverse //即可反转降序
         return idri;
     }
 

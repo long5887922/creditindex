@@ -1,5 +1,7 @@
 package com.zy.creditindex.util;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,7 +30,7 @@ public class DateUtil {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new Date());//设置当前日期
-        calendar.add(Calendar.DATE, -5);//当天减一 ：昨天//-5
+        calendar.add(Calendar.DATE, -1);//当天减一 ：昨天//-5
         Date endtime =calendar.getTime();
         String date = format.format(endtime);
         return format.parse(date);
@@ -38,7 +40,7 @@ public class DateUtil {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new Date());//设置当前日期
-        calendar.add(Calendar.DATE, -6);//当天减二 ：前天//-2
+        calendar.add(Calendar.DATE, -2);//当天减二 ：前天//-2
         Date endtime =calendar.getTime();
         String date = format.format(endtime);
         return format.parse(date);
@@ -85,4 +87,15 @@ public class DateUtil {
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         return dayOfWeek;
     }
+
+    public static void main(String[] args) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();//日历对象
+        calendar.setTime(new java.util.Date());//设置当前日期
+        calendar.add(Calendar.YEAR, -1);//YEAR-1
+        Date starttimeyer = calendar.getTime();
+        System.out.println( format.format(starttimeyer));
+        String date = format.format(starttimeyer);
+    }
+
 }
