@@ -45,7 +45,7 @@ public interface IdriRepostory extends JpaRepository<IdriBean,String> {
     @Query(value="select  i.indu_code, i.index_date,i.idri ,i.weight_type ,i.remark,i.corp_count from idri_20171110 i where i.index_date>=?1 and i.index_date<=?2 and i.weight_type=?3 and i.indu_code IN('B','C','D','E','F','G','I','K')  ORDER BY i.indu_code,i.index_date DESC",nativeQuery = true)
     public List<IdriBean> queryIdriByGradeDown(Date startTime, Date endTime, String weightType );
     /*根据日期行业类型查询数据*/
-    @Query(value="select  i.indu_code, i.index_date,i.idri ,i.weight_type ,i.remark,i.corp_count from idri i where i.index_date>=?1 and i.index_date<=?2 and i.weight_type=?3 and i.indu_code =?4",nativeQuery = true)
+    @Query(value="select  i.indu_code, i.index_date,i.idri ,i.weight_type ,i.remark,i.corp_count from idri_20171110 i where i.index_date>=?1 and i.index_date<=?2 and i.weight_type=?3 and i.indu_code =?4",nativeQuery = true)
     public List<IdriBean> queryIdriByTrade(Date startTime, Date endTime, String type, String trade);
     /*根据日期行业类型查询数据*/
     @Query(value="select  i.indu_code, i.index_date,i.idri ,i.weight_type ,i.remark,i.remark, i.corp_count from idri_20171110 i where i.index_date<=?1 and i.weight_type=?2 and i.indu_code IN('B','C','D','E','F','G','I','K') ",nativeQuery = true)
