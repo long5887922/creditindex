@@ -253,7 +253,7 @@ public class CreatJFreeChartService {
                 + "                                                                     "
                 + format.format(endTime));*/
 		domainAxis.setLabel("2004"+"   "+"2005"+"    "+"2006"+"    "+"2007"+"    "+"2008"+"    "+"2009"+"    "+"2010"+"    "+
-				"2011"+"    "+"2012"+"    "+"2013"+"    "+"2014"+"    "+"2015"+"    "+"2016"+"   "+format.format(endTime));
+				"2011"+"    "+"2012"+"    "+"2013"+"    "+"2014"+"    "+"2015"+"   "+"2016"+"   "+format.format(endTime));
 		/*设置样式*/
 		domainAxis.setLabelFont(labelFont);// 轴标题
 		domainAxis.setTickLabelFont(labelFont);// 轴数值
