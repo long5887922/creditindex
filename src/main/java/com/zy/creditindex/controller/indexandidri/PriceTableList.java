@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by huaqin on 2017/10/30.
@@ -41,11 +38,16 @@ public class PriceTableList {
 /*当前日期*/
         try {
             /*获取当前日期*/
-            BastrdtINFOBean bean  = bastrdtInfoService.queryStartTime(dataTimeUtil.befor());
-            Date endTime = bean.getPreDay();
+            BastrdtINFOBean bean  = bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
+          /*  Calendar calendar = Calendar.getInstance();//日历对象
+            calendar.setTime(bean.getTrd_day());//设置当前日期*/
+            /*前一天日期*/
+          /*  calendar.add(Calendar.DATE, -1);
+            bean  = bastrdtInfoService.queryStartTime(calendar.getTime());*/
+            Date endTime = bean.getTrd_day();
             /*获取10天前的日期*/
-            //bean =bastrdtInfoService.queryBeforTime(dataTimeUtil.withinTenDay());
-            Date startTime =bean.getB_10dDay();
+            bean =bastrdtInfoService.queryBeforTime(endTime);
+            Date startTime =bean.getTrd_day();
             /*查询期间的交易日*/
             List<BastrdtINFOBean> list =  bastrdtInfoService.findWithinTenDay(startTime, endTime);
             List<Object> l = new ArrayList<>();
