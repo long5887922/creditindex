@@ -19,7 +19,7 @@
                             style="width:150px;height: 32px;font-size: 16px;background-color:#34394A;color:#999">
                         <option value="yer" selected>年同比</option>
                         <option value="months">月同比</option>
-                        <option value="week">周同比</option>
+                        <option value="week"style="display:none;">周同比</option>
                         <option value="day">日环比</option>
                     </select>
                 </td>
