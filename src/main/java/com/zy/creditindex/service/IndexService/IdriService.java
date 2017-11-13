@@ -1,8 +1,12 @@
 package com.zy.creditindex.service.IndexService;
 
 
+
+
+
 import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
+import com.zy.creditindex.repostory.indexJpa.BastrdtInfoRepostory;
 import com.zy.creditindex.repostory.indexJpa.IdriRepostory;
 import com.zy.creditindex.service.IndexService.ideiSeriviceInterface.IdriServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +21,12 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class IdriService implements IdriServiceInterface {
+public class IdriService {
     @Autowired
     private IdriRepostory idriRepostory;
+
+    @Autowired
+    private BastrdtInfoRepostory bastrdtinfo;
 
     /**
      * id查询
@@ -129,9 +136,10 @@ public class IdriService implements IdriServiceInterface {
      * @return
      */
     public BastrdtINFOBean findRecentTradingDay(Date dateTime) {
-        BastrdtINFOBean d = idriRepostory.findByLatestDate(dateTime);
+//        BastrdtINFOBean d = idriRepostory.findByLatestDate(dateTime);
+        BastrdtINFOBean d = bastrdtinfo.findByLatestDate(dateTime);
         System.out.println("-==============最近交易日===================" + d.getTrd_day());
-        return idriRepostory.findByLatestDate(dateTime);
+        return bastrdtinfo.findByLatestDate(dateTime);
     }
 
     /**
