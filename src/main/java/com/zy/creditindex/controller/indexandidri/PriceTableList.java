@@ -41,11 +41,11 @@ public class PriceTableList {
 /*当前日期*/
         try {
             /*获取当前日期*/
-            BastrdtINFOBean bean  = bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
-            Date endTime = bean.getTrd_day();
+            BastrdtINFOBean bean  = bastrdtInfoService.queryStartTime(dataTimeUtil.befor());
+            Date endTime = bean.getPreDay();
             /*获取10天前的日期*/
-            bean =bastrdtInfoService.queryBeforTime(dataTimeUtil.withinTenDay());
-            Date startTime =bean.getTrd_day();
+            //bean =bastrdtInfoService.queryBeforTime(dataTimeUtil.withinTenDay());
+            Date startTime =bean.getB_10dDay();
             /*查询期间的交易日*/
             List<BastrdtINFOBean> list =  bastrdtInfoService.findWithinTenDay(startTime, endTime);
             List<Object> l = new ArrayList<>();
