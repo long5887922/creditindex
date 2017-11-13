@@ -95,16 +95,16 @@ public class CreatJFreeChartService {
 			// 加权类型（01：等权；02：债券加权）
 			if ("01".equals(weightType)) {
 				/* 白色背景 */
-				createLineChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShap.jpg", weightType, "01",
+				createLineChar("行业信贷风险指数-等权", "", "", dataset, "lineAndShap.jpg", weightType, "01",
 						endTime);
 				/* 暗色背景 */
-				createLineChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShapBlack.jpg", weightType, "02",
+				createLineChar("行业信贷风险指数-等权", "", "", dataset, "lineAndShapBlack.jpg", weightType, "02",
 						endTime);
 			} else {
 				/* 白色背景 */
-				createLineChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeighting.jpg", weightType, "01", endTime);
+				createLineChar("行业信贷风险指数-加权", "", "", dataset, "lineAndShapWeighting.jpg", weightType, "01", endTime);
 				/* 暗色背景 */
-				createLineChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeightBlack.jpg", weightType, "02", endTime);
+				createLineChar("行业信贷风险指数-加权", "", "", dataset, "lineAndShapWeightBlack.jpg", weightType, "02", endTime);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
