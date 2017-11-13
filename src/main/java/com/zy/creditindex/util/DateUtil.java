@@ -28,7 +28,7 @@ public class DateUtil {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new Date());//设置当前日期
-        calendar.add(Calendar.DATE, -1);//当天减一 ：昨天
+        calendar.add(Calendar.DATE, -5);//当天减一 ：昨天
         Date endtime =calendar.getTime();
         String date = format.format(endtime);
         return format.parse(date);
