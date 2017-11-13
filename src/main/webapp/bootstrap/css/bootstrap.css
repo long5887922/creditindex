@@ -247,7 +247,7 @@ th {
   }
   .btn > .caret,
   .dropup > .btn > .caret {
-    border-top-color: #000 !important;
+    /*border-top-color: #000 !important;*/
   }
   .label {
     border: 1px solid #000;
@@ -1152,7 +1152,7 @@ hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
-  border-top: 1px solid #eee;
+  /*border-top: 1px solid #eee;*/
 }
 .sr-only {
   position: absolute;
@@ -2269,7 +2269,7 @@ th {
   padding: 8px;
   line-height: 1.42857143;
   vertical-align: top;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #34394A;
 }
 .table > thead > tr > th {
   vertical-align: bottom;
@@ -5927,21 +5927,21 @@ button.close {
   left: 50%;
   margin-left: -5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #000;
+  border-bottom-color: #34394A;
 }
 .tooltip.bottom-left .tooltip-arrow {
   top: 0;
   right: 5px;
   margin-top: -5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #000;
+  border-bottom-color: #34394A;
 }
 .tooltip.bottom-right .tooltip-arrow {
   top: 0;
   left: 5px;
   margin-top: -5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #000;
+  border-bottom-color: #34394A;
 }
 .popover {
   position: absolute;
@@ -5983,7 +5983,7 @@ button.close {
   margin: 0;
   font-size: 14px;
   background-color: #f7f7f7;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid #34394A;
   border-radius: 5px 5px 0 0;
 }
 .popover-content {
@@ -6040,7 +6040,7 @@ button.close {
   left: 50%;
   margin-left: -11px;
   border-top-width: 0;
-  border-bottom-color: #999;
+  border-bottom-color: #34394A;
   border-bottom-color: rgba(0, 0, 0, .25);
 }
 .popover.bottom > .arrow:after {
@@ -6048,7 +6048,7 @@ button.close {
   margin-left: -10px;
   content: " ";
   border-top-width: 0;
-  border-bottom-color: #fff;
+  border-bottom-color: #34394A;
 }
 .popover.left > .arrow {
   top: 50%;

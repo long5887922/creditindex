@@ -28,7 +28,7 @@
 .fixed-table-container {
     position: relative;
     clear: both;
-    border: 1px solid #ddd;
+    border: 1px solid #34394A;
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px
@@ -60,7 +60,7 @@
     height: 0;
     padding: 0;
     margin: 0;
-    border-left: 1px solid #ddd
+    border-left: 1px solid #34394A
 }
 
 .fixed-table-container thead th:focus {
@@ -107,7 +107,7 @@
 }
 
 .fixed-table-container tbody td {
-    border-left: 1px solid #ddd
+    border-left: 1px solid #34394A
 }
 
 .fixed-table-container tbody tr:first-child td {

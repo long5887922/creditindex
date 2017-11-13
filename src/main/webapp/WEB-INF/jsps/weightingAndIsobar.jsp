@@ -19,6 +19,8 @@
     <script src="${cxt}/js/plugins/chart.js" type="text/javascript"></script>
     <script src="${cxt}/js/plugins/utils.js" type="text/javascript"></script>
     <script src="${cxt}/js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+    <script src="${cxt}/js/Echarts/echarts.min.js" type="text/javascript"></script>
+    <script src="${cxt}/js/Echarts/indexUtil.js" type="text/javascript"></script>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -46,10 +48,10 @@
         <div>
             <div>
                 <div style="width:90%;height:20px;float:left;margin-left:650px;">
-                    <div style="height: 370px;width: 760px;border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
+                    <div style="height: 392px;width: 760px;border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
                         <div align="left"><label id="lable"
                                                  style="font-family:微软雅黑;font-size: 18px;color:#fff"><strong>指数值(单位:bp)</strong></label></div>
-                        <table class="table" id="table" style="width:740px;height:300px;">
+                        <table class="table" id="table" style="width:740px;height:300px; border-top:none">
                             <thead>
                             <tr>
                                 <th></th>
@@ -130,6 +132,21 @@
             <div>
                 <div style="width:20%;height:30px;float:left;margin-left:650px;">
                     <%@include file="IndustryRanking/IndustryRanking.jsp" %>
+                        <%--<div id="toolbar" style="width: 120px;height:32px;float: right;position: relative;">
+                            <table border="1">
+                                <tr>
+                                    <td>
+                                        <select class="easyui-combobox" id="mySelect" name="s1" onchange="ch3()"
+                                                style="width:150px;height: 32px;font-size: 16px;background-color:#34394A;color:#999">
+                                            <option value="yer" selected>年同比</option>
+                                            <option value="months">月同比</option>
+                                            <option value="week"style="display:none;">周同比</option>
+                                            <option value="day">日环比</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>--%>
                 </div>
             </div>
 
@@ -168,6 +185,9 @@
     $(function () {
         theme = window.localStorage.getItem("theme");
         skin(theme, true);
+        loadData(theme);
+        $("#table tr td ").css({bordercolor: "#999"});
+
     });
     function skin(code, clientFlag) {
         w = $('#selectTest').val();
@@ -297,6 +317,245 @@
         });
         $('#showLine').modal('show');
     }
+    /*function loadData(code) {
+        var myChart = echarts.init(document.getElementById('main'));
+        var timetype =  $('#mySelect').val();
+        var weighttype = $('#selectTest').val();
+        var linkUrl = "/idri/queryIndexdateNew?Yoyg=" + timetype + "&weighttype=" + weighttype;
+        // 指定图表的配置项和数据
+        var option;
+        if(code=='black'){
+            option  = {
+                title: {//标题
+                    text: '八个行业信贷风险指数排名',
+                    textStyle: {
+                        //文字颜色
+                        color:'#fff',
+//                    //字体风格,'normal','italic','oblique'
+                        fontStyle: 'normal',
+//                    //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+//                    fontWeight:'bold',
+//                    //字体系列
+                        fontFamily: 'sans-serif',
+//                    //字体大小
+                        fontSize: 20
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis'//显示鼠标的到达区域的值
+                },
+                //图例
+                legend: {
+                    data: ['行业排名']
+                },
+                //X轴
+                xAxis: [{
+                    type: 'category',
+                    data: (function () {
+                        var arr = [];
+                        $.ajax({
+                            type: "post",
+                            async: false, //表示同步执行
+                            url: linkUrl,
+                            data: {},
+                            dataType: "json", //返回数据形式为json
+                            success: function (json) {
+                                if (json) {
+                                    for (var i = 0; i < json.length; i++) {
+                                        console.log(json[i].context);
+                                        arr.push(json[i].inducode);
+                                    }
+                                }
+                            },
+                            error: function (errorMsg) {
+                                alert("不好意思,图表请求数据失败啦!");
+                                myChart.hideLoading();
+                            }
+                        })
+                        return arr;
+                    })(),
+                    axisLabel: {//设置X轴的颜色
+                        show: true,
+                        textStyle: {
+                            show: true,
+                            color: '#fff'
+                        }
+                    }
+                }
+                ],
+                //Y轴
+                yAxis: {
+                    type: 'value',
+                    axisLine: {
+                        lineStyle: {
+                            color:'#fff'
+                        }
+                    }
+                },
+                //具体数据
+                series: [{
+                    name: '行业信贷违约指数',
+                    type: 'bar',//'bar'表示直方图; line 折线图
+                    itemStyle:{//设置柱形图的颜色
+                        normal:{
+                            color:'#2B99FF'
+                        }
+                    },
+                    data: (function () {
+                        var arr = [];
+                        $.ajax({
+                            type: "post",
+                            async: false, //同步执行
+                            url: linkUrl,
+                            data: {},
+                            dataType: "json", //返回数据形式为json
+                            success: function (json) {
+                                if (json) {
+                                    for (var i = 0; i < json.length; i++) {
+                                        arr.push(json[i].idri);
+                                    }
+                                }
+                            },
+                            error: function (errorMsg) {
+                                alert("不好意思,图表请求数据失败啦!");
+                                myChart.hideLoading();
+                            }
+                        })
+                        return arr;
+                    })(),
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
+                }]
+
+            };
+        }else{
+            $("#mySelect").css({color: "#333"});
+            $("#mySelect").css({backgroundColor: "white"});
+            option  = {
+                title: {//标题
+                    text: '八个行业信贷风险指数排名',
+                    textStyle: {
+                        //文字颜色
+                        color:'#333',
+//                    //字体风格,'normal','italic','oblique'
+                        fontStyle: 'normal',
+//                    //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+//                    fontWeight:'bold',
+//                    //字体系列
+                        fontFamily: 'sans-serif',
+//                    //字体大小
+                        fontSize: 20
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis'//显示鼠标的到达区域的值
+                },
+                //图例
+                legend: {
+                    data: ['行业排名']
+                },
+                //X轴
+                xAxis: [{
+                    type: 'category',
+                    data: (function () {
+                        var arr = [];
+                        $.ajax({
+                            type: "post",
+                            async: false, //表示同步执行
+                            url: linkUrl,
+                            data: {},
+                            dataType: "json", //返回数据形式为json
+                            success: function (json) {
+                                if (json) {
+                                    for (var i = 0; i < json.length; i++) {
+                                        arr.push(json[i].inducode);
+                                    }
+                                }
+                            },
+                            error: function (errorMsg) {
+                                alert("不好意思,图表请求数据失败啦!");
+                                myChart.hideLoading();
+                            }
+                        })
+                        return arr;
+                    })(),
+                    axisLabel: {//设置X轴的颜色
+                        show: true,
+                        textStyle: {
+                            show: true,
+                            color: '#333'
+                        }
+                    }
+                }
+                ],
+                //Y轴
+                yAxis: {
+                    type: 'value',
+                    axisLine: {
+                        lineStyle: {
+                            color:'#333'
+                        }
+                    }
+                },
+                //具体数据
+                series: [{
+                    name: '行业信贷违约指数',
+                    type: 'bar',//'bar'表示直方图; line 折线图
+                    itemStyle:{//设置柱形图的颜色
+                        normal:{
+                            color:'#2B99FF'
+                        }
+                    },
+                    data: (function () {
+                        var arr = [];
+                        $.ajax({
+                            type: "post",
+                            async: false, //同步执行
+                            url: linkUrl,
+                            data: {},
+                            dataType: "json", //返回数据形式为json
+                            success: function (json) {
+                                if (json) {
+                                    for (var i = 0; i < json.length; i++) {
+                                        console.log(json[i].context);
+                                        arr.push(json[i].idri);
+                                    }
+                                }
+                            },
+                            error: function (errorMsg) {
+                                alert("不好意思,图表请求数据失败啦!");
+                                myChart.hideLoading();
+                            }
+                        })
+                        return arr;
+                    })(),
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
+                }]
+
+            };
+        }
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }*/
 </script>
 </body>
 </html>
