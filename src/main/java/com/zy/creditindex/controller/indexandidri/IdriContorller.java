@@ -122,7 +122,7 @@ public class IdriContorller {
             }else if(Yoyg.equals("months")){
 //                Date onemonth = DateUtil.starttime();//一个月前的数据
                 BastrdtINFOBean  bday = this.effectiveDate(endtime);//获取昨天对应的是上个月
-                Date onemonth = bday.getTrd_day();//获取上个月对应的最近有效日期
+                Date onemonth = bday.getB_1mDay();//获取上个月对应的最近有效日期
                 List<IdriBean> beforeidri  = idriService.findIndexdateNew(onemonth,weighttype);//获取上月的数据
                 BastrdtINFOBean ybday = this.effectiveDate(endtime);//获取昨天的日期
                 Date yestrd_day = ybday.getTrd_day();//获取昨天对应的最近交易日
