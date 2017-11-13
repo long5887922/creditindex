@@ -10,13 +10,14 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ${ZhaoYing}on 2017/10/23 0023
  */
 public interface IdriRepostory extends JpaRepository<IdriBean,String> {
     //当天的违约指数
-    @Query(value ="select i.indu_code,i.index_date,i.weight_type,i.corp_count,i.idri,i.remark from idri i where  i.index_date=?1 and i.weight_type=?2 and i.indu_code IN('B','C','D','E','F','G','I','K') order by i.idri desc",nativeQuery = true)
+    @Query(value ="select i.indu_code,i.index_date,i.weight_type,i.corp_count,i.idri,i.remark from idri_20171110 i where  i.index_date=?1 and i.weight_type=?2 and i.indu_code IN('B','C','D','E','F','G','I','K') order by i.indu_code desc",nativeQuery = true)
     public List<IdriBean> findByIndexdate(Date indexdate, String weighttype);
     //通过id查询
     @Query(value ="select i.indu_code,i.index_date,i.weight_type,i.corp_count,i.idri,i.remark from idri i where i.indu_code = ?1",nativeQuery = true)
@@ -50,11 +51,6 @@ public interface IdriRepostory extends JpaRepository<IdriBean,String> {
     @Query(value="select  i.indu_code, i.index_date,i.idri ,i.weight_type ,i.remark,i.remark, i.corp_count from idri i where i.index_date<=?1 and i.weight_type=?2 and i.indu_code IN('B','C','D','E','F','G','I','K') ",nativeQuery = true)
     public List<IdriBean> queryAllIdri(Date endTime, String type);
 
-    /*查询最近交易日
-     */
-    @Query(value="select b.id,b.NORM_DAY,b.EXCH_CODE,b.NXT_DAY,b.PRE_DAY,b.IS_TRD_DAY,b.THIS_W,b.TRD_DAY,b.THIS_W_N,b.THIS_M_N,b.LST_W_DAY,b.LST_M_DAY,b.LST_Y_DAY,b.IS_END_W,b.IS_END_M,b.IS_END_Q,b.IS_END_Y,b.IS_LST_END_M,b.IS_LST_END_Q,b.ENT_TIME,b.UPD_TIME,b.GRD_TIME,b.RS_ID,b.REC_ID,b.B_5D_DAY,b.B_10D_DAY,b.B_1M_DAY,b.B_2M_DAY,b.B_3M_DAY,b.N_TRD_DAY_TYP from BAS_TRDT_INFO b  where b.NORM_DAY=?1 and b.EXCH_CODE in('101','105')",nativeQuery = true)
-    public BastrdtINFOBean findByLatestDate(Date dateTime);
-
     /**
      * 查询同比环比的数据
      * @param indexdate
@@ -63,4 +59,5 @@ public interface IdriRepostory extends JpaRepository<IdriBean,String> {
      */
     @Query(value ="select i.indu_code,i.index_date,i.weight_type,i.corp_count,i.idri,i.remark from idri i where  i.index_date=?1 and i.weight_type=?2 and i.indu_code in('B','C','D','E','F','G','I','K') order by i.indu_code asc",nativeQuery = true)
     public List<IdriBean> findByIAndW(Date indexdate, String weighttype);
+
 }

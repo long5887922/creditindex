@@ -1,5 +1,6 @@
 package com.zy.creditindex.controller.indexandidri;
 
+
 import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 
@@ -14,8 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ${ZhaoYing}on 2017/10/23 0023
@@ -95,6 +95,7 @@ public class IdriContorller {
         Date endtime = DateUtil.endtime();
         return idriService.findIdriByTimesTotto(starttime,endtime);
     }
+
     /**
      * 八个行业信贷风险指数排名
      * 参数：
@@ -105,42 +106,58 @@ public class IdriContorller {
     public List<IdriBean> queryIndexdateNew(String Yoyg, String weighttype){//Yoyg
         System.out.println("排名类型："+Yoyg);
         System.out.println("加权类型："+weighttype);
-        List<IdriBean> indexdateNew = null;
+        List<IdriBean> indexdateNew = null;//接收返回的值，不用重新new新的ArrayList
         try {
             Date endtime = DateUtil.endtime();//当前时间（昨天）
             if(Yoyg.equals("yer")){
-                Date oneyer = DateUtil.oneYer();//一年前的数据
-                List<IdriBean> beforeidri  = idriService.findIndexdateNew(oneyer, weighttype);//获取去年的数据
-                indexdateNew =idriService.findIndexdateNew(endtime,weighttype);//(获取昨天的数据);
+                Date oneyer = DateUtil.oneYer();//一年前的日期
+                BastrdtINFOBean bday = this.effectiveDate(oneyer);//获取有效日期
+                Date oneyestrd_day = bday.getTrd_day();//获取一年前的最近交易有效日
+                List<IdriBean> beforeidri  = idriService.findIndexdateNew(oneyestrd_day, weighttype);//获取去年的数据
+                BastrdtINFOBean ybday = this.effectiveDate(endtime);//获取昨天的日期
+                Date yestrd_day = ybday.getTrd_day();//获取昨天对应的最近交易日
+                indexdateNew =idriService.findIndexdateNew(yestrd_day,weighttype);//(获取昨天的数据);
                 indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
                 indexdateNew =IdriUtil.idriName(indexdateNew);
             }else if(Yoyg.equals("months")){
-                Date onemonth = DateUtil.starttime();//一个月前的数据
+//                Date onemonth = DateUtil.starttime();//一个月前的数据
+                BastrdtINFOBean  bday = this.effectiveDate(endtime);//获取昨天对应的是上个月
+                Date onemonth = bday.getTrd_day();//获取上个月对应的最近有效日期
                 List<IdriBean> beforeidri  = idriService.findIndexdateNew(onemonth,weighttype);//获取上月的数据
-                indexdateNew =idriService.findIndexdateNew(endtime,weighttype);//(获取昨天的数据);
+                BastrdtINFOBean ybday = this.effectiveDate(endtime);//获取昨天的日期
+                Date yestrd_day = ybday.getTrd_day();//获取昨天对应的最近交易日
+                indexdateNew =idriService.findIndexdateNew(yestrd_day,weighttype);//(获取昨天的数据);
                 indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
                 indexdateNew =IdriUtil.idriName(indexdateNew);
             }else if(Yoyg.equals("week")){
-                Date lastweek = DateUtil.lastWeek();//获取当天对应的上周的日期
+//                Date lastweek = DateUtil.lastWeek();//获取当天对应的上周的日期
+                BastrdtINFOBean bday = this.effectiveDate(endtime);//获取上周的日期
+                Date lastweek = bday.getB_5dDay();//获取上周对应的最近交易日
                 List<IdriBean> beforeidri  = idriService.findIndexdateNew(lastweek,weighttype);//获取上周数据
-                indexdateNew =idriService.findIndexdateNew(endtime,weighttype);//(获取昨天的数据);
+                BastrdtINFOBean ybday = this.effectiveDate(endtime);//获取昨天的日期
+                Date yestrd_day = ybday.getTrd_day();//获取昨天对应的最近交易日
+                indexdateNew =idriService.findIndexdateNew(yestrd_day,weighttype);//(获取昨天的数据);
                 indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
                 indexdateNew =IdriUtil.idriName(indexdateNew);//X轴的汉字转换
             }else {
 //                Date endtime = DateUtil.endtime();//当前时间（昨天）
                 int week = DateUtil.getWeekend();
                 if(week==1||week==7){
-                    BastrdtINFOBean day = idriService.findRecentTradingDay(endtime);//获取最近交易日
-                    Date trd_day = day.getTrd_day();//最近交易日
+                    BastrdtINFOBean  bday = this.effectiveDate(endtime);//拿到最近有效交易日trd_day
+                    Date trd_day = bday.getTrd_day();
                     Date beforeTradingDay = DateUtil.thedayBeforeTheLatestTradingDay(trd_day);//最近交易日的前一天
                     List<IdriBean> beforeTradingidri = idriService.DailyChain(beforeTradingDay, weighttype);//最近交易日前一天的数据
                     indexdateNew  =  idriService.findIndexdateNew(trd_day,weighttype);//周末没有交易(默认查询最近交易日)
                     indexdateNew =ProportionalValue(indexdateNew,beforeTradingidri);//同比环比计算
                     indexdateNew =IdriUtil.idriName(indexdateNew);
                 }else {
-                    Date Before = DateUtil.theDayBeforeYesterday();//前天
-                    List<IdriBean> beforeidri = idriService.DailyChain(Before, weighttype);//前天的数据
-                    indexdateNew =idriService.findIndexdateNew(endtime,weighttype);//正常工作日(昨天);
+                    Date Before = DateUtil.theDayBeforeYesterday();//前天的时间
+                    BastrdtINFOBean bday = this.effectiveDate(Before);//拿到前天最近有效交易日beforetrd_day
+                    Date beforetrd_day = bday.getTrd_day();
+                    List<IdriBean> beforeidri = idriService.DailyChain(beforetrd_day, weighttype);//前天的数据
+                    BastrdtINFOBean ytrd_day = this.effectiveDate(endtime);//拿到昨天最近有效交易日yesterdaytrd_day
+                    Date yesterdaytrd_day = ytrd_day.getTrd_day();
+                    indexdateNew =idriService.findIndexdateNew(yesterdaytrd_day,weighttype);//昨天的数据
                     indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
                     indexdateNew =IdriUtil.idriName(indexdateNew);//X轴的汉字转换
                 }
@@ -157,41 +174,30 @@ public class IdriContorller {
      * @param beforeidri
      * @return
      */
-    public  List<IdriBean> ProportionalValue( List<IdriBean> idriBean,List<IdriBean> beforeidri){
-        int num = 0;
-        for (IdriBean i:idriBean) {
-            if(num==0){
-                IdriBean bf = beforeidri.get(0);//前天
-               System.out.println("-------------指数--------------"+bf.getIdri());
-//                bf.getIdri();//前天
-//                i.getIdri();//昨天
-                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
-            }else if(num==1){
-                IdriBean bf = beforeidri.get(1);//前天
-                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
-            }else if(num==2){
-                IdriBean bf = beforeidri.get(2);//前天
-                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
-            }else if(num==3){
-                IdriBean bf = beforeidri.get(3);//前天
-                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
-            }else if(num==4){
-                IdriBean bf = beforeidri.get(3);//前天
-                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
-            }else if(num==5){
-                IdriBean bf = beforeidri.get(3);//前天
-                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
-            }else if(num==6){
-                IdriBean bf = beforeidri.get(3);//前天
-                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
-            }else if(num==7){
-                IdriBean bf = beforeidri.get(3);//前天
-                i.setIdri(IdriUtil.CalculationIdri(i.getIdri(),bf.getIdri()));//除
+    public  List<IdriBean> ProportionalValue(List<IdriBean> idriBean,List<IdriBean> beforeidri){//List<IdriBean> idriBean,List<IdriBean> beforeidri
+        List<IdriBean> idri = new ArrayList<IdriBean>();
+        for (IdriBean idb:idriBean) {
+            for (IdriBean bf:beforeidri) {
+                if(idb.getInducode().equals(bf.getInducode())){
+//                    IdriBean idriBean1 = new IdriBean();
+                    idb.setIdri(IdriUtil.CalculationIdri(idb.getIdri(),bf.getIdri()));//除
+                    idri.add(idb);
+                }
             }
-            num = num+1;
         }
+        Collections.sort(idri);//排个序
+        return idri;
+    }
 
-        return idriBean;
+    /**
+     * 获取最近有效交易日
+     * @param atThatTime
+     * @return
+     */
+    public BastrdtINFOBean effectiveDate(Date atThatTime){
+        BastrdtINFOBean day = idriService.findRecentTradingDay(atThatTime);//获取最近交易日--》effective有效
+//        Date trd_day = day.getTrd_day();//最近交易日--》effective有效
+        return day;
     }
 
     @PostMapping("testDailyChainls")

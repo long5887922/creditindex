@@ -3,6 +3,8 @@ package com.zy.creditindex.util;
 import com.zy.creditindex.entity.idri.IdriBean;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -49,9 +51,18 @@ public class IdriUtil {
         }else{
             BigDecimal oneHundred = new BigDecimal(Double.toString(100));
             BigDecimal bigDecimal = new BigDecimal(idriBean.subtract(beforeidri).doubleValue());//减
-            BigDecimal idriResult  = new BigDecimal(bigDecimal.divide(beforeidri, 2, BigDecimal.ROUND_HALF_UP).doubleValue());//除
-            BigDecimal idribigDecimalResult = new BigDecimal(idriResult.multiply(oneHundred).doubleValue());
+//            BigDecimal idriResult  = new BigDecimal(bigDecimal.divide(beforeidri, 4, BigDecimal.ROUND_HALF_UP).doubleValue());//除
+            double v = bigDecimal.divide(beforeidri, 4, BigDecimal.ROUND_HALF_UP).doubleValue();//除
+            DecimalFormat fordf   = new DecimalFormat("######0.0000");
+            String  resourt = fordf.format(v*100);//乘（计算百分比）
+            BigDecimal idribigDecimalResult = new BigDecimal(resourt);
+//            BigDecimal idribigDecimalResult = new BigDecimal(idriResult.multiply(oneHundred).doubleValue());//乘以100
             return idribigDecimalResult;
         }
+    }
+    public static void main(String[] args) throws ParseException {
+        BigDecimal zero = new BigDecimal(Double.toString(1));
+        BigDecimal zero1 = new BigDecimal(Double.toString(3));
+      System.out.println( CalculationIdri(zero,zero1));
     }
 }
