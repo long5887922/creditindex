@@ -9,6 +9,8 @@ import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.repostory.indexJpa.BastrdtInfoRepostory;
 import com.zy.creditindex.repostory.indexJpa.IdriRepostory;
 import com.zy.creditindex.service.IndexService.ideiSeriviceInterface.IdriServiceInterface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ import java.util.List;
 @Service
 @Transactional
 public class IdriService {
+    protected static final Logger logger = LoggerFactory.getLogger(IdriService.class);
     @Autowired
     private IdriRepostory idriRepostory;
 
@@ -136,9 +139,8 @@ public class IdriService {
      * @return
      */
     public BastrdtINFOBean findRecentTradingDay(Date dateTime) {
-//        BastrdtINFOBean d = idriRepostory.findByLatestDate(dateTime);
         BastrdtINFOBean d = bastrdtinfo.findByLatestDate(dateTime);
-        System.out.println("-==============最近交易日===================" + d.getTrd_day());
+        logger.info("-==============最近交易日===================" + d.getTrd_day());
         return bastrdtinfo.findByLatestDate(dateTime);
     }
 

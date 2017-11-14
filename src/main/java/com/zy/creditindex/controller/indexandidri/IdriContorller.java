@@ -9,6 +9,8 @@ import com.zy.creditindex.service.IndexService.BastrdtInfoService;
 import com.zy.creditindex.service.IndexService.IdriService;
 import com.zy.creditindex.util.DateUtil;
 import com.zy.creditindex.util.IdriUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +25,7 @@ import java.util.*;
 @RestController
 @RequestMapping(value = "/idri")
 public class IdriContorller {
-
+    protected static final Logger logger = LoggerFactory.getLogger(IdriContorller.class);
     @Autowired
     private IdriService idriService;
     //初始化权重
@@ -104,8 +106,8 @@ public class IdriContorller {
      */
     @PostMapping("/queryIndexdateNew")
     public List<IdriBean> queryIndexdateNew(String Yoyg, String weighttype){//Yoyg
-        System.out.println("排名类型："+Yoyg);
-        System.out.println("加权类型："+weighttype);
+        logger.info("排名类型："+Yoyg);
+        logger.info("加权类型："+weighttype);
         List<IdriBean> indexdateNew = null;//接收返回的值，不用重新new新的ArrayList
         try {
             Date endtime = DateUtil.endtime();//当前时间（昨天）
@@ -120,7 +122,6 @@ public class IdriContorller {
                 indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
                 indexdateNew =IdriUtil.idriName(indexdateNew);
             }else if(Yoyg.equals("months")){
-//                Date onemonth = DateUtil.starttime();//一个月前的数据
                 BastrdtINFOBean  bday = this.effectiveDate(endtime);//获取昨天对应的是上个月
                 Date onemonth = bday.getB_1mDay();//获取上个月对应的最近有效日期
                 List<IdriBean> beforeidri  = idriService.findIndexdateNew(onemonth,weighttype);//获取上月的数据
@@ -130,7 +131,6 @@ public class IdriContorller {
                 indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
                 indexdateNew =IdriUtil.idriName(indexdateNew);
             }else if(Yoyg.equals("week")){
-//                Date lastweek = DateUtil.lastWeek();//获取当天对应的上周的日期
                 BastrdtINFOBean bday = this.effectiveDate(endtime);//获取上周的日期
                 Date lastweek = bday.getB_5dDay();//获取上周对应的最近交易日
                 List<IdriBean> beforeidri  = idriService.findIndexdateNew(lastweek,weighttype);//获取上周数据
@@ -140,7 +140,6 @@ public class IdriContorller {
                 indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
                 indexdateNew =IdriUtil.idriName(indexdateNew);//X轴的汉字转换
             }else {
-//                Date endtime = DateUtil.endtime();//当前时间（昨天）
                 int week = DateUtil.getWeekend();
                 if(week==1||week==7){
                     BastrdtINFOBean  bday = this.effectiveDate(endtime);//拿到最近有效交易日trd_day
@@ -169,7 +168,7 @@ public class IdriContorller {
     }
 
     /**
-     * 计算同比环比
+     * 同比环比算法
      * @param idriBean
      * @param beforeidri
      * @return
@@ -196,7 +195,6 @@ public class IdriContorller {
      */
     public BastrdtINFOBean effectiveDate(Date atThatTime){
         BastrdtINFOBean day = idriService.findRecentTradingDay(atThatTime);//获取最近交易日--》effective有效
-//      Date trd_day = day.getTrd_day();//最近交易日--》effective有效
         return day;
     }
 
