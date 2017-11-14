@@ -407,6 +407,12 @@
         if (code == "black") {
             theme = code;
             loadData(code);
+           /* $("tr").mouseover(function(){
+                $(this).css("background-color","#2C364D");
+            });
+            $("tr").mouseout(function(){
+                $(this).css("background-color","#1E2131");
+            });*/
             document.body.style.backgroundColor = "#1E2131";
             $("#table th").css({color: "#8dbff3"});
             $("#table tr td a").css({color: "#999"});
@@ -437,6 +443,12 @@
         } else if (code == "white") {
             theme = code;
             loadData(code);
+           /* $("tr").mouseover(function(){
+                $(this).css("background-color","#E5E5E5");
+            });
+            $("tr").mouseout(function(){
+                $(this).css("background-color","white");
+            });*/
             document.body.style.backgroundColor = "white";
             $("#table tr td a").css({color: "#333"});
             $("#table tr td ").css({color: "#333"});
@@ -444,7 +456,8 @@
             $("#weight tr td a").css({color: "#333"});
             $("#weight tr td").css({color: "#333"});
             $("#weight th").css({color: "#222"});
-            $("#weight th").css({backgroundColor: "white"});
+            $("#weight tbody th tr td").css({backgroundColor: "white"});
+
             $("#showLine").css({backgroundColor: "#FFFFFF"});
             $("#lable").css({color: "#222"});
             $("#index").css({color: "#222"});
