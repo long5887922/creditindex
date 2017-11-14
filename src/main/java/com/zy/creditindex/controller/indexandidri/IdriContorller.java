@@ -179,14 +179,13 @@ public class IdriContorller {
         for (IdriBean idb:idriBean) {
             for (IdriBean bf:beforeidri) {
                 if(idb.getInducode().equals(bf.getInducode())){
-//                    IdriBean idriBean1 = new IdriBean();
                     idb.setIdri(IdriUtil.CalculationIdri(idb.getIdri(),bf.getIdri()));//除
                     idri.add(idb);
                 }
             }
         }
         Collections.sort(idri);//排个序升序
-        Collections.reverse(idri);//reverse //即可反转降序
+        Collections.reverse(idri);//reverse-->>>即可反转降序
         return idri;
     }
 
@@ -197,7 +196,7 @@ public class IdriContorller {
      */
     public BastrdtINFOBean effectiveDate(Date atThatTime){
         BastrdtINFOBean day = idriService.findRecentTradingDay(atThatTime);//获取最近交易日--》effective有效
-//        Date trd_day = day.getTrd_day();//最近交易日--》effective有效
+//      Date trd_day = day.getTrd_day();//最近交易日--》effective有效
         return day;
     }
 
