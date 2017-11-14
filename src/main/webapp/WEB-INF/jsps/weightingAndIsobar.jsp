@@ -51,7 +51,7 @@
                                                  style="font-family:微软雅黑;font-size: 18px;color:#fff"><strong>指数值(单位:bp)</strong></label></div>
                         <table class="table" id="table" style="width:740px;height:300px; border-top:none">
                             <thead>
-                            <tr>
+                            <tr class="changeTr">
                                 <th></th>
                                 <th></th>
                                 <c:forEach items="${list}" var="t">
@@ -61,7 +61,7 @@
                             </thead>
                             <tbody>
                             <c:forEach items="${list2}" var="idri" varStatus="t">
-                                <tr>
+                                <tr class="changeTr">
                                     <td><a style="text-decoration: none" title="${idri.username}">${idri.username}</a>
                                     </td>
                                     <td>
@@ -83,7 +83,7 @@
                         </table>
                         <table class="table" id="weight" style="display:none;width:740px;height:300px;">
                             <thead>
-                            <tr>
+                            <tr class="changeTr">
                                 <th></th>
                                 <th></th>
                                 <c:forEach items="${list}" var="t">
@@ -93,7 +93,7 @@
                             </thead>
                             <tbody>
                             <c:forEach items="${list2}" var="idri" varStatus="t">
-                                <tr>
+                                <tr class="changeTr">
                                     <td>
                                         <a style="text-decoration: none" title="${idri.username}">${idri.username}</a>
                                     </td>
@@ -373,8 +373,8 @@
             <span id="spa" style="font-family:微软雅黑;font-size: 18px;color: #fff"><strong>指数介绍</strong></span>
 			<textarea id="TextArea1" cols="60" rows="10" name="creditRisk" readonly="readonly"
                       style="color:#999;background:transparent;border-style:none;width: 600px;resize: none;">
-     行业信贷风险指数（Industry Credit Risk Index）衡量并描述了国内8个大类行业的综合债务违约风险的一套信用风险指数体系。指数以全体A股上市企业为样本，依据证监会行业分类标准，基于算数平均法、债务加权法等2种方法，进行自下而上的指数计算，让使用者从不同角度和侧重追踪和分析各行业的信用违约风险水平与趋势，为国内信贷和债券市场提供了一个“风向标”和“指示器”。
-   行业信贷风险指数的数据采集均来自公开市场交易、上市企业季报、年报等公开数据。指数成分样本的筛选和权重的计算循序《行业信贷风险指数的编制方法》，后经指数评审委员会的最后确认而形成。个体预期违约概率经流动性指标模型、Merton违约概率模型、“壳”价值修正模型等的计算得出，并按相应指数计算公式计算出最终指数。
+     行业信贷风险指数（Industry Credit Risk Index）是衡量并描述国内8个大类行业综合债务风险的一套信用风险指数体系。指数以A股全体上市企业为样本，依据证监会行业分类标准，基于算数平均法和债务加权法，自下而上进行指数计算。使用者可以通过指数的运算结果，从不同角度和侧重，分析各行业的信用风险水平与趋势。 行业信贷风险指数为国内信贷和债券市场提供了“风向标”和“指示器”。
+       行业信贷风险指数的数据采集自公开市场交易、上市企业季报、年报等公开数据。指数成分样本的筛选和权重的计算循序《行业信贷风险指数的编制方法》，后经指数评审委员会最后确认形成。个体预期违约概率经流动性指标模型、Merton违约概率模型、“壳”价值修正模型等计算得出，并按相应计算公式得出最终指数。
             </textarea>
 
             <div id="down">
@@ -407,22 +407,16 @@
     function skin(code, clientFlag) {
         w = $('#selectTest').val();
         if (code == "black") {
+            $("tr.changeTr").css({backgroundColor: "#1E2131"});
             theme = code;
             loadData(code);
-           /* $("tr").mouseover(function(){
-                $(this).css("background-color","#2C364D");
-            });
-            $("tr").mouseout(function(){
-                $(this).css("background-color","#1E2131");
-            });*/
             document.body.style.backgroundColor = "#1E2131";
             $("#table th").css({color: "#8dbff3"});
             $("#table tr td a").css({color: "#999"});
             $("#table tr td ").css({color: "#999"});
+            $("#weight th").css({color: "#8dbff3"});
             $("#weight tr td a").css({color: "#999"});
             $("#weight tr td ").css({color: "#999"});
-            $("#weight th").css({color: "#8dbff3"});
-            $("#weight th").css({backgroundColor: "#34394A"});
             $("#showLine").css({backgroundColor: "#34394A"});
             $("#lable").css({color: "#fff"});
             $("#user").css({color: "#fff"});
@@ -442,24 +436,24 @@
             } else {
                 $("#changeJPG").attr("src", "/img/lineAndShapBlack.jpg");
             }
-        } else if (code == "white") {
-            theme = code;
-            loadData(code);
-           /* $("tr").mouseover(function(){
-                $(this).css("background-color","#E5E5E5");
+            $("tr").mouseover(function(){
+                $(this).css("background-color","#2C364D");
             });
             $("tr").mouseout(function(){
-                $(this).css("background-color","white");
-            });*/
+                $(this).css("background-color","#1E2131");
+            });
+        } else if (code == "white") {
+            $("tr.changeTr").css({backgroundColor: "white"});
+            theme = code;
+            loadData(code);
             document.body.style.backgroundColor = "white";
             $("#table tr td a").css({color: "#333"});
             $("#table tr td ").css({color: "#333"});
             $("#table th").css({color: "#222"});
             $("#weight tr td a").css({color: "#333"});
-            $("#weight tr td").css({color: "#333"});
+            $("#weight tr td ").css({color: "#333"});
             $("#weight th").css({color: "#222"});
-            $("#weight tbody th tr td").css({backgroundColor: "white"});
-
+            $("tr.changeTr").css({backgroundColor: "white"});
             $("#showLine").css({backgroundColor: "#FFFFFF"});
             $("#lable").css({color: "#222"});
             $("#index").css({color: "#222"});
@@ -478,15 +472,22 @@
             } else {
                 $("#changeJPG").attr("src", "/img/lineAndShap.jpg");
             }
+            $("tr").mouseover(function(){
+                $(this).css("background-color","#E5E5E5");
+            });
+            $("tr").mouseout(function(){
+                $(this).css("background-color","white");
+            });
         }
+
     }
     $('#selectTest').change(function () {
         w = $('#selectTest').val();
         if (w == '02') {
             $("#weight").show();
             $("#table").hide();
-
             if (theme == "black") {
+
                 $("#changeJPG").attr("src", "/img/lineAndShapWeightBlack.jpg");
             } else {
                 $("#changeJPG").attr("src", "/img/lineAndShapWeighting.jpg");
