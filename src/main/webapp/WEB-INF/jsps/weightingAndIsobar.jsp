@@ -66,7 +66,7 @@
                                     </td>
                                     <td>
                                         <a href='#'
-                                           onclick='openLineWindon("${idri.id}","${idri.startTime}","${idri.endTime}")'>
+                                           onclick='openLineWindon("${idri.id}","${idri.startTime}","${idri.endTime}","${idri.username}")'>
                                             <img src="../../img/app/chart.png">
                                         </a>
                                     </td>
@@ -373,7 +373,7 @@
             <span id="spa" style="font-family:微软雅黑;font-size: 18px;color: #fff"><strong>指数介绍</strong></span>
 			<textarea id="TextArea1" cols="60" rows="10" name="creditRisk" readonly="readonly"
                       style="color:#999;background:transparent;border-style:none;width: 600px;resize: none;">
-     行业信贷风险指数（Industry Credit Risk Index）是衡量并描述国内8个大类行业综合债务风险的一套信用风险指数体系。指数以A股全体上市企业为样本，依据证监会行业分类标准，基于算数平均法和债务加权法，自下而上进行指数计算。使用者可以通过指数的运算结果，从不同角度和侧重，分析各行业的信用风险水平与趋势。 行业信贷风险指数为国内信贷和债券市场提供了“风向标”和“指示器”。
+       行业信贷风险指数（Industry Credit Risk Index）是衡量并描述国内8个大类行业综合债务风险的一套信用风险指数体系。指数以A股全体上市企业为样本，依据证监会行业分类标准，基于算数平均法和债务加权法，自下而上进行指数计算。使用者可以通过指数的运算结果，从不同角度和侧重，分析各行业的信用风险水平与趋势。 行业信贷风险指数为国内信贷和债券市场提供了“风向标”和“指示器”。
        行业信贷风险指数的数据采集自公开市场交易、上市企业季报、年报等公开数据。指数成分样本的筛选和权重的计算循序《行业信贷风险指数的编制方法》，后经指数评审委员会最后确认形成。个体预期违约概率经流动性指标模型、Merton违约概率模型、“壳”价值修正模型等计算得出，并按相应计算公式得出最终指数。
             </textarea>
 
@@ -384,13 +384,14 @@
         </div>
     </div>
     <div id="showLine" data-backdrop="static" class="modal col-md-6 col-md-offset-3"
-         style="height: 255px;background: #fff; margin-top: 70px; margin-bottom: 50px;overflow:hidden;" tabindex="-1"
+         style="height: 295px;background: #fff; margin-top: 70px; margin-bottom: 50px;overflow:hidden;" tabindex="-1"
          role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true;">
         <div class="modal-header" style="padding: 0px;border-bottom: none;">
             <img id="cls" src="../../img/app/closeblack.png" class="close" data-dismiss="modal"/>
         </div>
         <div class="modal-body">
+            <div><label id="lables" style="margin-left:318px;font-family:微软雅黑;font-size: 15px;color: #fff">等权</label></div>
             <div class="form-group" id="lineChartParent">
                 <canvas id="canvas" height="98px"></canvas>
             </div>
@@ -430,6 +431,7 @@
             $("#TextArea1").css({color: "#999"});
             $("#selectTest").css({color: "#fff"});
             $("#orderindex").css({color: "#fff"});
+            $("#lables").css({color: "#fff"});
             $("#cls").attr("src", "../../img/app/closeblack.png");
             if (w == "02") {
                 $("#changeJPG").attr("src", "/img/lineAndShapWeightBlack.jpg");
@@ -453,6 +455,7 @@
             $("#weight tr td a").css({color: "#333"});
             $("#weight tr td ").css({color: "#333"});
             $("#weight th").css({color: "#222"});
+            $("#lables").css({color: "#333"});
             $("tr.changeTr").css({backgroundColor: "white"});
             $("#showLine").css({backgroundColor: "#FFFFFF"});
             $("#lable").css({color: "#222"});
@@ -507,14 +510,13 @@
     $("#showLine").on("hidden.bs.modal", function () {
         $('#canvas').remove();
     });
-    function openLineWindon(id, startTime, endTime) {
+    function openLineWindon(id, startTime, endTime,username) {
         $('#lineChartParent').append('<canvas id="canvas" height="98px"></canvas>');
         w = $('#selectTest').val();
-        if (w == '02') {
-            newTest = '加权';
-        }
-        if (w == '01') {
-            newTest = '等权';
+        if(w=="02"){
+            $("#lables").html("加权");
+        }else if(w=="01"){
+            $("#lables").html("等权");
         }
         $.ajax({
             url: '${ctx}/um/tradeLineChart',
@@ -535,16 +537,42 @@
                     options: {
                         responsive: true,
                         title: {
-                            display: true,
-                            text: newTest
+                            display: false
                         },
                         tooltips: {
                             mode: 'index',
-                            intersect: false
+                            intersect: false,
+                            fontColor: "#999"
+
                         },
                         hover: {
                             mode: 'nearest',
                             intersect: false
+                        },
+                        scales: {
+                            lineWidth:1,
+                            xAxes: [{
+                                minorTickWidth: 1,
+                                display: true,
+                                ticks: {
+                                    fontColor: "#999"// this here
+                                },
+                                gridLines: {
+                                    display: false,
+                                    fontColor: "#999"
+                                }
+                            }],
+                            yAxes: [{
+                                display: true,
+                                minorTickWidth: 1,
+                                ticks: {
+                                    fontColor: "#999"// this here
+                                },
+                                gridLines: {
+                                    display: true,
+                                    fontColor: "#999"
+                                }
+                            }]
                         }
                     }
                 };
