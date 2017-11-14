@@ -78,12 +78,6 @@
 			<artifactId>shiro-spring</artifactId>
 			<version>1.2.5</version>
 		</dependency>
-		<!--Gson的支持-->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>springloaded</artifactId>

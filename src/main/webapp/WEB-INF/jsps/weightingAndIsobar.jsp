@@ -151,6 +151,11 @@
                             </select>
                         </div>
                         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+
+                        <div align="left" style="margin-left:10px;;margin-top:10px;">
+                            <span style="font-family:微软雅黑;font-size: 20px;color:#fff" id="orderindex"><strong>八个行业信贷风险指数排名</strong></span>
+                        </div>
+
                         <div id="main" style="width: 700px;height:280px;">
                         </div>
                     </div>
@@ -168,21 +173,6 @@
                         var option;
                         if(code=='black'){
                             option  = {
-                                title: {//标题
-                                    text: '八个行业信贷风险指数排名',
-                                    textStyle: {
-                                        //文字颜色
-                                        color:'#fff',
-//                    //字体风格,'normal','italic','oblique'
-                                        fontStyle: 'normal',
-//                    //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
-//                    fontWeight:'bold',
-//                    //字体系列
-                                        fontFamily: 'Microsoft YaHei',
-//                    //字体大小
-                                        fontSize: 20
-                                    }
-                                },
                                 tooltip: {
                                     trigger: 'axis'//显示鼠标的到达区域的值
                                 },
@@ -281,21 +271,6 @@
                             };
                         }else{
                             option  = {
-                                title: {//标题
-                                    text: '八个行业信贷风险指数排名',
-                                    textStyle: {
-                                        //文字颜色
-                                        color:'#333',
-//                    //字体风格,'normal','italic','oblique'
-                                        fontStyle: 'normal',
-//                    //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
-//                    fontWeight:'bold',
-//                    //字体系列
-                                        fontFamily: 'sans-serif',
-//                    //字体大小
-                                        fontSize: 20
-                                    }
-                                },
                                 tooltip: {
                                     trigger: 'axis'//显示鼠标的到达区域的值
                                 },
@@ -444,6 +419,7 @@
         w = $('#selectTest').val();
         if (code == "black") {
             theme = code;
+            loadData(code);
             document.body.style.backgroundColor = "#1E2131";
             $("#table th").css({color: "#8dbff3"});
             $("#table tr td a").css({color: "#999"});
@@ -465,6 +441,8 @@
             $("#mySelect").css({color: "#fff"});
             $("#TextArea1").css({color: "#999"});
             $("#selectTest").css({color: "#fff"});
+
+            $("#orderindex").css({color: "#fff"});
             if (w == "02") {
                 $("#changeJPG").attr("src", "/img/lineAndShapWeightBlack.jpg");
             } else {
@@ -472,6 +450,7 @@
             }
         } else if (code == "white") {
             theme = code;
+            loadData(code);
             document.body.style.backgroundColor = "white";
             $("#table tr td a").css({color: "#333"});
             $("#table tr td ").css({color: "#333"});
@@ -490,6 +469,7 @@
             $("#TextArea1").css({backgroundColor: "white"});
             $("#selectTest").css({backgroundColor: "white"});
             $("#mySelect").css({color: "#333"});
+            $("#orderindex").css({color: "#333"});
             $("#mySelect").css({backgroundColor: "white"});
             $("#cls").attr("src", "../../img/app/close.png");
             if (w == "02") {
