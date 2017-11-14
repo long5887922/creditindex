@@ -199,7 +199,7 @@
                                         show: true,
                                         textStyle: {
                                             show: true,
-                                            color: '#2B99FF'
+                                            color: '#0084fe'
                                         }
                                     }
                                 }
@@ -209,7 +209,7 @@
                                     type: 'value',
                                     axisLine: {
                                         lineStyle: {
-                                            color:'#2B99FF'
+                                            color:'#0084fe'
                                         }
                                     }
                                 },
@@ -217,9 +217,10 @@
                                 series: [{
                                     name: '行业信贷风险指数',
                                     type: 'bar',//'bar'表示直方图; line 折线图
+                                    barMaxWidth:'15',//柱形图的宽度设置
                                     itemStyle:{//设置柱形图的颜色
                                         normal:{
-                                            color:'#2B99FF'
+                                            color:'#0084fe'
                                         }
                                     },
                                     data: (function () {
@@ -296,7 +297,7 @@
                                         show: true,
                                         textStyle: {
                                             show: true,
-                                            color: '#2B99FF'
+                                            color: '#0084fe'
                                         }
                                     }
                                 }
@@ -306,7 +307,7 @@
                                     type: 'value',
                                     axisLine: {
                                         lineStyle: {
-                                            color:'#2B99FF'
+                                            color:'#0084fe'
                                         }
                                     }
                                 },
@@ -314,9 +315,10 @@
                                 series: [{
                                     name: '行业信贷风险指数',
                                     type: 'bar',//'bar'表示直方图; line 折线图
+                                    barMaxWidth:'15',//柱形图的宽度设置
                                     itemStyle:{//设置柱形图的颜色
                                         normal:{
-                                            color:'#2B99FF'
+                                            color:'#0084fe'
                                         }
                                     },
                                     data: (function () {
