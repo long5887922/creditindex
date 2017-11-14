@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: prod
   thymeleaf:
       cache : false
   datasource:
@@ -18,8 +18,13 @@ spring:
     view:
       prefix: /WEB-INF/jsps/
       suffix: .jsp
-
-
+#日志配置
+logging:
+  level:
+    com.zy.creditindex: debug
+    org.springfromework.web: info
+    org.hibernate: error
+  file: log\springboot.log
 
 
 
