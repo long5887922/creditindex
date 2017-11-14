@@ -106,17 +106,17 @@ public class Query {
 			// 加权类型（01：等权；02：债券加权）
 			if ("01".equals(weightType)) {
 				/* 白色背景 */
-				createTimeXYChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShap.jpg", weightType, "01", startTime,
+				createTimeXYChar("行业信贷风险指数-等权", "", "", dataset, "lineAndShap.jpg", weightType, "01", startTime,
 						endTime, amongTime);
 				/* 暗色背景 */
-				createTimeXYChar("行业信贷风险指数等权-等权", "", "", dataset, "lineAndShapBlack.jpg", weightType, "02", startTime,
+				createTimeXYChar("行业信贷风险指数-等权", "", "", dataset, "lineAndShapBlack.jpg", weightType, "02", startTime,
 						endTime, amongTime);
 			} else {
 				/* 白色背景 */
-				createTimeXYChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeighting.jpg", weightType, "01",
+				createTimeXYChar("行业信贷风险指数-加权", "", "", dataset, "lineAndShapWeighting.jpg", weightType, "01",
 						startTime, endTime, amongTime);
 				/* 暗色背景 */
-				createTimeXYChar("行业信贷风险指数等权-加权", "", "", dataset, "lineAndShapWeightBlack.jpg", weightType, "02",
+				createTimeXYChar("行业信贷风险指数-加权", "", "", dataset, "lineAndShapWeightBlack.jpg", weightType, "02",
 						startTime, endTime, amongTime);
 			}
 		} catch (Exception e) {
@@ -253,8 +253,8 @@ public class Query {
 			domainAxis.setLabelPaint(ChartColor.white);
 			/*Y轴颜色*/
 			rangeAxis.setTickLabelPaint(ChartColor.white);
-			/*底部字颜色设置*/
-			/*chart.getLegend().setItemPaint(ChartColor.white);*/
+			/*底部字体颜色*/
+			chart.getLegend().setItemPaint(ChartColor.white);
 
 		}
 

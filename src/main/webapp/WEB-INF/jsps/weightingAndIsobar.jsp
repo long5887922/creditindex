@@ -6,9 +6,6 @@
 <head>
     <title>行业信贷风险指数</title>
     <meta charset="UTF-8"/>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'/>
-    <meta name="description" content="Developed By M Abdur Rokib Promy"/>
-    <meta name="keywords" content="Admin, Bootstrap 3, Template, Theme, Responsive"/>
     <link href="${ctx}/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
     <link href="${ctx}/bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
 
@@ -404,19 +401,22 @@
         theme = window.localStorage.getItem("theme");
         skin(theme, true);
         loadData(theme);
-        $("#table tr td ").css({bordercolor: "#999"});
-
     });
     function skin(code, clientFlag) {
         w = $('#selectTest').val();
         if (code == "black") {
             theme = code;
             loadData(code);
+           /* $("tr").mouseover(function(){
+                $(this).css("background-color","#2C364D");
+            });
+            $("tr").mouseout(function(){
+                $(this).css("background-color","#1E2131");
+            });*/
             document.body.style.backgroundColor = "#1E2131";
             $("#table th").css({color: "#8dbff3"});
             $("#table tr td a").css({color: "#999"});
             $("#table tr td ").css({color: "#999"});
-
             $("#weight tr td a").css({color: "#999"});
             $("#weight tr td ").css({color: "#999"});
             $("#weight th").css({color: "#8dbff3"});
@@ -433,8 +433,8 @@
             $("#mySelect").css({color: "#fff"});
             $("#TextArea1").css({color: "#999"});
             $("#selectTest").css({color: "#fff"});
-
             $("#orderindex").css({color: "#fff"});
+            $("#cls").attr("src", "../../img/app/closeblack.png");
             if (w == "02") {
                 $("#changeJPG").attr("src", "/img/lineAndShapWeightBlack.jpg");
             } else {
@@ -443,6 +443,12 @@
         } else if (code == "white") {
             theme = code;
             loadData(code);
+           /* $("tr").mouseover(function(){
+                $(this).css("background-color","#E5E5E5");
+            });
+            $("tr").mouseout(function(){
+                $(this).css("background-color","white");
+            });*/
             document.body.style.backgroundColor = "white";
             $("#table tr td a").css({color: "#333"});
             $("#table tr td ").css({color: "#333"});
@@ -450,7 +456,8 @@
             $("#weight tr td a").css({color: "#333"});
             $("#weight tr td").css({color: "#333"});
             $("#weight th").css({color: "#222"});
-            $("#weight th").css({backgroundColor: "white"});
+            $("#weight tbody th tr td").css({backgroundColor: "white"});
+
             $("#showLine").css({backgroundColor: "#FFFFFF"});
             $("#lable").css({color: "#222"});
             $("#index").css({color: "#222"});
