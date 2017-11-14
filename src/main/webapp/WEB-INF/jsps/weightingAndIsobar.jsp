@@ -217,7 +217,7 @@
                                 series: [{
                                     name: '行业信贷风险指数',
                                     type: 'bar',//'bar'表示直方图; line 折线图
-                                    barMaxWidth:'15',//柱形图的宽度设置
+                                    barMaxWidth:'25',//柱形图的宽度设置
                                     itemStyle:{//设置柱形图的颜色
                                         normal:{
                                             color:'#0084fe'
@@ -315,7 +315,7 @@
                                 series: [{
                                     name: '行业信贷风险指数',
                                     type: 'bar',//'bar'表示直方图; line 折线图
-                                    barMaxWidth:'15',//柱形图的宽度设置
+                                    barMaxWidth:'25',//柱形图的宽度设置
                                     itemStyle:{//设置柱形图的颜色
                                         normal:{
                                             color:'#0084fe'
