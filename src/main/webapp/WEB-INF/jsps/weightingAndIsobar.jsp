@@ -6,9 +6,6 @@
 <head>
     <title>行业信贷风险指数</title>
     <meta charset="UTF-8"/>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'/>
-    <meta name="description" content="Developed By M Abdur Rokib Promy"/>
-    <meta name="keywords" content="Admin, Bootstrap 3, Template, Theme, Responsive"/>
     <link href="${ctx}/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
     <link href="${ctx}/bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
 
@@ -404,8 +401,6 @@
         theme = window.localStorage.getItem("theme");
         skin(theme, true);
         loadData(theme);
-        $("#table tr td ").css({bordercolor: "#999"});
-
     });
     function skin(code, clientFlag) {
         w = $('#selectTest').val();
@@ -416,7 +411,6 @@
             $("#table th").css({color: "#8dbff3"});
             $("#table tr td a").css({color: "#999"});
             $("#table tr td ").css({color: "#999"});
-
             $("#weight tr td a").css({color: "#999"});
             $("#weight tr td ").css({color: "#999"});
             $("#weight th").css({color: "#8dbff3"});
@@ -433,8 +427,8 @@
             $("#mySelect").css({color: "#fff"});
             $("#TextArea1").css({color: "#999"});
             $("#selectTest").css({color: "#fff"});
-
             $("#orderindex").css({color: "#fff"});
+            $("#cls").attr("src", "../../img/app/closeblack.png");
             if (w == "02") {
                 $("#changeJPG").attr("src", "/img/lineAndShapWeightBlack.jpg");
             } else {
