@@ -12,6 +12,7 @@ import com.zy.creditindex.util.IdriUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -72,7 +73,11 @@ public class IdriContorller {
      * @return
      */
     @PostMapping("idritimetoto")
-    public List<IdriBean> queryByTimesTotto(Date starttime, Date endtime){
+    public List<IdriBean> queryByTimesTotto(Date starttime,
+                                            @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                            Date endtime){
+
+        Date date;
         return idriService.findIdriByTimesTotto(starttime,endtime);
     }
 
