@@ -114,7 +114,7 @@ public class IdriBean implements Serializable,Comparable<IdriBean>{
 	@Override
 	//实现Comparable的compareTo方法
 	public int compareTo(IdriBean stu) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub  注意 参数传入的 顺序
 		return (this.getIdri().multiply(oneHundred)).intValue()-((stu.getIdri().multiply(oneHundred)).intValue());
 	}
 
