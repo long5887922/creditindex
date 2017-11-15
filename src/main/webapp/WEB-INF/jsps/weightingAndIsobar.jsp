@@ -49,6 +49,7 @@
                     <div style="height: 392px;width: 760px;border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
                         <div align="left"><label id="lable"
                                                  style="font-family:微软雅黑;font-size: 18px;color:#fff"><strong>指数值(单位:bp)</strong></label></div>
+                        <div id="tables">
                         <table class="table" id="table" style="width:740px;height:300px; border-top:none">
                             <thead>
                             <tr class="changeTr">
@@ -81,7 +82,9 @@
                             </c:forEach>
                             </tbody>
                         </table>
-                        <table class="table" id="weight" style="display:none;width:740px;height:300px;">
+                        </div>
+                        <div id="weights" style="display:none;">
+                        <table class="table" id="weight" style="width:740px;height:300px;">
                             <thead>
                             <tr class="changeTr">
                                 <th></th>
@@ -114,6 +117,7 @@
                             </c:forEach>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -384,7 +388,7 @@
         </div>
     </div>
     <div id="showLine" data-backdrop="static" class="modal col-md-6 col-md-offset-3"
-         style="height: 295px;background: #fff; margin-top: 70px; margin-bottom: 50px;overflow:hidden;" tabindex="-1"
+         style="height: 375px; wbackground: #fff; margin-top: 70px; margin-bottom: 50px;overflow:hidden;" tabindex="-1"
          role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true;">
         <div class="modal-header" style="padding: 0px;border-bottom: none;">
@@ -392,8 +396,8 @@
         </div>
         <div class="modal-body">
             <div><label id="lables" style="margin-left:318px;font-family:微软雅黑;font-size: 15px;color: #fff">等权</label></div>
-            <div class="form-group" id="lineChartParent">
-                <canvas id="canvas" height="98px"></canvas>
+            <div style="width:100%;">
+                <div id="canvas" style="width: 700px;height:280px;"></div>
             </div>
         </div>
     </div>
@@ -487,8 +491,8 @@
     $('#selectTest').change(function () {
         w = $('#selectTest').val();
         if (w == '02') {
-            $("#weight").show();
-            $("#table").hide();
+            $("#weights").show();
+            $("#tables").hide();
             if (theme == "black") {
 
                 $("#changeJPG").attr("src", "/img/lineAndShapWeightBlack.jpg");
@@ -496,8 +500,8 @@
                 $("#changeJPG").attr("src", "/img/lineAndShapWeighting.jpg");
             }
         } else {
-            $("#weight").hide();
-            $("#table").show();
+            $("#weights").hide();
+            $("#tables").show();
             if (theme == "black") {
                 $("#changeJPG").attr("src", "/img/lineAndShapBlack.jpg");
             } else {
@@ -507,11 +511,9 @@
     });
     $('#weight').bootstrapTable();
     $('#table').bootstrapTable();
-    $("#showLine").on("hidden.bs.modal", function () {
-        $('#canvas').remove();
-    });
+
     function openLineWindon(id, startTime, endTime,username) {
-        $('#lineChartParent').append('<canvas id="canvas" height="98px"></canvas>');
+        var myChart = echarts.init(document.getElementById('canvas'));
         w = $('#selectTest').val();
         if(w=="02"){
             $("#lables").html("加权");
@@ -531,53 +533,203 @@
             }),
             dataType: 'json',
             success: function (data) {
-                config = {
-                    type: 'line',
-                    data: data,
-                    options: {
-                        responsive: true,
-                        title: {
-                            display: false
+               /* if(theme=="black"){*/
+                    option={
+                        tooltip: {
+                            trigger: 'axis'
                         },
-                        tooltips: {
-                            mode: 'index',
-                            intersect: false,
-                            fontColor: "#999"
+                        legend: {
+                            orient: 'vertical',
+                            left: 'left',
+                            data:[data.datasets[0].label],
+                            textStyle: {
+                                color: '#999'
+                            }
+                        },
+                        visualMap: {
+                            min: 0,
+                            max: 2500,
+                            left: 'left',
+                            top: 'bottom',
+                            text: ['高','低'],           // 文本，默认为数值文本
+                            calculable: true
+                        },
+                        /* legend: {
+                                         // icon: 'rect',
+                                         itemWidth: 20,
+                                         itemHeight: 10,
+                                         itemGap: 10,
+                                         data: [data.datasets[0].label],
+                                         right: '4%',
+                                         textStyle: {
+                                             fontSize: 12,
+                                             color: '#999'
+                                         }
+                                     },*/
+                        grid: {
+                            left: '3%',
+                            right: '7%',
+                            bottom: '7%'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: data.labels,
+                            axisTick: {
+                                alignWithLabel: true
+                            },
+                            // 控制网格线是否显示
+                            splitLine: {
+                                show: false,
+                                //  改变轴线颜色
+                                lineStyle: {
+                                    // 使用深浅的间隔色
+                                    color: '#999'
+                                }
+                            },
+                            //  改变x轴颜色
+                            axisLine:{
+                                lineStyle:{
+                                    color:'#999'
+//                            width:8,//这里是为了突出显示加上的，可以去掉
+                                }
+                            },
+                            //  改变x轴字体颜色和大小
+                            axisLabel: {
+                                textStyle: {
+                                    color: '#999'
+                                }
+                            }
+                        },
 
-                        },
-                        hover: {
-                            mode: 'nearest',
-                            intersect: false
-                        },
-                        scales: {
-                            lineWidth:1,
-                            xAxes: [{
-                                minorTickWidth: 1,
-                                display: true,
-                                ticks: {
-                                    fontColor: "#999"// this here
-                                },
-                                gridLines: {
-                                    display: false,
-                                    fontColor: "#999"
+                        yAxis: {
+                            type: 'value',
+                            // 去除y轴上的刻度线
+                            axisTick: {
+                                show: false
+                            },
+                            axisLine:{
+                                lineStyle:{
+                                    color:'#999'
                                 }
-                            }],
-                            yAxes: [{
-                                display: true,
-                                minorTickWidth: 1,
-                                ticks: {
-                                    fontColor: "#999"// this here
-                                },
-                                gridLines: {
-                                    display: true,
-                                    fontColor: "#999"
+                            },
+                            splitLine: {
+                                show: true,
+                                //  改变轴线颜色
+                                lineStyle: {
+                                    // 使用深浅的间隔色
+                                    color: ['#999']
                                 }
-                            }]
-                        }
-                    }
-                };
-                var ctx = document.getElementById("canvas").getContext("2d");
-                window.myLine = new Chart(ctx, config);
+                            },
+                            axisLabel: {
+                                textStyle: {
+                                    color: '#999'
+                                }
+                            }
+                        },
+                        series: [
+                            {itemStyle:{
+                                normal:{
+                                    color:'#90CEFF'
+                                }
+                            },
+                                name:data.datasets[0].label,
+                                type:'line',
+                                data:data.datasets[0].data
+                            }
+                        ]
+                    };
+                /*}*//*else{
+                    option={
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data:[data.datasets[0].label],
+                            textStyle:{    //图例文字的样式
+                                color:'#555'
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '8%',
+                            bottom: '8%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            axisTick: {
+                                show: false
+                            },
+                            type: 'category',
+                            boundaryGap: false,
+                            data: data.labels,
+                            axisTick: {
+                                alignWithLabel: true
+                            },
+                            // 控制网格线是否显示
+                            splitLine: {
+                                show: false,
+                                //  改变轴线颜色
+                                lineStyle: {
+                                    // 使用深浅的间隔色
+                                    color: ['#CACACA']
+                                }
+                            },
+                            //  改变x轴颜色
+                            axisLine:{
+                                lineStyle:{
+                                    color:'#CACACA'
+//                            width:8,//这里是为了突出显示加上的，可以去掉
+                                }
+                            },
+                            //  改变x轴字体颜色和大小
+                            axisLabel: {
+                                textStyle: {
+                                    color: '#555'
+                                }
+                            }
+                        },
+
+                        yAxis: {
+                            type: 'value',
+                            // 去除y轴上的刻度线
+                            axisTick: {
+                                show: false
+                            },
+                            axisLine:{
+                                lineStyle:{
+                                    color:'#CACACA'
+                                }
+                            },
+                            splitLine: {
+                                show: true,
+                                //  改变轴线颜色
+                                lineStyle: {
+                                    // 使用深浅的间隔色
+                                    color: ['#CACACA']
+                                }
+                            },
+                            axisLabel: {
+                                textStyle: {
+                                    color: '#555'
+                                }
+                            }
+                        },
+                        series: [
+                            {itemStyle:{
+                                normal:{
+                                    color:'#90CEFF'
+                                }
+                            },
+                                name:data.datasets[0].label,
+                                type:'line',
+                                data:data.datasets[0].data
+                            }
+                        ]
+                    };
+                }*/
+                myChart.setOption(option);
+                $("#canvas").css( 'width', $("#canvas").width() );
             }
         });
         $('#showLine').modal('show');
