@@ -14,10 +14,9 @@
     <script src="${cxt}/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="${cxt}/bootstrap/js/bootstrap-table-all.min.js"></script>
     <script src="${cxt}/bootstrap/js/bootstrap-table-zh-CN.js"></script>
-    <script src="${cxt}/js/plugins/chart.js" type="text/javascript"></script>
-    <script src="${cxt}/js/plugins/utils.js" type="text/javascript"></script>
+
     <script src="${cxt}/js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
-    <script src="${cxt}/js/Echarts/echarts.min.js" type="text/javascript"></script>
+    <script src="${cxt}/js/Echarts/echarts.js" type="text/javascript"></script>
     <script src="${cxt}/js/Echarts/indexUtil.js" type="text/javascript"></script>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -32,11 +31,11 @@
         }
     </style>
 </head>
-<body style="background-color: #1E2131">
-<div style="width:100%;">
-    <div align="left" style="margin-left:10px;;margin-top:10px;">
+<body>
+<div style="background-color: #1E2131" style="width:100%;">
+    <div align="left" style="margin-left:10px;margin-top:10px;">
         <span style="font-family:微软雅黑;font-size: 20px;color:#fff" id="index"><strong>信贷指数:</strong></span>
-        <select id="selectTest"  name="select" onchange="ch2()"
+        <select id="selectTest" name="select" onchange="ch2()"
                 style="width:150px;height: 32px;font-size: 16px;background-color:#1E2131;color:#fff">
             <option value="01" selected>等权</option>
             <option value="02">加权</option>
@@ -48,83 +47,87 @@
                 <div style="width:90%;height:20px;float:left;margin-left:650px;">
                     <div style="height: 392px;width: 760px;border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
                         <div align="left"><label id="lable"
-                                                 style="font-family:微软雅黑;font-size: 18px;color:#fff"><strong>指数值(单位:bp)</strong></label></div>
+                                                 style="font-family:微软雅黑;font-size: 18px;color:#fff"><strong>指数值(单位:bp)</strong></label>
+                        </div>
                         <div id="tables">
-                        <table class="table" id="table" style="width:740px;height:300px; border-top:none">
-                            <thead>
-                            <tr class="changeTr">
-                                <th></th>
-                                <th></th>
-                                <c:forEach items="${list}" var="t">
-                                    <th>${t}</th>
-                                </c:forEach>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${list2}" var="idri" varStatus="t">
+                            <table class="table" id="table" style="width:740px;height:300px; border-top:none">
+                                <thead>
                                 <tr class="changeTr">
-                                    <td><a style="text-decoration: none" title="${idri.username}">${idri.username}</a>
-                                    </td>
-                                    <td>
-                                        <a href='#'
-                                           onclick='openLineWindon("${idri.id}","${idri.startTime}","${idri.endTime}","${idri.username}")'>
-                                            <img src="../../img/app/chart.png">
-                                        </a>
-                                    </td>
-                                    <c:forEach items="${bodyList}" var="beans">
-                                        <c:if test="${beans.inducode eq idri.id}">
-                                            <td class="text-center">
-                                                    ${beans.idri}
-                                            </td>
-                                        </c:if>
+                                    <th></th>
+                                    <th></th>
+                                    <c:forEach items="${list}" var="t">
+                                        <th>${t}</th>
                                     </c:forEach>
                                 </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${list2}" var="idri" varStatus="t">
+                                    <tr class="changeTr">
+                                        <td><a style="text-decoration: none"
+                                               title="${idri.username}">${idri.username}</a>
+                                        </td>
+                                        <td>
+                                            <a href='#'
+                                               onclick='openLineWindon("${idri.id}","${idri.startTime}","${idri.endTime}","${idri.username}")'>
+                                                <img src="../../img/app/chart.png">
+                                            </a>
+                                        </td>
+                                        <c:forEach items="${bodyList}" var="beans">
+                                            <c:if test="${beans.inducode eq idri.id}">
+                                                <td class="text-center">
+                                                        ${beans.idri}
+                                                </td>
+                                            </c:if>
+                                        </c:forEach>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                         <div id="weights" style="display:none;">
-                        <table class="table" id="weight" style="width:740px;height:300px;">
-                            <thead>
-                            <tr class="changeTr">
-                                <th></th>
-                                <th></th>
-                                <c:forEach items="${list}" var="t">
-                                    <th>${t}</th>
-                                </c:forEach>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${list2}" var="idri" varStatus="t">
+                            <table class="table" id="weight" style="width:740px;height:300px;">
+                                <thead>
                                 <tr class="changeTr">
-                                    <td>
-                                        <a style="text-decoration: none" title="${idri.username}">${idri.username}</a>
-                                    </td>
-                                    <td>
-                                        <a href='#'
-                                           onclick='openLineWindon("${idri.id}","${idri.startTime}","${idri.endTime}")'>
-                                            <img src="../../img/app/chart.png">
-                                        </a>
-                                    </td>
-                                    <c:forEach items="${weighting}" var="w">
-                                        <c:if test="${w.inducode eq idri.id}">
-                                            <td class="text-center">
-                                                    ${w.idri}
-                                            </td>
-                                        </c:if>
+                                    <th></th>
+                                    <th></th>
+                                    <c:forEach items="${list}" var="t">
+                                        <th>${t}</th>
                                     </c:forEach>
                                 </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${list2}" var="idri" varStatus="t">
+                                    <tr class="changeTr">
+                                        <td>
+                                            <a style="text-decoration: none"
+                                               title="${idri.username}">${idri.username}</a>
+                                        </td>
+                                        <td>
+                                            <a href='#'
+                                               onclick='openLineWindon("${idri.id}","${idri.startTime}","${idri.endTime}")'>
+                                                <img src="../../img/app/chart.png">
+                                            </a>
+                                        </td>
+                                        <c:forEach items="${weighting}" var="w">
+                                            <c:if test="${w.inducode eq idri.id}">
+                                                <td class="text-center">
+                                                        ${w.idri}
+                                                </td>
+                                            </c:if>
+                                        </c:forEach>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div style="width: 620px;height: 392px; border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
-            <div style="width:618px;height: 368px;">
-                <img id="changeJPG" src="${cxt}/img/lineAndShapBlack.jpg" width="618px" height="368px;">
+            <div style="width:100%;" class="chart swiper-slide">
+                <span style="margin-left:10px;font-weight:bold;font-family:微软雅黑;font-size: 18px;color:#fff" id="exponent">行业信贷风险指数-等权</span>
+                <div id="canvasEight" style="width: 620px;height:392px;"></div>
             </div>
         </div>
     </div>
@@ -135,11 +138,11 @@
                 <div style="width:20%;height:30px;float:left;margin-left:650px;">
                     <div style="width:760px;height:300px;border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A;">
                         <div id="toolbar" style="height:32px;float: right;position: relative;">
-                            <select id="mySelect"  name="s1" onchange="ch3()"
+                            <select id="mySelect" name="s1" onchange="ch3()"
                                     style="width:150px;height: 32px;font-size: 16px;background-color:#1E2131;color:#fff">
                                 <option value="yer" selected>年同比</option>
                                 <option value="months">月同比</option>
-                                <option value="week"style="display:none;">周同比</option>
+                                <option value="week" style="display:none;">周同比</option>
                                 <option value="day">日环比</option>
                             </select>
                         </div>
@@ -164,8 +167,8 @@
                         var linkUrl = "/idri/queryIndexdateNew?Yoyg=" + timetype + "&weighttype=" + weighttype;
                         // 指定图表的配置项和数据
                         var option;
-                        if(code=='black'){
-                            option  = {
+                        if (code == 'black') {
+                            option = {
                                 tooltip: {
                                     trigger: 'axis'//显示鼠标的到达区域的值
                                 },
@@ -213,7 +216,7 @@
                                     type: 'value',
                                     axisLine: {
                                         lineStyle: {
-                                            color:'#0084fe'
+                                            color: '#0084fe'
                                         }
                                     }
                                 },
@@ -221,10 +224,10 @@
                                 series: [{
                                     name: '行业信贷风险指数',
                                     type: 'bar',//'bar'表示直方图; line 折线图
-                                    barMaxWidth:'25',//柱形图的宽度设置
-                                    itemStyle:{//设置柱形图的颜色
-                                        normal:{
-                                            color:'#0084fe'
+                                    barMaxWidth: '25',//柱形图的宽度设置
+                                    itemStyle: {//设置柱形图的颜色
+                                        normal: {
+                                            color: '#0084fe'
                                         }
                                     },
                                     data: (function () {
@@ -263,8 +266,8 @@
                                 }]
 
                             };
-                        }else{
-                            option  = {
+                        } else {
+                            option = {
                                 tooltip: {
                                     trigger: 'axis'//显示鼠标的到达区域的值
                                 },
@@ -311,7 +314,7 @@
                                     type: 'value',
                                     axisLine: {
                                         lineStyle: {
-                                            color:'#0084fe'
+                                            color: '#0084fe'
                                         }
                                     }
                                 },
@@ -319,10 +322,10 @@
                                 series: [{
                                     name: '行业信贷风险指数',
                                     type: 'bar',//'bar'表示直方图; line 折线图
-                                    barMaxWidth:'25',//柱形图的宽度设置
-                                    itemStyle:{//设置柱形图的颜色
-                                        normal:{
-                                            color:'#0084fe'
+                                    barMaxWidth: '25',//柱形图的宽度设置
+                                    itemStyle: {//设置柱形图的颜色
+                                        normal: {
+                                            color: '#0084fe'
                                         }
                                     },
                                     data: (function () {
@@ -383,7 +386,8 @@
 
             <div id="down">
                 <span style="font-size: 20px">下载:</span><a href="/img/IDRICM.pdf"
-                                                           style="font-size: 16px" download><img src="../../img/app/pdf.png">编制方法.pdf</a><%--“http://localhost:8282”此域名可省，工程自行提供--%>
+                                                           style="font-size: 16px" download><img
+                    src="../../img/app/pdf.png">编制方法.pdf</a><%--“http://localhost:8282”此域名可省，工程自行提供--%>
             </div>
         </div>
     </div>
@@ -395,7 +399,8 @@
             <img id="cls" src="../../img/app/closeblack.png" class="close" data-dismiss="modal"/>
         </div>
         <div class="modal-body">
-            <div><label id="lables" style="margin-left:318px;font-family:微软雅黑;font-size: 15px;color: #fff">等权</label></div>
+            <div><label id="lables" style="margin-left:318px;font-family:微软雅黑;font-size: 15px;color: #fff">等权</label>
+            </div>
             <div style="width:100%;">
                 <div id="canvas" style="width: 700px;height:280px;"></div>
             </div>
@@ -408,6 +413,7 @@
         theme = window.localStorage.getItem("theme");
         skin(theme, true);
         loadData(theme);
+        showLine();
     });
     function skin(code, clientFlag) {
         w = $('#selectTest').val();
@@ -436,17 +442,18 @@
             $("#selectTest").css({color: "#fff"});
             $("#orderindex").css({color: "#fff"});
             $("#lables").css({color: "#fff"});
+            $("#exponent").css({color: "#fff"});
             $("#cls").attr("src", "../../img/app/closeblack.png");
             if (w == "02") {
                 $("#changeJPG").attr("src", "/img/lineAndShapWeightBlack.jpg");
             } else {
                 $("#changeJPG").attr("src", "/img/lineAndShapBlack.jpg");
             }
-            $("tr").mouseover(function(){
-                $(this).css("background-color","#2C364D");
+            $("tr").mouseover(function () {
+                $(this).css("background-color", "#2C364D");
             });
-            $("tr").mouseout(function(){
-                $(this).css("background-color","#1E2131");
+            $("tr").mouseout(function () {
+                $(this).css("background-color", "#1E2131");
             });
         } else if (code == "white") {
             $("tr.changeTr").css({backgroundColor: "white"});
@@ -463,6 +470,7 @@
             $("tr.changeTr").css({backgroundColor: "white"});
             $("#showLine").css({backgroundColor: "#FFFFFF"});
             $("#lable").css({color: "#222"});
+            $("#exponent").css({color: "#333"});
             $("#index").css({color: "#222"});
             $("#spa").css({color: "#222"});
             $("#down").css({color: "#222"});
@@ -479,16 +487,17 @@
             } else {
                 $("#changeJPG").attr("src", "/img/lineAndShap.jpg");
             }
-            $("tr").mouseover(function(){
-                $(this).css("background-color","#E5E5E5");
+            $("tr").mouseover(function () {
+                $(this).css("background-color", "#E5E5E5");
             });
-            $("tr").mouseout(function(){
-                $(this).css("background-color","white");
+            $("tr").mouseout(function () {
+                $(this).css("background-color", "white");
             });
         }
 
     }
     $('#selectTest').change(function () {
+        showLine();
         w = $('#selectTest').val();
         if (w == '02') {
             $("#weights").show();
@@ -512,12 +521,12 @@
     $('#weight').bootstrapTable();
     $('#table').bootstrapTable();
 
-    function openLineWindon(id, startTime, endTime,username) {
+    function openLineWindon(id, startTime, endTime, username) {
         var myChart = echarts.init(document.getElementById('canvas'));
         w = $('#selectTest').val();
-        if(w=="02"){
+        if (w == "02") {
             $("#lables").html("加权");
-        }else if(w=="01"){
+        } else if (w == "01") {
             $("#lables").html("等权");
         }
         $.ajax({
@@ -532,207 +541,339 @@
                 endTime: endTime
             }),
             dataType: 'json',
-            success: function (data) {
-               /* if(theme=="black"){*/
-                    option={
-                        tooltip: {
-                            trigger: 'axis'
+            success: function (trade) {
+                /* if(theme=="black"){*/
+                option = {
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        left: 'center',
+                        data: [trade.datasets[0].label],
+                        textStyle: {
+                            color: '#999'
+                        }
+                    },
+                    grid: {
+                        left: '5%',
+                        right: '8%',
+                        bottom: '7%'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: trade.labels,
+                        axisTick: {
+                            alignWithLabel: true
                         },
-                        legend: {
-                            orient: 'vertical',
-                            left: 'left',
-                            data:[data.datasets[0].label],
-                            textStyle: {
+                        // 控制网格线是否显示
+                        splitLine: {
+                            show: false,
+                            //  改变轴线颜色
+                            lineStyle: {
+                                // 使用深浅的间隔色
                                 color: '#999'
                             }
                         },
-                        visualMap: {
-                            min: 0,
-                            max: 2500,
-                            left: 'left',
-                            top: 'bottom',
-                            text: ['高','低'],           // 文本，默认为数值文本
-                            calculable: true
-                        },
-                        /* legend: {
-                                         // icon: 'rect',
-                                         itemWidth: 20,
-                                         itemHeight: 10,
-                                         itemGap: 10,
-                                         data: [data.datasets[0].label],
-                                         right: '4%',
-                                         textStyle: {
-                                             fontSize: 12,
-                                             color: '#999'
-                                         }
-                                     },*/
-                        grid: {
-                            left: '3%',
-                            right: '7%',
-                            bottom: '7%'
-                        },
-                        xAxis: {
-                            type: 'category',
-                            boundaryGap: false,
-                            data: data.labels,
-                            axisTick: {
-                                alignWithLabel: true
-                            },
-                            // 控制网格线是否显示
-                            splitLine: {
-                                show: false,
-                                //  改变轴线颜色
-                                lineStyle: {
-                                    // 使用深浅的间隔色
-                                    color: '#999'
-                                }
-                            },
-                            //  改变x轴颜色
-                            axisLine:{
-                                lineStyle:{
-                                    color:'#999'
+                        //  改变x轴颜色
+                        axisLine: {
+                            lineStyle: {
+                                color: '#999'
 //                            width:8,//这里是为了突出显示加上的，可以去掉
-                                }
-                            },
-                            //  改变x轴字体颜色和大小
-                            axisLabel: {
-                                textStyle: {
-                                    color: '#999'
-                                }
                             }
                         },
+                        //  改变x轴字体颜色和大小
+                        axisLabel: {
+                            //interval:1,//横轴信息全部显示
+                            showMinLabel: true,
+                            showMaxLabel: true,
+                            textStyle: {
+                                color: '#999'
+                            }
+                        }
+                    },
 
-                        yAxis: {
-                            type: 'value',
-                            // 去除y轴上的刻度线
-                            axisTick: {
-                                show: false
-                            },
-                            axisLine:{
-                                lineStyle:{
-                                    color:'#999'
-                                }
-                            },
-                            splitLine: {
-                                show: true,
-                                //  改变轴线颜色
-                                lineStyle: {
-                                    // 使用深浅的间隔色
-                                    color: ['#999']
-                                }
-                            },
-                            axisLabel: {
-                                textStyle: {
-                                    color: '#999'
-                                }
+                    yAxis: {
+                        type: 'value',
+                        // 去除y轴上的刻度线
+                        axisTick: {
+                            show: false
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#999'
                             }
                         },
-                        series: [
-                            {itemStyle:{
-                                normal:{
-                                    color:'#90CEFF'
-                                }
-                            },
-                                name:data.datasets[0].label,
-                                type:'line',
-                                data:data.datasets[0].data
-                            }
-                        ]
-                    };
-                /*}*//*else{
-                    option={
-                        tooltip: {
-                            trigger: 'axis'
-                        },
-                        legend: {
-                            data:[data.datasets[0].label],
-                            textStyle:{    //图例文字的样式
-                                color:'#555'
+                        splitLine: {
+                            show: true,
+                            //  改变轴线颜色
+                            lineStyle: {
+                                // 使用深浅的间隔色
+                                color: ['#999']
                             }
                         },
-                        grid: {
-                            left: '3%',
-                            right: '8%',
-                            bottom: '8%',
-                            containLabel: true
-                        },
-                        xAxis: {
-                            axisTick: {
-                                show: false
-                            },
-                            type: 'category',
-                            boundaryGap: false,
-                            data: data.labels,
-                            axisTick: {
-                                alignWithLabel: true
-                            },
-                            // 控制网格线是否显示
-                            splitLine: {
-                                show: false,
-                                //  改变轴线颜色
-                                lineStyle: {
-                                    // 使用深浅的间隔色
-                                    color: ['#CACACA']
-                                }
-                            },
-                            //  改变x轴颜色
-                            axisLine:{
-                                lineStyle:{
-                                    color:'#CACACA'
-//                            width:8,//这里是为了突出显示加上的，可以去掉
-                                }
-                            },
-                            //  改变x轴字体颜色和大小
-                            axisLabel: {
-                                textStyle: {
-                                    color: '#555'
-                                }
+                        axisLabel: {
+                            textStyle: {
+                                color: '#999'
                             }
-                        },
-
-                        yAxis: {
-                            type: 'value',
-                            // 去除y轴上的刻度线
-                            axisTick: {
-                                show: false
-                            },
-                            axisLine:{
-                                lineStyle:{
-                                    color:'#CACACA'
+                        }
+                    },
+                    series: [
+                        {
+                            itemStyle: {
+                                normal: {
+                                    color: '#90CEFF'
                                 }
                             },
-                            splitLine: {
-                                show: true,
-                                //  改变轴线颜色
-                                lineStyle: {
-                                    // 使用深浅的间隔色
-                                    color: ['#CACACA']
-                                }
-                            },
-                            axisLabel: {
-                                textStyle: {
-                                    color: '#555'
-                                }
-                            }
-                        },
-                        series: [
-                            {itemStyle:{
-                                normal:{
-                                    color:'#90CEFF'
-                                }
-                            },
-                                name:data.datasets[0].label,
-                                type:'line',
-                                data:data.datasets[0].data
-                            }
-                        ]
-                    };
-                }*/
+                            name: trade.datasets[0].label,
+                            type: 'line',
+                            data: trade.datasets[0].data
+                        }
+                    ]
+                };
                 myChart.setOption(option);
-                $("#canvas").css( 'width', $("#canvas").width() );
+                $("#canvas").css('width', $("#canvas").width());
             }
         });
         $('#showLine').modal('show');
+    }
+    function showLine() {
+        var myChart = echarts.init(document.getElementById('canvasEight'));
+        w = $('#selectTest').val();
+        if (w == "02") {
+            $("#exponent").text("行业信贷风险指数-加权");
+        } else if (w == "01") {
+            $("#exponent").text("行业信贷风险指数-等权");
+        }
+        $.ajax({
+            url: '${ctx}/um/eightEchars?type=' + w,
+            type: 'post',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            data: {},
+            dataType: 'json',
+            success: function (data) {
+                option = {
+                    /*title: {
+                        textStyle: {
+                            //文字颜色
+                            color: '#999',
+                            //字体风格,'normal','italic','oblique'
+                            //fontStyle:'normal',
+                            //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+                            fontWeight: 'bold',
+                            //字体系列
+                            fontFamily: 'Microsoft YaHei',
+                            //字体大小
+                            fontSize: 18
+                        }
+                    },*/
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: [
+                        {
+                            x: 'center',
+                            data: [data.labels[0], data.labels[1], data.labels[2]],
+                            textStyle: {    //图例文字的样式
+                                color: '#999'
+                            }
+                        },
+                        {
+                            x: 'center',
+                            top: '4%',
+                            data: [data.labels[3], data.labels[4], data.labels[5]],
+                            textStyle: {    //图例文字的样式
+                                color: '#999'
+                            }
+                        }, {
+                            x: 'center',
+                            top: '8%',
+                            data: [data.labels[6], data.labels[7]],
+                            textStyle: {    //图例文字的样式
+                                color: '#999'
+                            }
+                        }
+                    ],
+                    toolbox: {
+                        left: 'right',
+                        feature: {
+                            dataZoom: {
+                                yAxisIndex: 'none'
+                            },
+                            restore: {}/*,
+                            saveAsImage: {}*/
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '7%',
+                        bottom: '13%',
+                        /* left: '10%',
+                         right: '7%',
+                         bottom: '35%',*/
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: data.datasets[0].dateTime,
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        // 控制网格线是否显示
+                        splitLine: {
+                            show: false,
+                            //  改变轴线颜色
+                            lineStyle: {
+                                // 使用深浅的间隔色
+                                color: '#999'
+                            }
+                        },
+                        //  改变x轴颜色
+                        axisLine: {
+                            lineStyle: {
+                                color: '#999'
+//                            width:8,//这里是为了突出显示加上的，可以去掉
+                            }
+                        },
+                        //  改变x轴字体颜色和大小
+                        axisLabel: {
+                            showMinLabel: true,
+                            showMaxLabel: true,
+                            textStyle: {
+                                color: '#999'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        // 去除y轴上的刻度线
+                        axisTick: {
+                            show: false
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#999'
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            //  改变轴线颜色
+                            lineStyle: {
+                                // 使用深浅的间隔色
+                                color: ['#999']
+                            }
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                color: '#999'
+                            }
+                        }
+                    },
+                    series: [
+                        {
+                            itemStyle: {
+                                normal: {
+                                    color: '#9BD976'
+                                }
+                            },
+                            name: [data.labels[0]],
+                            type: 'line',
+                            data: data.datasets[0].data
+                        },
+                        {
+                            itemStyle: {
+                                normal: {
+                                    color: '#90CEFF'
+                                }
+                            },
+                            name: [data.labels[1]],
+                            type: 'line',
+                            data: data.datasets[1].data
+                        }, {
+                            itemStyle: {
+                                normal: {
+                                    color: '#F2DB95'
+                                }
+                            },
+                            name: [data.labels[2]],
+                            type: 'line',
+                            data: data.datasets[2].data
+                        }, {
+                            itemStyle: {
+                                normal: {
+                                    color: '#759CFF'
+                                }
+                            },
+                            name: [data.labels[3]],
+                            type: 'line',
+                            data: data.datasets[3].data
+                        }, {
+                            itemStyle: {
+                                normal: {
+                                    color: '#62AE96'
+                                }
+                            },
+                            name: [data.labels[4]],
+                            type: 'line',
+                            data: data.datasets[4].data
+                        }, {
+                            itemStyle: {
+                                normal: {
+                                    color: '#F1B080'
+                                }
+                            },
+                            name: [data.labels[5]],
+                            type: 'line',
+                            data: data.datasets[5].data
+                        }, {
+                            itemStyle: {
+                                normal: {
+                                    color: '#BF7EF1'
+                                }
+                            },
+                            name: [data.labels[6]],
+                            type: 'line',
+                            data: data.datasets[6].data
+                        }, {
+                            itemStyle: {
+                                normal: {
+                                    color: '#2B99FF'
+                                }
+                            },
+                            name: [data.labels[7]],
+                            type: 'line',
+                            data: data.datasets[7].data
+                        }
+                    ]
+                };
+                myChart.on('legendselectchanged', function (params) {
+                    // 获取点击图例的选中状态
+                    var isSelected = params.selected[params.name];
+                    // 在控制台中打印
+                    /*console.log((isSelected ? '选中了' : '') + '图例' + params.name);
+                     if(!isSelected){
+                     console.log(params.name);
+                     }
+                     console.log(params.selected);*/
+                    /*  $.ajax({
+                     url: '
+                    ${ctx}/um/eightEchars?name='+params.name,
+                     type: 'post',
+                     cache: false,
+                     contentType: "application/json; charset=utf-8",
+                     data: {},
+                     dataType: 'json',
+                     success: function (data) {
+
+                     }
+                     });*/
+                });
+                myChart.setOption(option);
+                $("#canvasEight").css('width', $("#canvasEight").width());
+            }
+        });
     }
 </script>
 </body>

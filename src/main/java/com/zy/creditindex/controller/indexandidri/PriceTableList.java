@@ -160,21 +160,12 @@ public class PriceTableList {
     }
     @RequestMapping("/eightEchars")
     @ResponseBody
-    public LineChartBean queryLine() {
+    public LineChartBean queryLine(String type) {
           /*返回前台参数对象*/
         LineChartBean labels = new LineChartBean();
         try {
-           /*查询起始工作日日期*/
-            BastrdtINFOBean bean = bastrdtInfoService.queryStartTime(dataTimeUtil.startTime());
-            Date startTime = bean.getTrd_day();
-			/*查询上一个工作日期*/
-            bean = bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
-            Date endTime = bean.getTrd_day();
-			/*查询6个月的日期*/
-            bean = bastrdtInfoService.queryStartTime(dataTimeUtil.amongTime());
-            Date amongTime = bean.getTrd_day();
 			/*查询期间内各个行业的数据*/
-            List<IdriBean> list = idriService.queryAllIdri(endTime, "01");
+            List<IdriBean> list = idriService.queryAllIdri(dataTimeUtil.endTime(), type);
             if (CollectionUtils.isEmpty(list)) {
                 return labels;
             }

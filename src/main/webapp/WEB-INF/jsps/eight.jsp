@@ -7,25 +7,23 @@
     <title>行业信贷风险指数</title>
     <meta charset="UTF-8"/>
     <script src="${cxt}/js/jquery.min.js" type="text/javascript"></script>
-    <script src="${cxt}/js/jquery-1.11.3.min.js" type="text/javascript"></script>
-    <script src="${cxt}/js/Echarts/echarts.min.js" type="text/javascript"></script>
-    <script src="${cxt}/js/Echarts/indexUtil.js" type="text/javascript"></script>
+    <script src="${cxt}/js/Echarts/echarts.js" type="text/javascript"></script>
 </head>
 <body>
 <div style="width:100%;">
     <div class="modal-body">
         <div><label id="lables" style="margin-left:318px;font-family:微软雅黑;font-size: 15px;color: #fff">等权</label></div>
-        <div style="width:100%;">
-            <div id="canvas" style="width: 1000px;height:480px;"></div>
+        <div style="width:100%;" class="chart swiper-slide">
+            <div id="canvasEight" style="width: 1000px;height:480px;"></div>
         </div>
     </div>
 </div>
 <script>
     $(function () {
-        openLineWindon();
+        showLine();
     });
-    function openLineWindon() {
-        var myChart = echarts.init(document.getElementById('canvas'));
+    function showLine() {
+        var myChart = echarts.init(document.getElementById('canvasEight'));
         $.ajax({
             url: '${ctx}/um/eightEchars',
             type: 'post',
@@ -73,6 +71,9 @@
                         left: '3%',
                         right: '7%',
                         bottom: '7%',
+                       /* left: '10%',
+                        right: '7%',
+                        bottom: '35%',*/
                         containLabel: true
                     },
                     xAxis: {
@@ -100,6 +101,7 @@
                         },
                         //  改变x轴字体颜色和大小
                         axisLabel: {
+                            showMaxLabel:true,
                             textStyle: {
                                 color: '#999'
                             }
@@ -208,8 +210,30 @@
                         }
                     ]
                 };
+                myChart.on('legendselectchanged', function (params) {
+                    // 获取点击图例的选中状态
+                    var isSelected = params.selected[params.name];
+                    // 在控制台中打印
+                    console.log((isSelected ? '选中了' : '') + '图例' + params.name);
+                    if(!isSelected){
+                        console.log(params.name);
+                    }
+                    console.log(params.selected);
+                  /*  $.ajax({
+                     url: '${ctx}/um/eightEchars?name='+params.name,
+                     type: 'post',
+                     cache: false,
+                     contentType: "application/json; charset=utf-8",
+                     data: {},
+                     dataType: 'json',
+                     success: function (data) {
+
+                     }
+                     });*/
+                });
+               // myChart.on(eConsole);
                 myChart.setOption(option);
-                $("#canvas").css('width', $("#canvas").width());
+                $("#canvasEight").css('width', $("#canvasEight").width());
             }
         });
     }
