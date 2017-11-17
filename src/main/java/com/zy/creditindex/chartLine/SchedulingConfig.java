@@ -1,6 +1,7 @@
 package com.zy.creditindex.chartLine;
 
 import com.zy.creditindex.service.CreatJFreeChartService;
+import com.zy.creditindex.util.CacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -23,5 +24,9 @@ public class SchedulingConfig {
 		chartService.creatJFreeChart("01");
 		chartService.creatJFreeChart("02");
 	}*/
-
+	@Scheduled(cron = "0 0/30 * * * ?")
+	public void scheduler() {
+		CacheManager.clearAll();
+		System.out.print("清除折线图缓存数据");
+	}
 }

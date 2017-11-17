@@ -150,7 +150,8 @@
                         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 
                         <div align="left" style="margin-left:10px;;margin-top:10px;">
-                            <span style="font-family:微软雅黑;font-size: 20px;color:#fff" id="orderindex"><strong>八个行业信贷风险指数排名</strong>(数值越大违约风险越高)</span>
+                            <span style="font-family:微软雅黑;font-size: 20px;color:#fff" id="orderindex"><strong>八个行业信贷风险指数排名</strong></span>
+                            <span style="font-family:微软雅黑;font-size: 14px;color:#fff" id="order">(数值越大风险越高)</span>
                         </div>
 
                         <div id="main" style="width: 700px;height:280px;">
@@ -509,6 +510,7 @@
             $("#TextArea1").css({color: "#999"});
             $("#selectTest").css({color: "#fff"});
             $("#orderindex").css({color: "#fff"});
+            $("#order").css({color: "#fff"});
             $("#lables").css({color: "#fff"});
             $("#exponent").css({color: "#fff"});
             $("#cls").attr("src", "../../img/app/closeblack.png");
@@ -550,6 +552,7 @@
             $("#selectTest").css({backgroundColor: "white"});
             $("#mySelect").css({color: "#333"});
             $("#orderindex").css({color: "#333"});
+            $("#order").css({color: "#333"});
             $("#mySelect").css({backgroundColor: "white"});
             $("#cls").attr("src", "../../img/app/close.png");
             if (w == "02") {
@@ -611,6 +614,10 @@
             dataType: 'json',
             success: function (trade) {
                 /* if(theme=="black"){*/
+
+                var minLine = (trade.datasets[0].data[0] *0.9).toFixed(0);
+                var maxLine = (trade.datasets[0].data[0] *1.1).toFixed(0);
+
                 option = {
                     tooltip: {
                         trigger: 'axis'
@@ -672,6 +679,9 @@
                                 color: '#999'
                             }
                         },
+                        'min':minLine,
+                        'max':maxLine,
+
                         splitLine: {
                             show: true,
                             //  改变轴线颜色
@@ -820,6 +830,7 @@
                                     color: ['#CACACA']
                                 }
                             },
+
                             axisLabel: {
                                 textStyle: {
                                     color: '#555'
