@@ -614,9 +614,16 @@
             dataType: 'json',
             success: function (trade) {
                 /* if(theme=="black"){*/
+                var minLine;
+                var maxLine;
+                if(w=="01"){
+                    minLine = (trade.datasets[0].data[0] *0.9).toFixed(0);
+                    maxLine = (trade.datasets[0].data[0] *1.1).toFixed(0);
+                }else{
+                    minLine = (trade.datasets[0].data[0] *0.8).toFixed(0);
+                    maxLine = (trade.datasets[0].data[0] *1.2).toFixed(0);
+                }
 
-                var minLine = (trade.datasets[0].data[0] *0.9).toFixed(0);
-                var maxLine = (trade.datasets[0].data[0] *1.1).toFixed(0);
 
                 option = {
                     tooltip: {
