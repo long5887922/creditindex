@@ -1,10 +1,12 @@
 package com.zy.creditindex.controller.indexandidri;
 
 
+import com.zy.creditindex.entity.JsonEntry;
 import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 
 
+import com.zy.creditindex.entity.idri.IdriJson;
 import com.zy.creditindex.service.IndexService.BastrdtInfoService;
 import com.zy.creditindex.service.IndexService.IdriService;
 import com.zy.creditindex.util.DateUtil;
@@ -12,13 +14,14 @@ import com.zy.creditindex.util.IdriUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+
 
 /**
  * Created by ${ZhaoYing}on 2017/10/23 0023
@@ -26,6 +29,7 @@ import java.util.*;
 @RestController
 @RequestMapping(value = "/idri")
 public class IdriContorller {
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     protected static final Logger logger = LoggerFactory.getLogger(IdriContorller.class);
     @Autowired
     private IdriService idriService;
@@ -33,6 +37,8 @@ public class IdriContorller {
     private String weighttype = "01";//默认等权
     @Autowired
     private BastrdtInfoService bastrdtInfoService;
+//    @Autowired
+    private CacheManager cacheManager;
     /**
      * 行业代码和指数计算日期联合查询
      * @param inducode
@@ -115,6 +121,7 @@ public class IdriContorller {
         logger.info("加权类型："+weighttype);
         List<IdriBean> indexdateNew = null;//接收返回的值，不用重新new新的ArrayList
         try {
+            int week = DateUtil.getWeekend();
             Date endtime = DateUtil.endtime();//当前时间（昨天）
             if(Yoyg.equals("yer")){
                 Date oneyer = DateUtil.oneYer();//一年前的日期
@@ -145,7 +152,6 @@ public class IdriContorller {
                 indexdateNew =ProportionalValue(indexdateNew,beforeidri);//同比环比计算
                 indexdateNew =IdriUtil.idriName(indexdateNew);//X轴的汉字转换
             }else {
-                int week = DateUtil.getWeekend();
                 if(week==1||week==7){
                     BastrdtINFOBean  bday = this.effectiveDate(endtime);//拿到最近有效交易日trd_day
                     Date trd_day = bday.getTrd_day();
@@ -155,7 +161,12 @@ public class IdriContorller {
                     indexdateNew =ProportionalValue(indexdateNew,beforeTradingidri);//同比环比计算
                     indexdateNew =IdriUtil.idriName(indexdateNew);
                 }else {
-                    Date Before = DateUtil.theDayBeforeYesterday();//前天的时间
+                    Date Before;
+                    if(week==2){//周一的情况
+                        Before = DateUtil.threeDaysAgo();
+                    }else{//正常情况
+                        Before = DateUtil.theDayBeforeYesterday();//前天的时间
+                    }
                     BastrdtINFOBean bday = this.effectiveDate(Before);//拿到前天最近有效交易日beforetrd_day
                     Date beforetrd_day = bday.getTrd_day();
                     List<IdriBean> beforeidri = idriService.DailyChain(beforetrd_day, weighttype);//前天的数据
@@ -203,9 +214,87 @@ public class IdriContorller {
         return day;
     }
 
-    @PostMapping("testDailyChainls")
-    public  List<IdriBean> testDailyChainls(Date indexdate, String weighttype){
-        List<IdriBean> idriBeans = idriService.DailyChainls(indexdate, weighttype);
-        return null;
+    @PostMapping("/testDailyChainls")
+    @ResponseBody
+    public  HashMap<String, Object> testDailyChainls(Date indexdate,String weighttype) throws Exception {//@RequestBody JsonEntry data
+       System.out.println(indexdate+weighttype);
+        Date endtime = DateUtil.endtime();//当前时间（昨天）
+        BastrdtINFOBean ytrd_day = this.effectiveDate(endtime);//拿到昨天最近有效交易日yesterdaytrd_day|format.parse(data.getStartTime())
+        Date yesterdaytrd_day = ytrd_day.getTrd_day();
+        Date taday = DateUtil.taday();//今天（一般当天没有数据）
+        HashMap<Object, Object> header = new HashMap<>();
+        HashMap<Object, Object> body = new HashMap<>();
+        header.put("RetCode","3333");
+        header.put("RetMessage","SUCCESS");
+        List<IdriBean> idriBeans = idriService.DailyChainls(yesterdaytrd_day,"01");// data.getCreditorType()
+//        ==============================================
+        logger.info("//////////>>返回值："+idriBeans.toString());
+        Map<String, String> mapcode = IdriBean.getMap();
+     if(idriBeans.size()==0){
+         body.put("0000","系统提示！未找到有效数据······");
+     }else {
+         for (IdriBean i:idriBeans) {
+             for (String key : mapcode.keySet()){
+                 if(key.equals(i.getInducode())){
+                     i.setInducode(mapcode.get(key));
+                     body.put(i.getInducode(),i.getIdri());
+                 }
+             }
+         }
+     }
+//        =======================================
+        HashMap<String, Object> object = new HashMap<>();
+        object.put("Header",header);
+        object.put("Body",body);
+//        String sttr = JSONObject.fromObject(object);
+        System.out.println(object);
+        return object;
     }
+
+    /**
+     * 对外提供行业信贷违约指数的查询接口
+     * @param idriJson
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/request/idriData")
+    @ResponseBody
+    public  HashMap<String, Object> idriData(@RequestBody IdriJson idriJson) throws Exception {//Date startTime, Date endTime, String type, String trade
+        logger.info("==================>请求时间段从："+idriJson.getStartTime()+"-"+idriJson.getEndTime()+";请求方式："+idriJson.getType()+";行业代码："+idriJson.getIdricode());
+        BastrdtINFOBean bday = this.effectiveDate(idriJson.getStartTime());//拿到开始时间对应的最近交易日为了保证每次查询都有数据
+        Date beforetrd_startTime = bday.getTrd_day();
+        BastrdtINFOBean eday = this.effectiveDate(idriJson.getEndTime());//拿到结束时间对应的最近交易日符合业务了逻辑
+        Date beforetrd_endTime = eday.getTrd_day();
+        logger.info("==================>实际有效交易日："+beforetrd_startTime+"-"+beforetrd_endTime+";请求方式："+idriJson.getType()+";行业代码："+idriJson.getIdricode());
+        HashMap<Object, Object> header = new HashMap<>();
+        HashMap<Object, Object> body = new HashMap<>();
+        HashMap<String, Object> object = new HashMap<>();
+        header.put("RetCode","3333");
+        header.put("RetMessage","SUCCESS");
+        List<IdriBean>  bodyList = idriService.queryIdriByTrade(beforetrd_startTime,beforetrd_endTime,idriJson.getType(),idriJson.getIdricode());
+        logger.info("//////////>>返回值："+bodyList.toString());
+        Map<String, String> mapcode = IdriBean.getMap();
+        if(bodyList.size()==0){
+            body.put("0000","系统提示！未找到有效数据······");
+        }else {
+            for (IdriBean i:bodyList) {
+                for (String key : mapcode.keySet()){
+                    if(key.equals(i.getInducode())){
+                        i.setInducode(mapcode.get(key));
+                        body.put(i.getInducode(),i.getIdri());
+                    }
+                }
+            }
+        }
+        object.put("Header",header);
+        object.put("Body",body);
+        return object;
+    }
+
+    @GetMapping("/removedCache")
+    public String removedCache(){
+        cacheManager.getCache("basecache").clear();
+        return "Cache removed";
+    }
+
 }

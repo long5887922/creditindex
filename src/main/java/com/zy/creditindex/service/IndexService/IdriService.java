@@ -8,21 +8,27 @@ import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.repostory.indexJpa.BastrdtInfoRepostory;
 import com.zy.creditindex.repostory.indexJpa.IdriRepostory;
-import com.zy.creditindex.service.IndexService.ideiSeriviceInterface.IdriServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by ${ZhaoYing}on 2017/10/23 0023
+ * basecache
  */
 @Service
 @Transactional
+@CacheConfig(cacheNames = "basecache")
 public class IdriService {
     protected static final Logger logger = LoggerFactory.getLogger(IdriService.class);
     @Autowired
@@ -30,7 +36,7 @@ public class IdriService {
 
     @Autowired
     private BastrdtInfoRepostory bastrdtinfo;
-
+    private CacheManager cacheManager;
     /**
      * id查询
      */
@@ -107,6 +113,7 @@ public class IdriService {
      * @param weighttype 加权类型（等权/加权）
      * @return
      */
+//    @Cacheable
     public List<IdriBean> findIndexdateNew(Date indexdate, String weighttype) {
         return idriRepostory.findByIndexdate(indexdate, weighttype);
     }
@@ -137,6 +144,7 @@ public class IdriService {
      * 查询最近交易日
      * @param dateTime（当当天日期是非交易日时）
      * @return
+     * @Cacheable
      */
     public BastrdtINFOBean findRecentTradingDay(Date dateTime) {
         BastrdtINFOBean d = bastrdtinfo.findByLatestDate(dateTime);
@@ -162,5 +170,11 @@ public class IdriService {
      */
     public List<IdriBean> DailyChainls(Date indexdate, String weighttype){
         return idriRepostory.findByIAndW( indexdate, weighttype);
+    }
+
+    @GetMapping("/removedCache")
+    public String removedCache(){
+        cacheManager.getCache("basecache").clear();
+        return "Cache removed";
     }
 }

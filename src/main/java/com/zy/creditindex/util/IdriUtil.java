@@ -31,10 +31,6 @@ public class IdriUtil {
                 date.setInducode("房地产");
             }
         }
-        for (IdriBean i:idriBean) {
-            BigDecimal idri = i.getIdri();
-
-        }
         return idriBean;
     }
 

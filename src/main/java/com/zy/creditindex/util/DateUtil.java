@@ -88,14 +88,42 @@ public class DateUtil {
         return dayOfWeek;
     }
 
+    /**
+     * 获取今天的固定日期
+     * @return
+     * @throws Exception
+     */
+    public static Date taday()throws Exception{
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();//日历对象
+        calendar.setTime(new Date());//设置当前日期
+        Date endtime =calendar.getTime();
+        String date = format.format(endtime);
+        return  format.parse(date) ;
+    }
+
+    /**
+     * 为解决周一查询时重复数据得零的问题
+     * @return
+     * @throws ParseException
+     */
+    public static Date threeDaysAgo() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();//日历对象
+        calendar.setTime(new Date());//设置当前日期
+        calendar.add(Calendar.DATE, -4);//当天减三：大前天
+        Date endtime =calendar.getTime();
+        String date = format.format(endtime);
+        return format.parse(date);
+    }
+
     public static void main(String[] args) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();//日历对象
-        calendar.setTime(new java.util.Date());//设置当前日期
-        calendar.add(Calendar.YEAR, -1);//YEAR-1
-        Date starttimeyer = calendar.getTime();
-        System.out.println( format.format(starttimeyer));
-        String date = format.format(starttimeyer);
+        calendar.setTime(new Date());//设置当前日期
+        calendar.add(Calendar.DATE, -4);//当天减二 ：前天
+        Date endtime =calendar.getTime();
+        String date = format.format(endtime);
+        System.out.println( date);
     }
-
 }

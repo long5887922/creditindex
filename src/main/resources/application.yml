@@ -5,11 +5,11 @@ spring:
       cache : false
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    #url: jdbc:mysql://127.0.0.1:3306/creditindex?autoReconnect=true&useSSL=false&characterEncoding=utf-8
+#    url: jdbc:mysql://127.0.0.1:3306/creditindex?autoReconnect=true&useSSL=false&characterEncoding=utf-8
     url: jdbc:mysql://172.17.20.205:3306/idridb?autoReconnect=true&useSSL=false&characterEncoding=utf-8&useOldAliasMetadataBehavior=true
-    username: root
+    username: user_002
     password: Password01!
-    #password: Mysql*ying13
+#    password: Mysql*ying13
   jpa:
     hibernate:
       ddl-auto: update
@@ -18,13 +18,10 @@ spring:
     view:
       prefix: /WEB-INF/jsps/
       suffix: .jsp
-#日志配置
+#日志配置log\
 logging:
   level:
     com.zy.creditindex: debug
     org.springfromework.web: info
     org.hibernate: error
   file: log\springboot.log
-
-
-
