@@ -172,9 +172,13 @@ public class IdriService {
         return idriRepostory.findByIAndW( indexdate, weighttype);
     }
 
-    @GetMapping("/removedCache")
+    /**
+     * 清除缓存
+     * @return
+     */
     public String removedCache(){
         cacheManager.getCache("basecache").clear();
         return "Cache removed";
     }
+
 }

@@ -52,7 +52,7 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/um/tologin");
+        shiroFilterFactoryBean.setLoginUrl("/um/line");
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/um/frameset");
         //未授权界面;
