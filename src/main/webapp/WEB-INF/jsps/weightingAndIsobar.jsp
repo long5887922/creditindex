@@ -530,7 +530,6 @@
             $("tr.changeTr").css({backgroundColor: "white"});
             theme = code;
             loadData(code);
-            //alert(theme);
             document.body.style.backgroundColor = "white";
             $("#table tr td a").css({color: "#333"});
             $("#table tr td ").css({color: "#333"});
@@ -727,7 +726,6 @@
             data: {},
             dataType: 'json',
             success: function (data) {
-                //alert(theme);
                 if (theme == 'white') {
                     option = {
                         tooltip: {
