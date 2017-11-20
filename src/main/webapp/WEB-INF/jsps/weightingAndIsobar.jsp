@@ -525,7 +525,7 @@
             $("tr").mouseout(function () {
                 $(this).css("background-color", "#1E2131");
             });
-        } else if (code == "white") {
+        } else {
             showLine();
             $("tr.changeTr").css({backgroundColor: "white"});
             theme = code;
@@ -630,7 +630,7 @@
                     },
                     grid: {
                         left: '5%',
-                        right: '11%',
+                        right: '10%',
                         bottom: '7%'
                     },
                     xAxis: {
