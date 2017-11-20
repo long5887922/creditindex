@@ -525,12 +525,11 @@
             $("tr").mouseout(function () {
                 $(this).css("background-color", "#1E2131");
             });
-        } else if (code == "white") {
+        } else {
             showLine();
             $("tr.changeTr").css({backgroundColor: "white"});
             theme = code;
             loadData(code);
-            //alert(theme);
             document.body.style.backgroundColor = "white";
             $("#table tr td a").css({color: "#333"});
             $("#table tr td ").css({color: "#333"});
@@ -630,7 +629,7 @@
                     },
                     grid: {
                         left: '5%',
-                        right: '8%',
+                        right: '10%',
                         bottom: '7%'
                     },
                     xAxis: {
@@ -727,7 +726,6 @@
             data: {},
             dataType: 'json',
             success: function (data) {
-                //alert(theme);
                 if (theme == 'white') {
                     option = {
                         tooltip: {
