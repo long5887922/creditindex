@@ -147,8 +147,11 @@ public class PriceTableList {
             }
             parameter.setData(list);
             data.add(parameter);
+
             labels.setLabels(Xlist);
             labels.setDatasets(data);
+            labels.setMinIdri(Collections.min(list));
+            labels.setMaxIdri(Collections.max(list));
         } catch (ParseException e) {
             e.printStackTrace();
         }

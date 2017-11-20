@@ -468,7 +468,7 @@
         <div class="modal-body">
             <div><label id="lables" style="margin-left:318px;font-family:微软雅黑;font-size: 15px;color: #fff">等权</label>
             </div>
-            <div style="width:100%;">
+            <div id="lineChartParent" style="width:100%;">
                 <div id="canvas" style="width: 700px;height:280px;"></div>
             </div>
         </div>
@@ -614,17 +614,9 @@
             dataType: 'json',
             success: function (trade) {
                 /* if(theme=="black"){*/
-                var minLine;
-                var maxLine;
-                if(w=="01"){
-                    minLine = (trade.datasets[0].data[0] *0.9).toFixed(0);
-                    maxLine = (trade.datasets[0].data[0] *1.1).toFixed(0);
-                }else{
-                    minLine = (trade.datasets[0].data[0] *0.8).toFixed(0);
-                    maxLine = (trade.datasets[0].data[0] *1.2).toFixed(0);
-                }
-
-
+                var minLine = (trade.minIdri *0.98).toFixed(1);
+                console.log(minLine);
+                console.log(trade);
                 option = {
                     tooltip: {
                         trigger: 'axis'
@@ -687,8 +679,6 @@
                             }
                         },
                         'min':minLine,
-                        'max':maxLine,
-
                         splitLine: {
                             show: true,
                             //  改变轴线颜色
