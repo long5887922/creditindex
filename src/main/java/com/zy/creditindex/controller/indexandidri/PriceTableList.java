@@ -7,8 +7,10 @@ import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.service.IndexService.BastrdtInfoService;
 import com.zy.creditindex.service.IndexService.IdriService;
+import com.zy.creditindex.util.CacheManager;
 import com.zy.creditindex.util.DateTimeUtil;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,8 +33,8 @@ public class PriceTableList {
     private IdriService idriService;
     @Autowired
     private BastrdtInfoService bastrdtInfoService;
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-    DateTimeUtil dataTimeUtil = new  DateTimeUtil();
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    private DateTimeUtil dataTimeUtil = new  DateTimeUtil();
     @RequestMapping("/line")
     public String creditLine(ModelMap model){
 /*当前日期*/
@@ -143,16 +145,89 @@ public class PriceTableList {
                 list.add(idr.getIdri());
                 Xlist.add(format.format(idr.getIndexdate()));
             }
-            parameter.setBorderColor("rgba(151,187,205,1)");
-            parameter.setBackgroundColor("rgba(151,187,205,1)");
             parameter.setData(list);
-
             data.add(parameter);
+
             labels.setLabels(Xlist);
             labels.setDatasets(data);
+            labels.setMinIdri(Collections.min(list));
+            labels.setMaxIdri(Collections.max(list));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return labels;
+    }
+    @RequestMapping("/eight")
+    public String creatJFreeChart()  {
+
+        return "eight";
+    }
+    @RequestMapping("/eightEchars")
+    @ResponseBody
+    public LineChartBean queryLine(String type) {
+        LineChartBean labels = new LineChartBean();
+        try {
+              /*返回前台参数对象*/
+            LineChartBean   label =  CacheManager.getCacheInfo(type);
+            List<IdriBean> list = new ArrayList<IdriBean>();
+            Map<String, String> map = IdriBean.getMap();
+            List<XParameter> xParameters = new ArrayList<XParameter>();
+            List<String> columns = new ArrayList<String>(map.size());
+            if(label==null){
+                /*查询期间内各个行业的数据*/
+                list  = idriService.queryAllIdri(dataTimeUtil.endTime(), type);
+                if (CollectionUtils.isEmpty(list)) {
+                    return labels;
+                }
+                for (String key : map.keySet()) {
+                    List<BigDecimal> decimal=new ArrayList<BigDecimal>();
+                    XParameter x = new XParameter();
+                    List<String> dateList = new ArrayList<String>();
+                    for (IdriBean idr : list) {
+                        if (idr.getInducode().equals(key)) {
+                            dateList.add(format.format(idr.getIndexdate()));
+                            if(idr.getIdri()!=null){
+                                decimal.add(idr.getIdri());
+                            }else {
+                                decimal.add(new BigDecimal("0.0000"));
+                            }
+                        }
+                    }
+                    x.setData(decimal);
+                    x.setDateTime(dateList);
+                    xParameters.add(x);
+                    columns.add(map.get(key));
+                }
+                labels.setLabels(columns);
+                labels.setDatasets(xParameters);
+                CacheManager.putCacheInfo(type,labels);
+            }else{
+                labels =  CacheManager.getCacheInfo(type);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return labels;
+    }
+    public static double[][] getArray(List<List<Double>> list) {
+        Double[][] ps = new Double[list.size()][];
+        for (int i = 0; i < list.size(); i++) {
+            ps[i] = list.get(i).toArray(new Double[list.get(i).size()]);
+        }
+        int x = ps.length;
+        int y = 0;
+        for (int i = ps.length - 1; i < ps.length; i++) {
+            for (int j = ps[i].length - 1; j < ps[i].length; j++) {
+                y = ps[i].length;
+            }
+        }
+        double[][] data = new double[x][y];
+        for (int i = 0; i < ps.length; i++) {
+            for (int j = 0; j < ps[i].length; j++) {// 循环里面的数组
+                data[i][j] = ps[i][j].doubleValue();
+            }
+        }
+        return data;
     }
 }
