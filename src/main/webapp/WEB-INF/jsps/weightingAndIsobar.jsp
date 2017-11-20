@@ -630,7 +630,7 @@
                     },
                     grid: {
                         left: '5%',
-                        right: '8%',
+                        right: '11%',
                         bottom: '7%'
                     },
                     xAxis: {
