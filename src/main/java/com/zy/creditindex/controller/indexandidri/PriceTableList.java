@@ -151,7 +151,6 @@ public class PriceTableList {
             labels.setLabels(Xlist);
             labels.setDatasets(data);
             labels.setMinIdri(Collections.min(list));
-            labels.setMaxIdri(Collections.max(list));
         } catch (ParseException e) {
             e.printStackTrace();
         }
