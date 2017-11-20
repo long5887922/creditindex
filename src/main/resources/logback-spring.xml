@@ -15,8 +15,8 @@ Base logback configuration provided for compatibility with Spring Boot 1.1
         <file>${LOG_FILE:-/tmp/loc.log}</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_FILE}-%d{yyyy-MM-dd}.log</fileNamePattern>
-            <maxHistory>7</maxHistory>
+            <fileNamePattern>${LOG_FILE}-%d{yyyy-MM-dd_HH-mm}.log</fileNamePattern>
+            <maxHistory>2</maxHistory>
         </rollingPolicy>
     </appender>
 
