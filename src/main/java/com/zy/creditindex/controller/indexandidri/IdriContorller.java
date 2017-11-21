@@ -108,7 +108,7 @@ public class IdriContorller {
     public List<IdriBean> queryOneYerTotto()throws Exception {
         Date starttime = DateUtil.oneYer();//一年前的数据
         Date endtime = DateUtil.endtime();
-        return idriService.findIdriByTimesTotto(starttime,endtime);
+        return idriService.findIdriByTimesTotto(endtime,starttime);
     }
 
     /**

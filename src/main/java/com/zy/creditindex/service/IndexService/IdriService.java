@@ -1,9 +1,4 @@
 package com.zy.creditindex.service.IndexService;
-
-
-
-
-
 import com.zy.creditindex.entity.idri.BastrdtINFOBean;
 import com.zy.creditindex.entity.idri.IdriBean;
 import com.zy.creditindex.repostory.indexJpa.BastrdtInfoRepostory;
@@ -78,6 +73,7 @@ public class IdriService {
      * @param endtime
      * @return
      */
+//    @Cacheable
     public List<IdriBean> findIdriByTimesTotto(Date starttime, Date endtime) {
         return idriRepostory.findByTimesTotto(starttime, endtime);
     }
@@ -111,7 +107,7 @@ public class IdriService {
      *
      * @param indexdate  查询日期（当前日期，同比，环比）
      * @param weighttype 加权类型（等权/加权）
-     * @return
+     * @return 可加缓存
      */
 //    @Cacheable
     public List<IdriBean> findIndexdateNew(Date indexdate, String weighttype) {

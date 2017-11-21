@@ -28,12 +28,25 @@ public class DateUtil {
     public static Date endtime()throws Exception {
 //        Date endtime=new java.sql.Date(new Date().getTime());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date1 = new Date();
+        String dates = dateFormat.format(date1);
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(new Date());//设置当前日期
-        calendar.add(Calendar.DATE, -1);//当天减一 ：昨天//-5
-        Date endtime =calendar.getTime();
-        String date = format.format(endtime);
-        return format.parse(date);
+        Date  dayTime= calendar.getTime();
+        Date nowTime = dateFormat.parse(format.format(dayTime)+" 09:00:01");
+        Date parse = dateFormat.parse(dates);//当前日期
+        if(parse.getTime()>nowTime.getTime()){//如果是九点后，则使用昨天的时间
+            calendar.add(Calendar.DATE, -1);//当天减一 ：
+            Date endtime =calendar.getTime();
+            String date = format.format(endtime);
+            return format.parse(date);
+        }else{//如果是九点前，则使用前天的时间
+            calendar.add(Calendar.DATE, -2);//当天减一 ：
+            Date endtime =calendar.getTime();
+            String date = format.format(endtime);
+            return format.parse(date);
+        }
     }
     //获取前天的日期
     public static Date theDayBeforeYesterday()throws Exception{
@@ -70,7 +83,7 @@ public class DateUtil {
     public static Date oneYer()throws Exception{
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();//日历对象
-        calendar.setTime(new java.util.Date());//设置当前日期
+        calendar.setTime(new Date());//设置当前日期
         calendar.add(Calendar.YEAR, -1);//YEAR-1
         Date starttimeyer = calendar.getTime();
         String date = format.format(starttimeyer);
@@ -117,13 +130,14 @@ public class DateUtil {
         return format.parse(date);
     }
 
-    public static void main(String[] args) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();//日历对象
-        calendar.setTime(new Date());//设置当前日期
-        calendar.add(Calendar.DATE, -4);//当天减二 ：前天
-        Date endtime =calendar.getTime();
-        String date = format.format(endtime);
-        System.out.println( date);
+    public static void main(String[] args) throws Exception {
+        Date endtime = DateUtil.endtime();
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//        Calendar calendar = Calendar.getInstance();//日历对象
+//        calendar.setTime(new Date());//设置当前日期
+//        calendar.add(Calendar.DATE, -4);//当天减二 ：前天
+//        Date endtime =calendar.getTime();
+//        String date = format.format(endtime);
+        System.out.println( endtime);
     }
 }

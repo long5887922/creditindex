@@ -14,7 +14,7 @@
     <cache
             name="basecache"
             eternal="false"
-            maxElementsInMemory="100"
+            maxElementsInMemory="1000"
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="0"
