@@ -27,7 +27,12 @@
             word-break: keep-all;
             max-width: 106px;
         }
-        textarea { display:inline-block; margin-right:3px; vertical-align:middle;}
+
+        textarea {
+            display: inline-block;
+            margin-right: 3px;
+            vertical-align: middle;
+        }
     </style>
 
 </head>
@@ -47,8 +52,12 @@
                 <div style="width:90%;height:20px;float:left;margin-left:650px;">
                     <div style="height: 392px;width: 760px;border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
                         <div align="left">
-                            <label id="lable"
-                                   style="font-family:微软雅黑;font-size: 18px;color:#fff"><strong>指数值(单位:bp)</strong></label>
+                            <label id="lable" style="font-family:微软雅黑;font-size: 18px;color:#fff"><strong>指数值(单位:bp)
+                                <span style="font-family:微软雅黑;font-size: 14px;color:#fff" id="renew">
+                                    (数据于每天交易日九点更新数据)
+                                </span>
+                            </strong>
+                            </label>
                         </div>
                         <div id="tables">
                             <table class="table" id="table" style="width:740px;height:300px; border-top:none">
@@ -444,11 +453,12 @@
         </div>
         <div style="width: 625px;height: 300px;margin-top:-20px;margin-left:10px;border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
             <span id="spa" style="font-family:微软雅黑;font-size: 18px;color: #fff"><strong>指数介绍</strong></span>
-            <textarea class="textarea"  id="TextArea1" cols="60" rows="10" name="creditRisk" readonly="readonly"
+            <textarea class="textarea" id="TextArea1" cols="60" rows="10" name="creditRisk" readonly="readonly"
                       style="color:#999;background:transparent;border-style:none;width: 600px;resize: none;">
        行业信贷风险指数(Industry Credit Risk Index)是衡量并描述国内8个大类行业综合债务风险的一套信用风险指数体系。 指数以A股全体上市企业为样本，依据证监会行业分类标准，基于算数平均法和债务加权法，自下而上进行指数计算。使用者可以通过指数的运算结果，从不同角度和侧重，分析各行业的信用风险水平与趋势，为国内信贷和债券市场提供了“风向标”和“指示器”。
        行业信贷风险指数的数据采集自公开市场交易、上市企业季报、年报等公开数据。指数成分样本的筛选和权重的计算循序《行业信贷风险指数的编制方法》，后经指数评审委员会最后确认形成。个体预期违约概率经流动性指标模型、Merton违约概率模型、“壳”价值修正模型等计算得出，并按相应计算公式得出最终指数。
             </textarea>
+
             <div id="down">
                 <span style="font-size: 20px">下载:</span>
                 <a href="/img/IDRICM.pdf" style="font-size: 16px" download>
@@ -509,6 +519,7 @@
             $("#selectTest").css({color: "#fff"});
             $("#orderindex").css({color: "#fff"});
             $("#order").css({color: "#fff"});
+            $("#renew").css({color: "#fff"});
             $("#lables").css({color: "#fff"});
             $("#exponent").css({color: "#fff"});
             $("#cls").attr("src", "../../img/app/closeblack.png");
@@ -545,6 +556,7 @@
             $("#mySelect").css({color: "#333"});
             $("#orderindex").css({color: "#333"});
             $("#order").css({color: "#333"});
+            $("#renew").css({color: "#333"});
             $("#mySelect").css({backgroundColor: "white"});
             $("#cls").attr("src", "../../img/app/close.png");
             $("tr").mouseover(function () {
@@ -591,7 +603,7 @@
             dataType: 'json',
             success: function (trade) {
                 /* if(theme=="black"){*/
-                var minLine = (trade.minIdri *0.98).toFixed(1);
+                var minLine = (trade.minIdri * 0.98).toFixed(1);
                 console.log(minLine);
                 console.log(trade);
                 option = {
@@ -654,7 +666,7 @@
                                 color: '#999'
                             }
                         },
-                        'min':minLine,
+                        'min': minLine,
                         splitLine: {
                             show: true,
                             //  改变轴线颜色
@@ -1074,15 +1086,15 @@
                     };
                 }
                 /*myChart.on('legendselectchanged', function (params) {
-                    // 获取点击图例的选中状态
-                    var isSelected = params.selected[params.name];
-                    // 在控制台中打印
-                    console.log((isSelected ? '选中了' : '') + '图例' + params.name);
-                     if(!isSelected){
-                     console.log(params.name);
-                     }
-                     console.log(params.selected);
-                });*/
+                 // 获取点击图例的选中状态
+                 var isSelected = params.selected[params.name];
+                 // 在控制台中打印
+                 console.log((isSelected ? '选中了' : '') + '图例' + params.name);
+                 if(!isSelected){
+                 console.log(params.name);
+                 }
+                 console.log(params.selected);
+                 });*/
                 myChart.setOption(option);
                 $("#canvasEight").css('width', $("#canvasEight").width());
             }
