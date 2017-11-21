@@ -34,6 +34,7 @@ public class PriceTableList {
     @Autowired
     private BastrdtInfoService bastrdtInfoService;
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private DateTimeUtil dataTimeUtil = new  DateTimeUtil();
     @RequestMapping("/line")
     public String creditLine(ModelMap model){
@@ -41,11 +42,15 @@ public class PriceTableList {
         try {
             /*获取当前日期*/
             BastrdtINFOBean bean  = bastrdtInfoService.queryStartTime(dataTimeUtil.endTime());
-          /*  Calendar calendar = Calendar.getInstance();//日历对象
-            calendar.setTime(bean.getTrd_day());//设置当前日期*/
-            /*前一天日期*/
-          /*  calendar.add(Calendar.DATE, -1);
-            bean  = bastrdtInfoService.queryStartTime(calendar.getTime());*/
+            Calendar calendar = Calendar.getInstance();//日历对象
+            calendar.setTime(new Date());//设置当前日期
+            Date  dayTime= calendar.getTime();
+            Date nowTime = format2.parse(format.format(dayTime)+" 09:00:01");
+            if(dayTime.getTime()<nowTime.getTime()){
+                calendar.setTime(bean.getTrd_day());
+                calendar.add(Calendar.DATE, -1);//日期减一
+                bean  = bastrdtInfoService.queryStartTime(calendar.getTime());
+            }
             Date endTime = bean.getTrd_day();
             /*获取10天前的日期*/
             bean =bastrdtInfoService.queryBeforTime(endTime);

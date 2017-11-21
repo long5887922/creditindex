@@ -132,7 +132,6 @@
             </div>
         </div>
     </div>
-
     <div style="width: 45%;">
         <div style="margin-left:10px;margin-top:40px;">
             <div>
@@ -148,7 +147,6 @@
                             </select>
                         </div>
                         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-
                         <div align="left" style="margin-left:10px;;margin-top:10px;">
                             <span style="font-family:微软雅黑;font-size: 20px;color:#fff" id="orderindex"><strong>八个行业信贷风险指数排名</strong></span>
                             <span style="font-family:微软雅黑;font-size: 14px;color:#fff" id="order">(数值越大风险越高)</span>
@@ -192,7 +190,6 @@
                                             success: function (json) {
                                                 if (json) {
                                                     for (var i = 0; i < json.length; i++) {
-                                                        console.log(json[i].context);
                                                         arr.push(json[i].inducode);
                                                     }
                                                 }
@@ -302,7 +299,6 @@
                                         ]
                                     }
                                 }]
-
                             };
                         } else {
                             option = {
@@ -481,7 +477,6 @@
         theme = window.localStorage.getItem("theme");
         skin(theme, true);
         loadData(theme);
-
     });
     function skin(code, clientFlag) {
         w = $('#selectTest').val();
@@ -514,11 +509,6 @@
             $("#lables").css({color: "#fff"});
             $("#exponent").css({color: "#fff"});
             $("#cls").attr("src", "../../img/app/closeblack.png");
-            if (w == "02") {
-                $("#changeJPG").attr("src", "/img/lineAndShapWeightBlack.jpg");
-            } else {
-                $("#changeJPG").attr("src", "/img/lineAndShapBlack.jpg");
-            }
             $("tr").mouseover(function () {
                 $(this).css("background-color", "#2C364D");
             });
@@ -554,11 +544,6 @@
             $("#order").css({color: "#333"});
             $("#mySelect").css({backgroundColor: "white"});
             $("#cls").attr("src", "../../img/app/close.png");
-            if (w == "02") {
-                $("#changeJPG").attr("src", "/img/lineAndShapWeighting.jpg");
-            } else {
-                $("#changeJPG").attr("src", "/img/lineAndShap.jpg");
-            }
             $("tr").mouseover(function () {
                 $(this).css("background-color", "#E5E5E5");
             });
@@ -573,20 +558,10 @@
         if (w == '02') {
             $("#weights").show();
             $("#tables").hide();
-            if (theme == "black") {
 
-                $("#changeJPG").attr("src", "/img/lineAndShapWeightBlack.jpg");
-            } else {
-                $("#changeJPG").attr("src", "/img/lineAndShapWeighting.jpg");
-            }
         } else {
             $("#weights").hide();
             $("#tables").show();
-            if (theme == "black") {
-                $("#changeJPG").attr("src", "/img/lineAndShapBlack.jpg");
-            } else {
-                $("#changeJPG").attr("src", "/img/lineAndShap.jpg");
-            }
         }
     });
     $('#weight').bootstrapTable();
@@ -629,7 +604,7 @@
                     },
                     grid: {
                         left: '5%',
-                        right: '10%',
+                        right: '14%',
                         bottom: '7%'
                     },
                     xAxis: {
@@ -665,7 +640,6 @@
                             }
                         }
                     },
-
                     yAxis: {
                         type: 'value',
                         // 去除y轴上的刻度线
@@ -710,6 +684,10 @@
         });
         $('#showLine').modal('show');
     }
+    $("#showLine").on("hidden.bs.modal", function () {
+        var myChart = echarts.init(document.getElementById('canvasEight'));
+        myChart.clean();
+    });
     function showLine() {
         var myChart = echarts.init(document.getElementById('canvasEight'));
         w = $('#selectTest').val();

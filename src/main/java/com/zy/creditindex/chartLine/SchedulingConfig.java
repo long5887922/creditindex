@@ -24,7 +24,7 @@ public class SchedulingConfig {
 		chartService.creatJFreeChart("01");
 		chartService.creatJFreeChart("02");
 	}*/
-	@Scheduled(cron = "0 0/30 * * * ?")
+	@Scheduled(cron = "01 00 09 * * ?")
 	public void scheduler() {
 		CacheManager.clearAll();
 		System.out.print("清除折线图缓存数据");
