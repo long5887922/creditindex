@@ -52,12 +52,12 @@
                 <div style="width:90%;height:20px;float:left;margin-left:650px;">
                     <div style="height: 392px;width: 760px;border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
                         <div align="left">
-                            <label id="lable" style="font-family:微软雅黑;font-size: 18px;color:#fff"><strong>指数值(单位:bp)
-                                <span style="font-family:微软雅黑;font-size: 14px;color:#fff" id="renew">
-                                    (数据于每天交易日九点更新数据)
-                                </span>
-                            </strong>
+                            <label id="lable" style="font-family:微软雅黑;font-size: 18px;color:#fff">
+                                <strong>指数值(单位:bp)</strong>
                             </label>
+                             <span style="font-family:微软雅黑;font-size: 14px;color:#fff" id="renew">
+                                    (数据于交易日九点更新)
+                                </span>
                         </div>
                         <div id="tables">
                             <table class="table" id="table" style="width:740px;height:300px; border-top:none">
