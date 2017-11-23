@@ -27,12 +27,6 @@
             word-break: keep-all;
             max-width: 106px;
         }
-
-        textarea {
-            display: inline-block;
-            margin-right: 3px;
-            vertical-align: middle;
-        }
     </style>
 
 </head>
@@ -57,7 +51,7 @@
                             </label>
                              <span style="font-family:微软雅黑;font-size: 14px;color:#fff" id="renew">
                                     (数据于交易日九点更新)
-                                </span>
+                             </span>
                         </div>
                         <div id="tables">
                             <table class="table" id="table" style="width:740px;height:300px; border-top:none">
@@ -114,7 +108,7 @@
                                         </td>
                                         <td>
                                             <a href='#'
-                                               onclick='openLineWindon("${idri.id}","${idri.startTime}","${idri.endTime}")'>
+                                               onclick='openLineWindon("${idri.id}","${idri.startTime}","${idri.endTime}","${idri.username}")'>
                                                 <img src="../../img/app/chart.png">
                                             </a>
                                         </td>
@@ -138,7 +132,6 @@
             <div style="width:100%;" class="chart swiper-slide">
                 <span style="margin-left:10px;font-weight:bold;font-family:微软雅黑;font-size: 18px;color:#fff"
                       id="exponent">行业信贷风险指数-等权</span>
-
                 <div id="canvasEight" style="width: 620px;height:392px;"></div>
             </div>
         </div>
@@ -162,7 +155,6 @@
                             <span style="font-family:微软雅黑;font-size: 20px;color:#fff" id="orderindex"><strong>八个行业信贷风险指数排名</strong></span>
                             <span style="font-family:微软雅黑;font-size: 14px;color:#fff" id="order">(数值越大风险越高)</span>
                         </div>
-
                         <div id="main" style="width: 700px;height:280px;">
                         </div>
                     </div>
@@ -228,7 +220,6 @@
                                     axisLine: {
                                         lineStyle: {
                                             color: '#34394A'
-//                            width:8,//这里是为了突出显示加上的，可以去掉
                                         }
                                     },
                                     //  改变x轴字体颜色和大小
@@ -416,7 +407,6 @@
                                             success: function (json) {
                                                 if (json) {
                                                     for (var i = 0; i < json.length; i++) {
-                                                        console.log(json[i].context);
                                                         arr.push(json[i].idri);
                                                     }
                                                 }
@@ -467,7 +457,7 @@
             </div>
         </div>
     </div>
-    <div id="showLine" data-backdrop="static" class="modal col-md-6 col-md-offset-3"
+    <div id="queryLine" data-backdrop="static" class="modal col-md-6 col-md-offset-3"
          style="height:375px;background: #fff; margin-top: 70px; margin-bottom: 50px;overflow:hidden;" tabindex="-1"
          role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true;">
@@ -505,7 +495,7 @@
             $("#weight th").css({color: "#8dbff3"});
             $("#weight tr td a").css({color: "#999"});
             $("#weight tr td ").css({color: "#999"});
-            $("#showLine").css({backgroundColor: "#34394A"});
+            $("#queryLine").css({backgroundColor: "#34394A"});
             $("#lable").css({color: "#fff"});
             $("#user").css({color: "#fff"});
             $("#index").css({color: "#fff"});
@@ -543,7 +533,7 @@
             $("#weight th").css({color: "#222"});
             $("#lables").css({color: "#333"});
             $("tr.changeTr").css({backgroundColor: "white"});
-            $("#showLine").css({backgroundColor: "#FFFFFF"});
+            $("#queryLine").css({backgroundColor: "#FFFFFF"});
             $("#lable").css({color: "#222"});
             $("#exponent").css({color: "#333"});
             $("#index").css({color: "#222"});
@@ -581,8 +571,12 @@
     });
     $('#weight').bootstrapTable();
     $('#table').bootstrapTable();
+    var canvas
+    $("#queryLine").on("hidden.bs.modal", function () {
+        canvas.clear();
+    });
     function openLineWindon(id, startTime, endTime, username) {
-        var myChart = echarts.init(document.getElementById('canvas'));
+        canvas = echarts.init(document.getElementById('canvas'));
         w = $('#selectTest').val();
         if (w == "02") {
             $("#lables").html("加权");
@@ -598,14 +592,13 @@
                 id: id,
                 creditorType: $('#selectTest').val(),
                 startTime: startTime,
-                endTime: endTime
+                endTime: endTime,
+                username: username
             }),
             dataType: 'json',
             success: function (trade) {
                 /* if(theme=="black"){*/
                 var minLine = (trade.minIdri * 0.98).toFixed(1);
-                console.log(minLine);
-                console.log(trade);
                 option = {
                     tooltip: {
                         trigger: 'axis'
@@ -694,15 +687,11 @@
                         }
                     ]
                 };
-                myChart.setOption(option);
+                canvas.setOption(option);
             }
         });
-        $('#showLine').modal('show');
+        $('#queryLine').modal('show');
     }
-    $("#showLine").on("hidden.bs.modal", function () {
-        var myChart = echarts.init(document.getElementById('canvasEight'));
-        myChart.clean();
-    });
     function showLine() {
         var myChart = echarts.init(document.getElementById('canvasEight'));
         w = $('#selectTest').val();
@@ -727,7 +716,7 @@
                         legend: [
                             {
                                 x: 'center',
-                                data: [data.labels[0], data.labels[1], data.labels[2]],
+                                data: [data.labels[0], data.labels[1],data.labels[7]],
                                 textStyle: {    //图例文字的样式
                                     color: '#555'
                                 }
@@ -742,7 +731,7 @@
                             }, {
                                 x: 'center',
                                 top: '8%',
-                                data: [data.labels[6], data.labels[7]],
+                                data: [data.labels[6],data.labels[2]],
                                 textStyle: {    //图例文字的样式
                                     color: '#555'
                                 }
@@ -762,9 +751,6 @@
                             left: '3%',
                             right: '7%',
                             bottom: '13%',
-                            /* left: '10%',
-                             right: '7%',
-                             bottom: '35%',*/
                             containLabel: true
                         },
                         xAxis: {
@@ -818,7 +804,6 @@
                                     color: ['#CACACA']
                                 }
                             },
-
                             axisLabel: {
                                 textStyle: {
                                     color: '#555'
@@ -905,12 +890,17 @@
                 } else {
                     option = {
                         tooltip: {
-                            trigger: 'axis'
+                            trigger: 'axis'/*,
+                            position:function(p){
+                                修改鼠标坐标
+                                return [p[0] + 10, p[1] - 160];
+                            }*/
                         },
                         legend: [
+
                             {
                                 x: 'center',
-                                data: [data.labels[0], data.labels[1], data.labels[2]],
+                                data: [data.labels[0], data.labels[1],data.labels[7]],
                                 textStyle: {    //图例文字的样式
                                     color: '#fff'
                                 }
@@ -925,7 +915,7 @@
                             }, {
                                 x: 'center',
                                 top: '8%',
-                                data: [data.labels[6], data.labels[7]],
+                                data: [data.labels[6],data.labels[2]],
                                 textStyle: {    //图例文字的样式
                                     color: '#fff'
                                 }
@@ -945,9 +935,6 @@
                             left: '3%',
                             right: '7%',
                             bottom: '13%',
-                            /* left: '10%',
-                             right: '7%',
-                             bottom: '35%',*/
                             containLabel: true
                         },
                         xAxis: {
@@ -1085,16 +1072,6 @@
                         ]
                     };
                 }
-                /*myChart.on('legendselectchanged', function (params) {
-                 // 获取点击图例的选中状态
-                 var isSelected = params.selected[params.name];
-                 // 在控制台中打印
-                 console.log((isSelected ? '选中了' : '') + '图例' + params.name);
-                 if(!isSelected){
-                 console.log(params.name);
-                 }
-                 console.log(params.selected);
-                 });*/
                 myChart.setOption(option);
                 $("#canvasEight").css('width', $("#canvasEight").width());
             }
