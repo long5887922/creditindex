@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by huaqin on 2017/11/17.
  */
-@SuppressWarnings("unchecked")
 public class CacheManager {
     private static Map<String,LineChartBean> cacheMap =  new ConcurrentHashMap<String,LineChartBean>();
     private CacheManager() {
@@ -54,7 +53,8 @@ public class CacheManager {
     //载入缓存
     public synchronized static void putCache(String key, LineChartBean obj) {
         cacheMap.put(key, obj);
-    } //获取缓存信息
+    }
+    //获取缓存信息
     public static LineChartBean getCacheInfo(String key) {
         if (hasCache(key)) {
             LineChartBean cache = getCache(key);
@@ -64,7 +64,6 @@ public class CacheManager {
     }
     //载入缓存信息
     public static void putCacheInfo(String key, LineChartBean obj) {
-
         cacheMap.put(key, obj);
     }
     //获取缓存中的大小
@@ -92,7 +91,7 @@ public class CacheManager {
     }
     //获取缓存对象中的所有键值名称
     public static ArrayList<String> getCacheAllkey() {
-        ArrayList a = new ArrayList();
+        ArrayList<String> a = new ArrayList<String>();
         try {
             Iterator i = cacheMap.entrySet().iterator();
             while (i.hasNext()) {
@@ -105,7 +104,7 @@ public class CacheManager {
     }
     //获取缓存对象中指定类型 的键值名称
     public static ArrayList<String> getCacheListkey(String type) {
-        ArrayList a = new ArrayList();
+        ArrayList<String> a = new ArrayList<String>();
         String key;
         try {
             Iterator i = cacheMap.entrySet().iterator();

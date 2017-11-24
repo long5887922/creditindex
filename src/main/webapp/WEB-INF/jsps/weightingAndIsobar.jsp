@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="cxt" value="${pageContent.request.contentPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -50,7 +51,7 @@
                                 <strong>指数值(单位:bp)</strong>
                             </label>
                              <span style="font-family:微软雅黑;font-size: 14px;color:#fff" id="renew">
-                                    (数据于交易日九点更新)
+                                    (数值越大风险越高,数据于交易日九点更新)
                              </span>
                         </div>
                         <div id="tables">
@@ -79,7 +80,7 @@
                                         <c:forEach items="${bodyList}" var="beans">
                                             <c:if test="${beans.inducode eq idri.id}">
                                                 <td class="text-center">
-                                                        ${beans.idri}
+                                                    <fmt:formatNumber type="number" value="${beans.idri}" pattern="0.00" maxFractionDigits="2"/>
                                                 </td>
                                             </c:if>
                                         </c:forEach>
@@ -115,7 +116,7 @@
                                         <c:forEach items="${weighting}" var="w">
                                             <c:if test="${w.inducode eq idri.id}">
                                                 <td class="text-center">
-                                                        ${w.idri}
+                                                    <fmt:formatNumber type="number" value="${w.idri}" pattern="0.00" maxFractionDigits="2"/>
                                                 </td>
                                             </c:if>
                                         </c:forEach>
@@ -153,7 +154,6 @@
                         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
                         <div align="left" style="margin-left:10px;;margin-top:10px;">
                             <span style="font-family:微软雅黑;font-size: 20px;color:#fff" id="orderindex"><strong>八个行业信贷风险指数排名</strong></span>
-                            <span style="font-family:微软雅黑;font-size: 14px;color:#fff" id="order">(数值越大风险越高)</span>
                         </div>
                         <div id="main" style="width: 700px;height:280px;">
                         </div>
@@ -508,7 +508,6 @@
             $("#TextArea1").css({color: "#999"});
             $("#selectTest").css({color: "#fff"});
             $("#orderindex").css({color: "#fff"});
-            $("#order").css({color: "#fff"});
             $("#renew").css({color: "#fff"});
             $("#lables").css({color: "#fff"});
             $("#exponent").css({color: "#fff"});
@@ -545,7 +544,6 @@
             $("#selectTest").css({backgroundColor: "white"});
             $("#mySelect").css({color: "#333"});
             $("#orderindex").css({color: "#333"});
-            $("#order").css({color: "#333"});
             $("#renew").css({color: "#333"});
             $("#mySelect").css({backgroundColor: "white"});
             $("#cls").attr("src", "../../img/app/close.png");
@@ -708,7 +706,191 @@
             data: {},
             dataType: 'json',
             success: function (data) {
-                if (theme == 'white') {
+                if (theme == 'black') {
+                    option = {
+                        tooltip: {
+                            trigger: 'axis'/*,
+                             position:function(p){
+                             修改鼠标坐标
+                             return [p[0] + 10, p[1] - 160];
+                             }*/
+                        },
+                        legend: [
+
+                            {
+                                x: 'center',
+                                data: [data.labels[0], data.labels[1],data.labels[7]],
+                                textStyle: {    //图例文字的样式
+                                    color: '#fff'
+                                }
+                            },
+                            {
+                                x: 'center',
+                                top: '4%',
+                                data: [data.labels[3], data.labels[4], data.labels[5]],
+                                textStyle: {    //图例文字的样式
+                                    color: '#fff'
+                                }
+                            }, {
+                                x: 'center',
+                                top: '8%',
+                                data: [data.labels[6],data.labels[2]],
+                                textStyle: {    //图例文字的样式
+                                    color: '#fff'
+                                }
+                            }
+                        ],
+                        toolbox: {
+                            left: 'right',
+                            feature: {
+                                dataZoom: {
+                                    yAxisIndex: 'none'
+                                },
+                                restore: {}/*,
+                                 saveAsImage: {}*/
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '7%',
+                            bottom: '13%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: data.datasets[0].dateTime,
+                            axisTick: {
+                                alignWithLabel: true
+                            },
+                            // 控制网格线是否显示
+                            splitLine: {
+                                show: false,
+                                //  改变轴线颜色
+                                lineStyle: {
+                                    // 使用深浅的间隔色
+                                    color: '#34394A'
+                                }
+                            },
+                            //  改变x轴颜色
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#34394A'
+//                            width:8,//这里是为了突出显示加上的，可以去掉
+                                }
+                            },
+                            //  改变x轴字体颜色和大小
+                            axisLabel: {
+                                showMinLabel: true,
+                                showMaxLabel: true,
+                                textStyle: {
+                                    color: '#999'
+                                }
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            // 去除y轴上的刻度线
+                            axisTick: {
+                                show: false
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#34394A'
+                                }
+                            },
+                            splitLine: {
+                                show: true,
+                                //  改变轴线颜色
+                                lineStyle: {
+                                    // 使用深浅的间隔色
+                                    color: ['#34394A']
+                                }
+                            },
+                            axisLabel: {
+                                textStyle: {
+                                    color: '#999'
+                                }
+                            }
+                        },
+                        series: [
+                            {
+                                itemStyle: {
+                                    normal: {
+                                        color: '#9BD976'
+                                    }
+                                },
+                                name: [data.labels[0]],
+                                type: 'line',
+                                data: data.datasets[0].data
+                            },
+                            {
+                                itemStyle: {
+                                    normal: {
+                                        color: '#90CEFF'
+                                    }
+                                },
+                                name: [data.labels[1]],
+                                type: 'line',
+                                data: data.datasets[1].data
+                            }, {
+                                itemStyle: {
+                                    normal: {
+                                        color: '#F2DB95'
+                                    }
+                                },
+                                name: [data.labels[2]],
+                                type: 'line',
+                                data: data.datasets[2].data
+                            }, {
+                                itemStyle: {
+                                    normal: {
+                                        color: '#759CFF'
+                                    }
+                                },
+                                name: [data.labels[3]],
+                                type: 'line',
+                                data: data.datasets[3].data
+                            }, {
+                                itemStyle: {
+                                    normal: {
+                                        color: '#62AE96'
+                                    }
+                                },
+                                name: [data.labels[4]],
+                                type: 'line',
+                                data: data.datasets[4].data
+                            }, {
+                                itemStyle: {
+                                    normal: {
+                                        color: '#F1B080'
+                                    }
+                                },
+                                name: [data.labels[5]],
+                                type: 'line',
+                                data: data.datasets[5].data
+                            }, {
+                                itemStyle: {
+                                    normal: {
+                                        color: '#BF7EF1'
+                                    }
+                                },
+                                name: [data.labels[6]],
+                                type: 'line',
+                                data: data.datasets[6].data
+                            }, {
+                                itemStyle: {
+                                    normal: {
+                                        color: '#2B99FF'
+                                    }
+                                },
+                                name: [data.labels[7]],
+                                type: 'line',
+                                data: data.datasets[7].data
+                            }
+                        ]
+                    };
+                } else {
                     option = {
                         tooltip: {
                             trigger: 'axis'
@@ -807,190 +989,6 @@
                             axisLabel: {
                                 textStyle: {
                                     color: '#555'
-                                }
-                            }
-                        },
-                        series: [
-                            {
-                                itemStyle: {
-                                    normal: {
-                                        color: '#9BD976'
-                                    }
-                                },
-                                name: [data.labels[0]],
-                                type: 'line',
-                                data: data.datasets[0].data
-                            },
-                            {
-                                itemStyle: {
-                                    normal: {
-                                        color: '#90CEFF'
-                                    }
-                                },
-                                name: [data.labels[1]],
-                                type: 'line',
-                                data: data.datasets[1].data
-                            }, {
-                                itemStyle: {
-                                    normal: {
-                                        color: '#F2DB95'
-                                    }
-                                },
-                                name: [data.labels[2]],
-                                type: 'line',
-                                data: data.datasets[2].data
-                            }, {
-                                itemStyle: {
-                                    normal: {
-                                        color: '#759CFF'
-                                    }
-                                },
-                                name: [data.labels[3]],
-                                type: 'line',
-                                data: data.datasets[3].data
-                            }, {
-                                itemStyle: {
-                                    normal: {
-                                        color: '#62AE96'
-                                    }
-                                },
-                                name: [data.labels[4]],
-                                type: 'line',
-                                data: data.datasets[4].data
-                            }, {
-                                itemStyle: {
-                                    normal: {
-                                        color: '#F1B080'
-                                    }
-                                },
-                                name: [data.labels[5]],
-                                type: 'line',
-                                data: data.datasets[5].data
-                            }, {
-                                itemStyle: {
-                                    normal: {
-                                        color: '#BF7EF1'
-                                    }
-                                },
-                                name: [data.labels[6]],
-                                type: 'line',
-                                data: data.datasets[6].data
-                            }, {
-                                itemStyle: {
-                                    normal: {
-                                        color: '#2B99FF'
-                                    }
-                                },
-                                name: [data.labels[7]],
-                                type: 'line',
-                                data: data.datasets[7].data
-                            }
-                        ]
-                    };
-                } else {
-                    option = {
-                        tooltip: {
-                            trigger: 'axis'/*,
-                            position:function(p){
-                                修改鼠标坐标
-                                return [p[0] + 10, p[1] - 160];
-                            }*/
-                        },
-                        legend: [
-
-                            {
-                                x: 'center',
-                                data: [data.labels[0], data.labels[1],data.labels[7]],
-                                textStyle: {    //图例文字的样式
-                                    color: '#fff'
-                                }
-                            },
-                            {
-                                x: 'center',
-                                top: '4%',
-                                data: [data.labels[3], data.labels[4], data.labels[5]],
-                                textStyle: {    //图例文字的样式
-                                    color: '#fff'
-                                }
-                            }, {
-                                x: 'center',
-                                top: '8%',
-                                data: [data.labels[6],data.labels[2]],
-                                textStyle: {    //图例文字的样式
-                                    color: '#fff'
-                                }
-                            }
-                        ],
-                        toolbox: {
-                            left: 'right',
-                            feature: {
-                                dataZoom: {
-                                    yAxisIndex: 'none'
-                                },
-                                restore: {}/*,
-                                 saveAsImage: {}*/
-                            }
-                        },
-                        grid: {
-                            left: '3%',
-                            right: '7%',
-                            bottom: '13%',
-                            containLabel: true
-                        },
-                        xAxis: {
-                            type: 'category',
-                            boundaryGap: false,
-                            data: data.datasets[0].dateTime,
-                            axisTick: {
-                                alignWithLabel: true
-                            },
-                            // 控制网格线是否显示
-                            splitLine: {
-                                show: false,
-                                //  改变轴线颜色
-                                lineStyle: {
-                                    // 使用深浅的间隔色
-                                    color: '#34394A'
-                                }
-                            },
-                            //  改变x轴颜色
-                            axisLine: {
-                                lineStyle: {
-                                    color: '#34394A'
-//                            width:8,//这里是为了突出显示加上的，可以去掉
-                                }
-                            },
-                            //  改变x轴字体颜色和大小
-                            axisLabel: {
-                                showMinLabel: true,
-                                showMaxLabel: true,
-                                textStyle: {
-                                    color: '#999'
-                                }
-                            }
-                        },
-                        yAxis: {
-                            type: 'value',
-                            // 去除y轴上的刻度线
-                            axisTick: {
-                                show: false
-                            },
-                            axisLine: {
-                                lineStyle: {
-                                    color: '#34394A'
-                                }
-                            },
-                            splitLine: {
-                                show: true,
-                                //  改变轴线颜色
-                                lineStyle: {
-                                    // 使用深浅的间隔色
-                                    color: ['#34394A']
-                                }
-                            },
-                            axisLabel: {
-                                textStyle: {
-                                    color: '#999'
                                 }
                             }
                         },
