@@ -35,6 +35,7 @@ public class PriceTableList {
     private BastrdtInfoService bastrdtInfoService;
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     private SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat format3 = new SimpleDateFormat("MM-dd");
     private DateTimeUtil dataTimeUtil = new  DateTimeUtil();
     @RequestMapping("/line")
     public String creditLine(ModelMap model){
@@ -66,7 +67,7 @@ public class PriceTableList {
             /*封装交易日集合*/
             List<Object> l = new ArrayList<>();
             for(BastrdtINFOBean b: list){
-                l.add(format.format(b.getTrd_day()));
+                l.add(format3.format(b.getTrd_day()));
             }
             /*查询10个交易日的行业等权数据降序*/
             List<IdriBean>  bodyList = idriService.queryIdriByGradeDown(startTime, endTime, "01");

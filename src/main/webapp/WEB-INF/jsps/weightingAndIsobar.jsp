@@ -48,20 +48,20 @@
                     <div style="height: 392px;width: 760px;border-bottom:solid 1px #34394A; border-left:solid 1px #34394A; border-right:solid 1px #34394A; border-top:solid 1px #34394A">
                         <div align="left">
                             <label id="lable" style="font-family:微软雅黑;font-size: 18px;color:#fff">
-                                <strong>指数值(单位:bp)</strong>
+                                <strong>指数值</strong>
                             </label>
                              <span style="font-family:微软雅黑;font-size: 14px;color:#fff" id="renew">
-                                    (数值越大风险越高,数据于交易日九点更新)
+                                   (单位:bp) (数值越大风险越高,数据于交易日九点更新)
                              </span>
                         </div>
                         <div id="tables">
                             <table class="table" id="table" style="width:740px;height:300px; border-top:none">
                                 <thead>
                                 <tr class="changeTr">
-                                    <th></th>
+                                    <th>(点击日期排序)</th>
                                     <th></th>
                                     <c:forEach items="${list}" var="t">
-                                        <th>${t}</th>
+                                        <th onclick="sort('table',${ status.index + 2})"><a href="#">${t}</a></th>
                                     </c:forEach>
                                 </tr>
                                 </thead>
@@ -79,7 +79,7 @@
                                         </td>
                                         <c:forEach items="${bodyList}" var="beans">
                                             <c:if test="${beans.inducode eq idri.id}">
-                                                <td class="text-center">
+                                                <td>
                                                     <fmt:formatNumber type="number" value="${beans.idri}" pattern="0.00" maxFractionDigits="2"/>
                                                 </td>
                                             </c:if>
@@ -93,10 +93,10 @@
                             <table class="table" id="weight" style="width:740px;height:300px;">
                                 <thead>
                                 <tr class="changeTr">
-                                    <th></th>
+                                    <th>(点击日期排序)</th>
                                     <th></th>
                                     <c:forEach items="${list}" var="t">
-                                        <th>${t}</th>
+                                        <th onclick="sort('weight',${ status.index + 2})"><a href="#">${t}</a></th>
                                     </c:forEach>
                                 </tr>
                                 </thead>
@@ -153,7 +153,7 @@
                         </div>
                         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
                         <div align="left" style="margin-left:10px;;margin-top:10px;">
-                            <span style="font-family:微软雅黑;font-size: 20px;color:#fff" id="orderindex"><strong>八个行业信贷风险指数排名</strong></span>
+                            <span style="font-family:微软雅黑;font-size: 20px;color:#fff" id="orderindex"><strong>一级行业信贷风险指数排名</strong></span>
                         </div>
                         <div id="main" style="width: 700px;height:280px;">
                         </div>
@@ -481,6 +481,44 @@
         skin(theme, true);
         loadData(theme);
     });
+    function sort(tableId, sortColumn) {
+        var table = document.getElementById(tableId);
+        var tableBody = table.tBodies[0];
+        var tableRows = tableBody.rows;
+        var rowArray = new Array();
+        for (var i = 0; i < tableRows.length; i++) {
+            rowArray[i] = tableRows[i];
+        }
+        if (table.sortColumn == sortColumn) {
+            rowArray.reverse();
+        } else {
+            rowArray.sort(generateCompareTR(sortColumn));
+        }
+        var tbodyFragment = document.createDocumentFragment();
+        for (var i = 0; i < rowArray.length; i++) {
+            tbodyFragment.appendChild(rowArray[i]);
+        }
+        tableBody.appendChild(tbodyFragment);
+        table.sortColumn = sortColumn;
+    }
+    function generateCompareTR(sortColumn) {
+        return function compareTR(trLeft, trRight) {
+            var leftValue = convert(trLeft.cells[sortColumn].firstChild.nodeValue);
+            var rightValue = convert(trRight.cells[sortColumn].firstChild.nodeValue);
+            if (leftValue < rightValue) {
+                return -1;
+            } else {
+                if (leftValue > rightValue) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        };
+    }
+    function convert(value) {
+        return parseInt(value);
+    }
     function skin(code, clientFlag) {
         w = $('#selectTest').val();
         if (code == "black") {
@@ -567,8 +605,8 @@
             $("#tables").show();
         }
     });
-    $('#weight').bootstrapTable();
-    $('#table').bootstrapTable();
+    //$('#weight').bootstrapTable();
+    //$('#table').bootstrapTable();
     var canvas
     $("#queryLine").on("hidden.bs.modal", function () {
         canvas.clear();
