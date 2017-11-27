@@ -145,10 +145,10 @@
                         <div id="toolbar" style="height:32px;float: right;position: relative;">
                             <select id="mySelect" name="s1" onchange="ch3()"
                                     style="width:150px;height: 32px;font-size: 16px;background-color:#1E2131;color:#fff">
-                                <option value="yer" selected>年同比</option>
+                                <option value="yer">年同比</option>
                                 <option value="months">月同比</option>
                                 <option value="week" style="display:none;">周同比</option>
-                                <option value="day">日环比</option>
+                                <option value="day" selected>日环比</option>
                             </select>
                         </div>
                         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
@@ -516,8 +516,8 @@
             }
         };
     }
-    function convert(value) {
-        return parseInt(value);
+    function convert(value, dataType) {
+                return parseFloat(value);
     }
     function skin(code, clientFlag) {
         w = $('#selectTest').val();
