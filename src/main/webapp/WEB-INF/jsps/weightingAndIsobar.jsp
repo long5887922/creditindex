@@ -60,8 +60,8 @@
                                 <tr class="changeTr">
                                     <th>(点击日期排序)</th>
                                     <th></th>
-                                    <c:forEach items="${list}" var="t">
-                                        <th onclick="sort('table',${ status.index + 2})"><a href="#">${t}</a></th>
+                                    <c:forEach items="${list}" var="t" varStatus="status">
+                                        <th onclick="sort('table',${status.index + 2})"><a href="#" style="text-decoration: none">${t}</a></th>
                                     </c:forEach>
                                 </tr>
                                 </thead>
@@ -95,8 +95,8 @@
                                 <tr class="changeTr">
                                     <th>(点击日期排序)</th>
                                     <th></th>
-                                    <c:forEach items="${list}" var="t">
-                                        <th onclick="sort('weight',${ status.index + 2})"><a href="#">${t}</a></th>
+                                    <c:forEach items="${list}" var="t" varStatus="wstatus">
+                                        <th onclick="sort('weight',${wstatus.index + 2})"><a href="#">${t}</a></th>
                                     </c:forEach>
                                 </tr>
                                 </thead>
