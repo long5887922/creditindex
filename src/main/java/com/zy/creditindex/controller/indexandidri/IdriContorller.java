@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +28,6 @@ import java.util.*;
  */
 @RestController
 @RequestMapping(value = "/idri")
-//@CacheConfig(cacheNames = "basecache")
 public class IdriContorller {
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     protected static final Logger logger = LoggerFactory.getLogger(IdriContorller.class);
@@ -39,8 +37,8 @@ public class IdriContorller {
     private String weighttype = "01";//默认等权
     @Autowired
     private BastrdtInfoService bastrdtInfoService;
-
-//    private CacheManager cacheManager;
+    @Autowired
+    private CacheManager cacheManager;
     /**
      * 行业代码和指数计算日期联合查询
      * @param inducode
@@ -308,10 +306,18 @@ public class IdriContorller {
         object.put("Body",body);
         return object;
     }
-//清除缓存
+
+    @GetMapping("/queryId")
+    public List<IdriBean> queryId(@RequestParam(value = "id") String id){
+        return  idriService.findIdriId(id);
+    }
+    /**
+     * 清除缓存
+     * @return
+     */
     @GetMapping("/removedCache")
     public String removedCache(){
-        return idriService.removedCache();
+        cacheManager.getCache("basecache").clear();
+        return "Cache removed";
     }
-
 }
