@@ -159,284 +159,6 @@
                         </div>
                     </div>
                 </div>
-                <script type="text/javascript">
-                    // 基于准备好的dom，初始化echarts实例
-                    function loadData(code) {
-                        var myChart = echarts.init(document.getElementById('main'));
-                        var s1 = document.getElementsByName("s1")[0];
-                        var timetype = s1.value;
-                        var s2 = document.getElementsByName("select")[0];
-                        var weighttype = s2.value;
-                        var linkUrl = "/idri/queryIndexdateNew?Yoyg=" + timetype + "&weighttype=" + weighttype;
-                        // 指定图表的配置项和数据
-                        var option;
-                        if (code == 'black') {
-                            option = {
-                                tooltip: {
-                                    trigger: 'axis'//显示鼠标的到达区域的值
-                                },
-                                //图例
-                                legend: {
-                                    data: ['行业排名']
-                                },
-                                //X轴
-                                xAxis: [{
-                                    type: 'category',
-                                    data: (function () {
-                                        var arr = [];
-                                        $.ajax({
-                                            type: "post",
-                                            async: false, //表示同步执行
-                                            url: linkUrl,
-                                            data: {},
-                                            dataType: "json", //返回数据形式为json
-                                            success: function (json) {
-                                                if (json) {
-                                                    for (var i = 0; i < json.length; i++) {
-                                                        arr.push(json[i].inducode);
-                                                    }
-                                                }
-                                            },
-                                            error: function (errorMsg) {
-                                                alert("不好意思,图表请求数据失败啦!");
-                                                myChart.hideLoading();
-                                            }
-                                        })
-                                        return arr;
-                                    })(),
-                                    axisTick: {
-                                        alignWithLabel: true
-                                    },
-                                    // 控制网格线是否显示
-                                    splitLine: {
-                                        show: false,
-                                        //  改变轴线颜色
-                                        lineStyle: {
-                                            // 使用深浅的间隔色
-                                            color: '#34394A'
-                                        }
-                                    },
-                                    //  改变x轴颜色
-                                    axisLine: {
-                                        lineStyle: {
-                                            color: '#34394A'
-                                        }
-                                    },
-                                    //  改变x轴字体颜色和大小
-                                    axisLabel: {
-                                        showMinLabel: true,
-                                        showMaxLabel: true,
-                                        textStyle: {
-                                            color: '#999'
-                                        }
-                                    }
-                                }
-                                ],
-                                //Y轴
-                                yAxis: {
-                                    type: 'value',
-                                    axisTick: {
-                                        show: false
-                                    },
-                                    axisLine: {
-                                        lineStyle: {
-                                            color: '#34394A'
-                                        }
-                                    },
-                                    splitLine: {
-                                        show: true,
-                                        //  改变轴线颜色
-                                        lineStyle: {
-                                            // 使用深浅的间隔色
-                                            color: ['#34394A']
-                                        }
-                                    },
-                                    axisLabel: {
-                                        textStyle: {
-                                            color: '#999'
-                                        }
-                                    }
-                                },
-                                //具体数据
-                                series: [{
-                                    name: '行业信贷风险指数',
-                                    type: 'bar',//'bar'表示直方图; line 折线图
-                                    barMaxWidth: '25',//柱形图的宽度设置
-                                    itemStyle: {//设置柱形图的颜色
-                                        normal: {
-                                            color: '#0084fe'
-                                        }
-                                    },
-                                    data: (function () {
-                                        var arr = [];
-                                        $.ajax({
-                                            type: "post",
-                                            async: false, //同步执行
-                                            url: linkUrl,
-                                            data: {},
-                                            dataType: "json", //返回数据形式为json
-                                            success: function (json) {
-                                                if (json) {
-                                                    for (var i = 0; i < json.length; i++) {
-                                                        arr.push(json[i].idri);
-                                                    }
-                                                }
-                                            },
-                                            error: function (errorMsg) {
-                                                alert("不好意思,图表请求数据失败啦!");
-                                                myChart.hideLoading();
-                                            }
-                                        })
-                                        return arr;
-                                    })(),
-                                    markPoint: {
-                                        data: [
-                                            {type: 'max', name: '最大值'},
-                                            {type: 'min', name: '最小值'}
-                                        ]
-                                    },
-                                    markLine: {
-                                        data: [
-                                            {type: 'average', name: '平均值'}
-                                        ]
-                                    }
-                                }]
-                            };
-                        } else {
-                            option = {
-                                tooltip: {
-                                    trigger: 'axis'//显示鼠标的到达区域的值
-                                },
-                                //图例
-                                legend: {
-                                    data: ['行业排名']
-                                },
-                                //X轴
-                                xAxis: [{
-                                    type: 'category',
-                                    data: (function () {
-                                        var arr = [];
-                                        $.ajax({
-                                            type: "post",
-                                            async: false, //表示同步执行
-                                            url: linkUrl,
-                                            data: {},
-                                            dataType: "json", //返回数据形式为json
-                                            success: function (json) {
-                                                if (json) {
-                                                    for (var i = 0; i < json.length; i++) {
-                                                        arr.push(json[i].inducode);
-                                                    }
-                                                }
-                                            },
-                                            error: function (errorMsg) {
-                                                alert("不好意思,图表请求数据失败啦!");
-                                                myChart.hideLoading();
-                                            }
-                                        })
-                                        return arr;
-                                    })(),
-                                    splitLine: {
-                                        show: false,
-                                        //  改变轴线颜色
-                                        lineStyle: {
-                                            // 使用深浅的间隔色
-                                            color: '#CACACA'
-                                        }
-                                    },
-                                    //  改变x轴颜色
-                                    axisLine: {
-                                        lineStyle: {
-                                            color: '#CACACA'
-//                            width:8,//这里是为了突出显示加上的，可以去掉
-                                        }
-                                    },
-                                    //  改变x轴字体颜色和大小
-                                    axisLabel: {
-                                        showMinLabel: true,
-                                        showMaxLabel: true,
-                                        textStyle: {
-                                            color: '#555'
-                                        }
-                                    }
-                                }
-                                ],
-                                //Y轴
-                                yAxis: {
-                                    type: 'value',
-                                    axisTick: {
-                                        show: false
-                                    },
-                                    axisLine: {
-                                        lineStyle: {
-                                            color: '#CACACA'
-                                        }
-                                    },
-                                    splitLine: {
-                                        show: true,
-                                        //  改变轴线颜色
-                                        lineStyle: {
-                                            // 使用深浅的间隔色
-                                            color: ['#CACACA']
-                                        }
-                                    },
-                                    axisLabel: {
-                                        textStyle: {
-                                            color: '#555'
-                                        }
-                                    }
-                                },
-                                //具体数据
-                                series: [{
-                                    name: '行业信贷风险指数',
-                                    type: 'bar',//'bar'表示直方图; line 折线图
-                                    barMaxWidth: '25',//柱形图的宽度设置
-                                    itemStyle: {//设置柱形图的颜色
-                                        normal: {
-                                            color: '#0084fe'
-                                        }
-                                    },
-                                    data: (function () {
-                                        var arr = [];
-                                        $.ajax({
-                                            type: "post",
-                                            async: false, //同步执行
-                                            url: linkUrl,
-                                            data: {},
-                                            dataType: "json", //返回数据形式为json
-                                            success: function (json) {
-                                                if (json) {
-                                                    for (var i = 0; i < json.length; i++) {
-                                                        arr.push(json[i].idri);
-                                                    }
-                                                }
-                                            },
-                                            error: function (errorMsg) {
-                                                alert("不好意思,图表请求数据失败啦!");
-                                                myChart.hideLoading();
-                                            }
-                                        })
-                                        return arr;
-                                    })(),
-                                    markPoint: {
-                                        data: [
-                                            {type: 'max', name: '最大值'},
-                                            {type: 'min', name: '最小值'}
-                                        ]
-                                    },
-                                    markLine: {
-                                        data: [
-                                            {type: 'average', name: '平均值'}
-                                        ]
-                                    }
-                                }]
-
-                            };
-                        }
-                        // 使用刚指定的配置项和数据显示图表。
-                        myChart.setOption(option);
-                    }
-                </script>
             </div>
             <br>
 
@@ -479,7 +201,6 @@
         var color = theme;
         theme = window.localStorage.getItem("theme");
         skin(theme, true);
-        loadData(theme);
     });
     function sort(tableId, sortColumn) {
         var table = document.getElementById(tableId);
@@ -516,8 +237,8 @@
             }
         };
     }
-    function convert(value, dataType) {
-                return parseFloat(value);
+    function convert(value) {
+        return parseFloat(value);
     }
     function skin(code, clientFlag) {
         w = $('#selectTest').val();
@@ -1112,6 +833,215 @@
                 $("#canvasEight").css('width', $("#canvasEight").width());
             }
         });
+    }// 基于准备好的dom，初始化echarts实例
+    function loadData(code) {
+        var myChart = echarts.init(document.getElementById('main'));
+        var s1 = document.getElementsByName("s1")[0];
+        var timetype = s1.value;
+        var s2 = document.getElementsByName("select")[0];
+        var weighttype = s2.value;
+        var linkUrl = "/idri/queryIndexdateNew?Yoyg=" + timetype + "&weighttype=" + weighttype;
+        // 指定图表的配置项和数据
+        var option;
+        var arr = [];
+        var ayy = [];
+
+            $.ajax({
+                type: "post",
+                async: false, //表示同步执行
+                url: linkUrl,
+                data: {},
+                dataType: "json", //返回数据形式为json
+                success: function (json) {
+                    if (json) {
+                        for (var i = 0; i < json.length; i++) {
+                            arr.push(json[i].inducode);
+                            ayy.push(json[i].idri);
+                        }
+                    }
+                    if (code == 'black') {
+                        option = {
+                            tooltip: {
+                                trigger: 'axis'//显示鼠标的到达区域的值
+                            },
+                            //图例
+                            legend: {
+                                data: ['行业排名']
+                            },
+                            //X轴
+                            xAxis: [{
+                                type: 'category',
+                                data: arr,
+                                axisTick: {
+                                    alignWithLabel: true
+                                },
+                                // 控制网格线是否显示
+                                splitLine: {
+                                    show: false,
+                                    //  改变轴线颜色
+                                    lineStyle: {
+                                        // 使用深浅的间隔色
+                                        color: '#34394A'
+                                    }
+                                },
+                                //  改变x轴颜色
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#34394A'
+                                    }
+                                },
+                                //  改变x轴字体颜色和大小
+                                axisLabel: {
+                                    showMinLabel: true,
+                                    showMaxLabel: true,
+                                    textStyle: {
+                                        color: '#999'
+                                    }
+                                }
+                            }
+                            ],
+                            //Y轴
+                            yAxis: {
+                                type: 'value',
+                                axisTick: {
+                                    show: false
+                                },
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#34394A'
+                                    }
+                                },
+                                splitLine: {
+                                    show: true,
+                                    //  改变轴线颜色
+                                    lineStyle: {
+                                        // 使用深浅的间隔色
+                                        color: ['#34394A']
+                                    }
+                                },
+                                axisLabel: {
+                                    textStyle: {
+                                        color: '#999'
+                                    }
+                                }
+                            },
+                            //具体数据
+                            series: [{
+                                name: '行业信贷风险指数',
+                                type: 'bar',//'bar'表示直方图; line 折线图
+                                barMaxWidth: '25',//柱形图的宽度设置
+                                itemStyle: {//设置柱形图的颜色
+                                    normal: {
+                                        color: '#0084fe'
+                                    }
+                                },
+                                data: ayy,
+                                markPoint: {
+                                    data: [
+                                        {type: 'max', name: '最大值'},
+                                        {type: 'min', name: '最小值'}
+                                    ]
+                                },
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '平均值'}
+                                    ]
+                                }
+                            }]
+                        };
+                    }
+                    else {
+                        option = {
+                            tooltip: {
+                                trigger: 'axis'//显示鼠标的到达区域的值
+                            },
+                            //图例
+                            legend: {
+                                data: ['行业排名']
+                            },
+                            //X轴
+                            xAxis: [{
+                                type: 'category',
+                                data: arr,
+                                splitLine: {
+                                    show: false,
+                                    //  改变轴线颜色
+                                    lineStyle: {
+                                        // 使用深浅的间隔色
+                                        color: '#CACACA'
+                                    }
+                                },
+                                //  改变x轴颜色
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#CACACA'
+//                            width:8,//这里是为了突出显示加上的，可以去掉
+                                    }
+                                },
+                                //  改变x轴字体颜色和大小
+                                axisLabel: {
+                                    showMinLabel: true,
+                                    showMaxLabel: true,
+                                    textStyle: {
+                                        color: '#555'
+                                    }
+                                }
+                            }
+                            ],
+                            //Y轴
+                            yAxis: {
+                                type: 'value',
+                                axisTick: {
+                                    show: false
+                                },
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#CACACA'
+                                    }
+                                },
+                                splitLine: {
+                                    show: true,
+                                    //  改变轴线颜色
+                                    lineStyle: {
+                                        // 使用深浅的间隔色
+                                        color: ['#CACACA']
+                                    }
+                                },
+                                axisLabel: {
+                                    textStyle: {
+                                        color: '#555'
+                                    }
+                                }
+                            },
+                            //具体数据
+                            series: [{
+                                name: '行业信贷风险指数',
+                                type: 'bar',//'bar'表示直方图; line 折线图
+                                barMaxWidth: '25',//柱形图的宽度设置
+                                itemStyle: {//设置柱形图的颜色
+                                    normal: {
+                                        color: '#0084fe'
+                                    }
+                                },
+                                data:ayy,
+                                markPoint: {
+                                    data: [
+                                        {type: 'max', name: '最大值'},
+                                        {type: 'min', name: '最小值'}
+                                    ]
+                                },
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '平均值'}
+                                    ]
+                                }
+                            }]
+                        };
+                    }
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                }
+            });
     }
 </script>
 </body>
